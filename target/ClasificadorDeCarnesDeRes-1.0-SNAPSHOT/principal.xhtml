@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui" >
+    <h:head>
+        <title>Consulta y Reserva de Laboratorios</title>
+        <style type="text/css">
+            body{
+                background: mediumseagreen;
+            }
+        </style>
+    </h:head>
+    <h:body>
+       <h:form id="pagina_principal">
+           <p:layoutUnit position="center" resizable = "false" size="200" minSize="80" maxSize="300" style="text-align: center;  background: mediumseagreen">
+               <h:outputText value="Bienvenido a la Página Principal para Consulta y Reserva de Laboratorios" style="font-size: larger" />
+               <br></br>
+               <h:outputText value="Por Favor, Oprima el botón de su preferencia: " style="font-size: large" />
+           </p:layoutUnit>
+           <p:layoutUnit position="center" resizable = "false" size="200" minSize="80" maxSize="300" style="text-align: center;  background: mediumseagreen">
+                <br></br>
+                
+                <p:commandButton value="Consultar el horario de reservas" action="consultarHorario"></p:commandButton>
+
+                <br></br>
+                <br></br>
+                
+                <p:commandButton value="Consultar y realizar una reserva" action="login"></p:commandButton>
+
+                <br></br>
+                <br></br>
+                
+            </p:layoutUnit>    
+           
+        </h:form>
+
+
+    </h:body>
+</html>
+
