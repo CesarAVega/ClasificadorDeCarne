@@ -122,6 +122,7 @@ public class AppTest {
             stmt.execute("INSERT INTO calidad_atributos_carne (carne_id, calidad_id, atributos_carne_id) "
                     + "VALUES (1, 3, 5)");
             
+            
             stmt.execute("INSERT INTO carne (id, canal_frio_der, canal_frio_izq, ojo_chuleta, grosor_grasa_dorsal, calidad_id) "
                     + "VALUES (2, '99.30', '100.00', '63.87', '0.29', 2)");
             
@@ -144,6 +145,8 @@ public class AppTest {
             
             Iterator<Animal> i = ans.iterator();
             
+            int[] prueba = new int[]{3,3,1,1,3};
+            
             while(i.hasNext()){
                 Animal animal = i.next();
                 if(animal.getID() == 1){
@@ -161,6 +164,10 @@ public class AppTest {
                     Assert.assertTrue("ojo_chuleta no valido ",carne.getOjoDeLaChuleta()== pdou("81.94"));
                     Assert.assertTrue("grosor_grasa_dorsal no valido ",carne.getGrosorDeGrasaDorsal()== pdou("0.39"));
                     Assert.assertTrue("calidad_id no valido ",carne.getCalidad().getKey() == 2 && carne.getCalidad().getDescripcion().equals("SELECCIONADA"));
+                                        
+                    for ( int j = 0; j < prueba.length; j++){                        
+                        Assert.assertTrue("Atributo "+j+" no valido",animal.getCarne().getCalidades().get(j).getCalidad().getKey() == prueba[j]);
+                    }
                 }else{
                     Assert.assertTrue("Animal no valido ",animal.getID() == 2);
                     Assert.assertTrue("Localida no valida", animal.getLocalidad().getKey() == 1 && animal.getLocalidad().getDescripcion().equals("PLATON"));
@@ -176,6 +183,10 @@ public class AppTest {
                     Assert.assertTrue("ojo_chuleta no valido ",carne.getOjoDeLaChuleta()== pdou("63.87"));
                     Assert.assertTrue("grosor_grasa_dorsal no valido ",carne.getGrosorDeGrasaDorsal()== pdou("0.29")); 
                     Assert.assertTrue("calidad_id no valido ",carne.getCalidad().getKey() == 2 && carne.getCalidad().getDescripcion().equals("SELECCIONADA"));
+                
+                    for ( int j = 0; j < prueba.length; j++){                        
+                        Assert.assertTrue("Atributo "+j+" no valido",animal.getCarne().getCalidades().get(j).getCalidad().getKey() == prueba[j]);
+                    }
                 }
                 
             }

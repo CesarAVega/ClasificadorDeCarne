@@ -230,7 +230,7 @@ public class JDBCDaoAnimal implements DaoAnimal{
                 calidad = getCalidad(rs.getInt(1));
                 //crea el atributo a partir de la información anterior
                 key = rs.getInt(2);                
-                atributos[key] = new AtributoCarne(key, rs.getString(3), calidad);
+                atributos[key-1] = new AtributoCarne(key, rs.getString(3), calidad);
             }
             ArrayList<AtributoCarne> temp = new ArrayList<>();
             temp.addAll(Arrays.asList(atributos));
