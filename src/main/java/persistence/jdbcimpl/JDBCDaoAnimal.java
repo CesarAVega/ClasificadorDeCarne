@@ -211,8 +211,8 @@ public class JDBCDaoAnimal implements DaoAnimal{
     public ArrayList<AtributoCarne> getAtributo(int ID) throws PersistenceException {
         try{
             PreparedStatement ps ;
-            ArrayList<AtributoCarne> atributos = new ArrayList<>();
-            AtributoCarne atributoCarne;
+            AtributoCarne[] atributos = new AtributoCarne[5];                              
+            int key;
             Calidad calidad;
             // prepara la consulta
             ps = con.prepareStatement("SELECT  cac.calidad_id, cac.atributos_carne_id, ac.descripcion "
@@ -229,10 +229,12 @@ public class JDBCDaoAnimal implements DaoAnimal{
                 //obtiene la calidad
                 calidad = getCalidad(rs.getInt(1));
                 //crea el atributo a partir de la información anterior
-                atributoCarne = new AtributoCarne(rs.getInt(2), rs.getString(3), calidad);
-                atributos.add(atributoCarne);
+                key = rs.getInt(2);                
+                atributos[key] = new AtributoCarne(key, rs.getString(3), calidad);
             }
-            return atributos;
+            ArrayList<AtributoCarne> temp = new ArrayList<>();
+            temp.addAll(Arrays.asList(atributos));
+            return temp;
         }catch(SQLException ex){
             throw new PersistenceException("An error ocurred while loading 'AtributoCarne'.",ex);
         }
