@@ -12,44 +12,60 @@
         </style>
     </h:head>
     <h:body>
+        <!-- -->
         <h:form id="consulta">
+            <!-- -->
             <p:layout>
+                <!-- -->
                 <p:layoutUnit position="north" resizable = "false" size="50" minSize="50" maxSize="50" style="text-align: center;  background: mediumseagreen">
                     <h:outputText value="Consulta Clasificador de Carne" style="font-size: larger" />
                 </p:layoutUnit>
+                <!-- -->
                 <p:layoutUnit position="center" size="600" style="text-align: center;  background: #009933">
+                    <!--Visualización de los datos que se necesitan para hacer una consulta se divide en 3 clases
+                        Esta es la del animal-->
                     <p:tabView dynamic="true" cache="true">
                         <p:tab title="Información del animal">
+                            <!--panel base-->
                             <h:panelGrid columns="2" cellpadding="5">
+                                <!--Acordion del tab contiene los datos que necesita para crear una animal-->
                                 <p:accordionPanel dynamic="true" cache="true">                        
                                     <p:tab title="Edad">
                                         <h:panelGrid columns="2" cellpadding="5">
+                                            <!--Columna 1 para ingresar los datos de la edad del animal-->
                                             <h:panelGrid columns="2" cellpadding="5">
                                                 <p:outputLabel for="edad" value="Edad: " />
                                                 <p:inputText id="edad" value="#{beanConsulta.edad}"/>                                                          
                                             </h:panelGrid>
+                                            <!--Columna 2 para visualizar la descripción de atributo-->
                                             <h:outputText
                                                 value="La Edad del animal al momento de la muerte" />
                                         </h:panelGrid>
                                     </p:tab>
                                     <p:tab title="KPV">
                                         <h:panelGrid columns="2" cellpadding="5">
+                                            <!--Columna 1 para ingresar los datos del peso del animal-->
                                             <h:panelGrid columns="2" cellpadding="5">
                                                 <p:outputLabel for="kpv" value="KPV: " />
                                                 <p:inputText id="kpv" value="#{beanConsulta.kpv}"/>                                                      
                                             </h:panelGrid>
+                                            <!--Columna 2 para visualizar la descripción de atributo-->
                                             <h:outputText
                                                 value="Kilogramo por peso vivo (Kg)" />
                                         </h:panelGrid>
                                     </p:tab>
                                     <p:tab title="Tipo de animal">
                                         <h:panelGrid columns="2" cellpadding="5">
+                                            <!--Columna 1 para ingresar los datos del tipo de animal que es-->
                                             <h:panelGrid columns="2" cellpadding="5">
                                                 <p:outputLabel for="tipo" value="Tipo: " />
                                                 <p:inputText id="tipo" value="#{beanConsulta.tipo}"/>                                                           
                                             </h:panelGrid>
+                                            <!--Columna 2 para visualizar la descripción de atributo-->
                                             <h:panelGrid columns="1" cellpadding="5">
+                                                <!--Encabesado de la tabla-->
                                                 <p:outputLabel value="Descripción del animal según su sexo" />
+                                                <!--Columna 2 para visualiza una tabla con los datos que hay en la base de datos pertenecientes al tipo de animal-->
                                                 <p:dataTable var="todosTipo" value="#{beanConsulta.todosTipo}" sortBy="#{todosTipo.key}">
                                                     <p:column  headerText="ID">
                                                         <h:outputText value="#{todosTipo.key}" />
@@ -64,12 +80,16 @@
                                     
                                     <p:tab title="Localidad de procedencia">
                                         <h:panelGrid columns="2" cellpadding="5">
+                                            <!--Columna 1 para ingresar los datos de la edad del animal-->
                                             <h:panelGrid columns="2" cellpadding="5">
                                                 <p:outputLabel for="localidad" value="Localidad: " />
                                                 <p:inputText id="localidad" value="#{beanConsulta.localidad}"/>                                                         
                                             </h:panelGrid>
+                                            <!--Columna 2 para visualizar la descripción de atributo-->
                                             <h:panelGrid columns="1" cellpadding="5">
+                                                <!--Encabesado de la tabla-->
                                                 <p:outputLabel value="Lugar de procedencia del animal" />
+                                                <!--Columna 2 para visualizar las localidades que se encuentran en la base de datos-->
                                                 <p:dataTable var="todosLocalidad" value="#{beanConsulta.todosLocalidad}" sortBy="#{todosLocalidad.key}">
                                                     <p:column sortBy="#{todosLocalidad.key}" headerText="ID">
                                                         <h:outputText value="#{todosLocalidad.key}" />
@@ -83,12 +103,16 @@
                                     </p:tab>
                                     <p:tab title="Grupo Racial">
                                         <h:panelGrid columns="2" cellpadding="5">
+                                            <!--Columna 1 para ingresar los datos de la edad del animal-->
                                             <h:panelGrid columns="2" cellpadding="5">
                                                 <p:outputLabel for="grupoRacial" value="Grupo Racial: " />
                                                 <p:inputText id="grupoRacial" value="#{beanConsulta.grupoRacial}"/>                                                         
                                             </h:panelGrid>
+                                            <!--Columna 2 para visualizar la descripción de atributo-->
                                             <h:panelGrid columns="1" cellpadding="5">
+                                                <!--Encabezado de la tabla-->
                                                 <p:outputLabel value="Grupo racial del animal" />
+                                                <!--Columna 2 para visualizar los grupos raciales en la base de datos-->
                                                 <p:dataTable var="todosGrupoRacial" value="#{beanConsulta.todosGrupoRacial}" sortBy="#{todosGrupoRacial.key}">
                                                     <p:column headerText="ID">
                                                         <h:outputText value="#{todosGrupoRacial.key}" />
@@ -102,12 +126,16 @@
                                     </p:tab>
                                     <p:tab title="Sistema de alimentación">
                                         <h:panelGrid columns="2" cellpadding="5">
+                                            <!--Columna 1 para ingresar los datos de la edad del animal-->
                                             <h:panelGrid columns="2" cellpadding="5">
                                                 <p:outputLabel for="sistema" value="Sistema: " />
                                                 <p:inputText id="sistema" value="#{beanConsulta.sistema}" />                                                         
                                             </h:panelGrid>
+                                            <!--Columna 2 para visualizar la descripción de atributo-->
                                             <h:panelGrid columns="1" cellpadding="5">
+                                                <!--Encabezado de la tabla-->
                                                 <p:outputLabel value="Sistema de alimentación empleado con el animal" />
+                                                <!--Columna 2 para visualizar los sistemas con los que puede ser alimentado un animal-->
                                                 <p:dataTable var="todosSistema" value="#{beanConsulta.todosSistema}" sortBy="#{todosSistema.key}">
                                                     <p:column headerText="ID">
                                                         <h:outputText value="#{todosSistema.key}" />

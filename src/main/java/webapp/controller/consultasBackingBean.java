@@ -18,28 +18,33 @@ import services.ServicesFacade;
 
 /**
  *
- * @author Cesar Augusto Vega Fernández
+ * @author Carlos Valencia y Cesar Vega
  */
 @ManagedBean(name = "beanConsulta")
 @SessionScoped
 public class consultasBackingBean{
     
+    //información del animal
     private int edad;
     private int kpv;
     private int tipo;
     private int localidad;
     private int grupoRacial;
     private int sistema;
+    //atributos adicionales de la carne estos tiene calidad
     private int conformacionCanal;
     private int distribucionGrasaSubcutanea;
     private int grasaPerirrenal;
     private int colorGrasa;
     private int colorCarne;
+    //atributos de la carne
     private double pesoCanalFrioDer; // peso de la canal frio derecha
     private double pesoCanalFrioIzq; // peso de la canal frio izquierda
     private double ojoDeLaChuleta; // ancho del ojo de la chuleta
     private double grosorDeGrasaDorsal; // grosor de la grasa dorsal de la carne
     
+    
+    //Carga los valores predeterminados
     private static final ArrayList<Tipo> todosTipo = ServicesFacade.getInstance("applicationconfig.properties").getTodosTipo();
     private static final ArrayList<Localidad> todosLocalidad = ServicesFacade.getInstance("applicationconfig.properties").getTodosLocalidad();
     private static final ArrayList<GrupoRacial> todosGrupoRacial = ServicesFacade.getInstance("applicationconfig.properties").getTodosGrupoRacial();

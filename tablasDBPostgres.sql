@@ -4879,15 +4879,24 @@ CREATE TABLE permission(
 CREATE TABLE userroles(
 	userid VARCHAR(100) NOT NULL,
 	roleid INT NOT NULL,
-	PRIMARY KEY (userid, roleid)	
+	PRIMARY KEY (userid, roleid),	
+	FOREIGN KEY(userid) REFERENCES users (name),
+	FOREIGN KEY(roleid) REFERENCES role (role_id)
 );
 
 CREATE TABLE rolepermission(
 	roleid INT NOT NULL,
 	permissionid INT NOT NULL,
-	PRIMARY KEY (roleid,permissionid)	
+	PRIMARY KEY (roleid,permissionid),	
+	FOREIGN KEY(roleid) REFERENCES role (role_id),
+	FOREIGN KEY(permissionid) REFERENCES permission (permission_id)
 );
 
 --poblar usuarios
+INSERT INTO users(name, password) VALUES('admin', 'admin');
+INSERT INTO role(role_id, name) VALUES(1, 'admin');
+INSERT INTO permission(permission_id, permission) VALUES(1, 'restricted');
+INSERT INTO userroles(userid, roleid) VALUES('admin', 1);
+INSERT INTO rolepermission(roleid,permissionid) VALUES(1, 1);
 
 
