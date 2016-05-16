@@ -17,7 +17,7 @@ import static services.ServicesFacade.pdou;
  * Contiene la información de la red neuronal base, es la red que en el entrenamiento es la de mayor efecitividad
  * @author Cesar Augusto Vega Fernández
  */
-public class RedNeuronalBase {
+public class RedNeuronal {
     
     private double porcentajeEfectividad;
     private String TransferFunctionType;
@@ -133,53 +133,56 @@ public class RedNeuronalBase {
         return Integer.parseInt(s);
     }
     
-    public RedNeuronalBase(){
+    /**
+     * Carga la informacion de la red neuronal base, o la red ya entrenada
+     */
+    public RedNeuronal(){
         try {
-            BufferedReader in = new BufferedReader(new FileReader(file));
-            //Porcentaje de eficiencia de la red Neuronal            
-            porcentajeEfectividad = pdou(in.readLine());
-            
-            String[] tok = in.readLine().split("\\s+");
-            
-            // Datos de la red neuronal con la que fue entrenada la red Base
-            TransferFunctionType = tok[0]; 
-            input = pint(tok[1]); 
-            output = pint(tok[2]);
-            k = pint(tok[3]);
-            numDatosUsados = pint(tok[4]);
-            
-            // Obtiene los minimos de los datos con los que fue entrenada la red neuronal
-            tok = in.readLine().split(",");    
-            
-            mins = new double[input+1];
-            for (int i =  0; i < input+1; i++){
-                mins[i] = ServicesFacade.pdou(tok[i]);
-            }            
-            
-            // Obtiene los maximos de los datos con los que fue entrenada la red neuronal
-            tok = in.readLine().split(",");
-            maxs = new double[input+1];
-            for (int i =  0; i < input+1; i++){
-                maxs[i] = ServicesFacade.pdou(tok[i]);
-            }
-            //Calcula la diferencia entre los minimos y maximos
-            diff = new double[input+1];
-            for (int i = 0; i < input+1; i++){
-                diff[i] = maxs[i]-mins[i];
-            }
-                    
-            // Almacena los datos con los que la red fue entrenada
-            data.clear();
-            double[] temp = new double[input+1];
-            while(in.ready()){
+            //Porcentaje de eficiencia de la red Neuronal
+            try (BufferedReader in = new BufferedReader(new FileReader(file))) {
+                //Porcentaje de eficiencia de la red Neuronal
+                porcentajeEfectividad = pdou(in.readLine());
+                
+                String[] tok = in.readLine().split("\\s+");
+                
+                // Datos de la red neuronal con la que fue entrenada la red Base
+                TransferFunctionType = tok[0];
+                input = pint(tok[1]);
+                output = pint(tok[2]);
+                k = pint(tok[3]);
+                numDatosUsados = pint(tok[4]);
+                
+                // Obtiene los minimos de los datos con los que fue entrenada la red neuronal
                 tok = in.readLine().split(",");
-                for (int i = 0; i < input+1; i++){
-                    temp[i] = ServicesFacade.pdou(tok[i]);
+                
+                mins = new double[input+1];
+                for (int i =  0; i < input+1; i++){
+                    mins[i] = ServicesFacade.pdou(tok[i]);
                 }
-                data.add(temp);
-            }            
-            
-            in.close();
+                
+                // Obtiene los maximos de los datos con los que fue entrenada la red neuronal
+                tok = in.readLine().split(",");
+                maxs = new double[input+1];
+                for (int i =  0; i < input+1; i++){
+                    maxs[i] = ServicesFacade.pdou(tok[i]);
+                }
+                //Calcula la diferencia entre los minimos y maximos
+                diff = new double[input+1];
+                for (int i = 0; i < input+1; i++){
+                    diff[i] = maxs[i]-mins[i];
+                }
+                
+                // Almacena los datos con los que la red fue entrenada
+                data.clear();
+                double[] temp = new double[input+1];
+                while(in.ready()){
+                    tok = in.readLine().split(",");
+                    for (int i = 0; i < input+1; i++){
+                        temp[i] = ServicesFacade.pdou(tok[i]);
+                    }
+                    data.add(temp);
+                }
+            }
             
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ServicesFacade.class.getName()).log(Level.SEVERE, null, ex);

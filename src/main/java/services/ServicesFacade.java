@@ -97,9 +97,9 @@ public class ServicesFacade {
     }
 
     //Contiene la información de la Red Neuronal entrenada previamente y es la de mayor nivel de efectividad
-    private static RedNeuronalBase nnet = new RedNeuronalBase();
+    private static RedNeuronal nnet = new RedNeuronal();
     
-    public RedNeuronalBase getNnet(){
+    public RedNeuronal getNnet(){
         return nnet;
     }
     
@@ -377,7 +377,7 @@ public class ServicesFacade {
 
             DaoAnimal dpro = df.getDaoAnimal(); // se obtiene la referencia del DAO con respecto a la conexión abierta
             
-            ans = dpro.detDescripcioAtributo(ID); // función de carga Descripcion de un atributo especial de la carne
+            ans = dpro.getDescripcioAtributo(ID); // función de carga Descripcion de un atributo especial de la carne
 
             df.commitTransaction(); // se verifica que toda la acción se cumplió con éxito
  
@@ -415,4 +415,154 @@ public class ServicesFacade {
         return ans;
     }
     
+    /**
+     * Obtiene todos los tipos en la base de datos
+     * @return ArrayList-Tipo- al que pertenece el animal
+     */
+    public ArrayList<Tipo> getTodosTipo(){
+        ArrayList<Tipo> ans  = null;
+        try{
+            DaoFactory df = DaoFactory.getInstance(properties); // se obtiene las características de la conexión
+            
+            df.beginSession(); // se abre la sesión
+
+            DaoAnimal dpro = df.getDaoAnimal(); // se obtiene la referencia del DAO con respecto a la conexión abierta
+            
+            ans = dpro.getTodosTipo(); // función de carga todos los tipos de animal
+
+            df.commitTransaction(); // se verifica que toda la acción se cumplió con éxito
+ 
+            df.endSession(); // se cierra la conexión            
+            
+        }catch (PersistenceException ex) {
+            Logger.getLogger(ServicesFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ans;
+    }
+
+    /**
+     * Obtiene todas las localidades de las que puede proceder un animal 
+     * @return ArrayList-Localidad- a las que puede pertener un animal
+     */
+    public ArrayList<Localidad> getTodosLocalidad() {
+        ArrayList<Localidad> ans  = null;
+        try{
+            DaoFactory df = DaoFactory.getInstance(properties); // se obtiene las características de la conexión
+            
+            df.beginSession(); // se abre la sesión
+
+            DaoAnimal dpro = df.getDaoAnimal(); // se obtiene la referencia del DAO con respecto a la conexión abierta
+            
+            ans = dpro.getTodosLocalidad(); // función de carga todas las localidades
+
+            df.commitTransaction(); // se verifica que toda la acción se cumplió con éxito
+ 
+            df.endSession(); // se cierra la conexión            
+            
+        }catch (PersistenceException ex) {
+            Logger.getLogger(ServicesFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ans;
+    }
+
+    /**
+     * Obtiene todos los grupos raciales que pueden pertenecer un animal  
+     * @return ArrayList-GrupoRacial- al que puede pertenecer un animal
+     */
+    public ArrayList<GrupoRacial> getTodosGrupoRacial() {
+        ArrayList<GrupoRacial> ans  = null;
+        try{
+            DaoFactory df = DaoFactory.getInstance(properties); // se obtiene las características de la conexión
+            
+            df.beginSession(); // se abre la sesión
+
+            DaoAnimal dpro = df.getDaoAnimal(); // se obtiene la referencia del DAO con respecto a la conexión abierta
+            
+            ans = dpro.getTodosGrupoRacial(); // función de carga todos los Grupos Raciales
+
+            df.commitTransaction(); // se verifica que toda la acción se cumplió con éxito
+ 
+            df.endSession(); // se cierra la conexión            
+            
+        }catch (PersistenceException ex) {
+            Logger.getLogger(ServicesFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ans;
+    }
+
+    /**
+     * Obtiene todos los sistemas de alimentación del animal  
+     * @return ArrayList-Sistema- descripción de todos los sistemas
+     */
+    public ArrayList<Sistema> getTodosSistema() {
+        ArrayList<Sistema> ans  = null;
+        try{
+            DaoFactory df = DaoFactory.getInstance(properties); // se obtiene las características de la conexión
+            
+            df.beginSession(); // se abre la sesión
+
+            DaoAnimal dpro = df.getDaoAnimal(); // se obtiene la referencia del DAO con respecto a la conexión abierta
+            
+            ans = dpro.getTodosSistema(); // función de carga todos los sistemas
+
+            df.commitTransaction(); // se verifica que toda la acción se cumplió con éxito
+ 
+            df.endSession(); // se cierra la conexión            
+            
+        }catch (PersistenceException ex) {
+            Logger.getLogger(ServicesFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ans;
+    }
+
+    /**
+     * Obtiene todas las calidades en la base de datos
+     * @return ArrayList-Calidad- del atributo o la carne del animal
+     */
+    public ArrayList<Calidad> getTodosCalidad() {
+        ArrayList<Calidad> ans  = null;
+        try{
+            DaoFactory df = DaoFactory.getInstance(properties); // se obtiene las características de la conexión
+            
+            df.beginSession(); // se abre la sesión
+
+            DaoAnimal dpro = df.getDaoAnimal(); // se obtiene la referencia del DAO con respecto a la conexión abierta
+            
+            ans = dpro.getTodosCalidad(); // función de carga Calidad
+
+            df.commitTransaction(); // se verifica que toda la acción se cumplió con éxito
+ 
+            df.endSession(); // se cierra la conexión            
+            
+        }catch (PersistenceException ex) {
+            Logger.getLogger(ServicesFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ans;
+    }
+
+    /**
+     * Obtiene la descripción de todos los atributos adicionales de la carne  
+     * @return ArrayList-AtributoCarne- contiene la descipción de todos los atributos
+     */
+    public ArrayList<AtributoCarne> getTodosAtributoCarne() {
+        ArrayList<AtributoCarne> ans  = null;
+        try{
+            DaoFactory df = DaoFactory.getInstance(properties); // se obtiene las características de la conexión
+            
+            df.beginSession(); // se abre la sesión
+
+            DaoAnimal dpro = df.getDaoAnimal(); // se obtiene la referencia del DAO con respecto a la conexión abierta
+            
+            ans = dpro.getTodosDescripcioAtributo(); // llama a todos los atributos
+
+            df.commitTransaction(); // se verifica que toda la acción se cumplió con éxito
+ 
+            df.endSession(); // se cierra la conexión            
+            
+        }catch (PersistenceException ex) {
+            Logger.getLogger(ServicesFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ans;
+    }
+     
 }

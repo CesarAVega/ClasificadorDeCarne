@@ -1,9 +1,41 @@
--- tables para la DB de prueba
+-- Creación de la base de datos en Postgres
+
+--Borrado de tablas
+DROP TABLE userroles;
+DROP TABLE rolepermission;
+DROP TABLE users;
+DROP TABLE role;
+DROP TABLE permission;
+DROP TABLE atributos_carne;
+DROP TABLE calidad;
+DROP TABLE carne;
+DROP TABLE tipo;
+DROP TABLE grupo_racial;
+DROP TABLE sistema;
+DROP TABLE localidad;
+DROP TABLE animal;
+
+--Borrar información de las tablas
+DELETE TABLE userroles;
+DELETE TABLE rolepermission;
+DELETE TABLE users;
+DELETE TABLE role;
+DELETE TABLE permission;
+DELETE TABLE atributos_carne;
+DELETE TABLE calidad;
+DELETE TABLE carne;
+DELETE TABLE tipo;
+DELETE TABLE grupo_racial;
+DELETE TABLE sistema;
+DELETE TABLE localidad;
+DELETE TABLE animal;
+
+
 -- Table localidad
 CREATE TABLE localidad(
 	id INT NOT NULL,
 	nombre VARCHAR(200) NOT NULL,
-	PRIMARY KEY (`id`));
+	PRIMARY KEY (id));
 
 -- Table grupo_racial
 CREATE TABLE grupo_racial(
@@ -4825,5 +4857,37 @@ INSERT INTO calidad_atributos_carne (carne_id, calidad_id, atributos_carne_id) V
 INSERT INTO calidad_atributos_carne (carne_id, calidad_id, atributos_carne_id) VALUES ('672','3','5');
 INSERT INTO calidad_atributos_carne (carne_id, calidad_id, atributos_carne_id) VALUES ('673','3','5');
 
---Usuarios
-CREATE TABLE 
+--Usuarios y seguridad
+CREATE TABLE users(
+	name VARCHAR(100) NOT NULL,
+	password VARCHAR(100) NOT NULL,
+	PRIMARY KEY (name)	
+);
+
+CREATE TABLE role(
+	role_id INT NOT NULL,
+	name VARCHAR(100) NOT NULL,
+	PRIMARY KEY (role_id)	
+);
+
+CREATE TABLE permission(
+	permission_id INT NOT NULL,
+	permission VARCHAR(100) NOT NULL,
+	PRIMARY KEY (permission_id)	
+);
+
+CREATE TABLE userroles(
+	userid VARCHAR(100) NOT NULL,
+	roleid INT NOT NULL,
+	PRIMARY KEY (userid, roleid)	
+);
+
+CREATE TABLE rolepermission(
+	roleid INT NOT NULL,
+	permissionid INT NOT NULL,
+	PRIMARY KEY (roleid,permissionid)	
+);
+
+--poblar usuarios
+
+

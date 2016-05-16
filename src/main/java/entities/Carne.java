@@ -13,10 +13,10 @@ import java.util.ArrayList;
  */
 public class Carne {
     
-    private double PesoCanalFrioDer; // peso de la canal frio derecha
-    private double PesoCanalFrioIzq; // peso de la canal frio izquierda
-    private double OjoDeLaChuleta; // ancho del ojo de la chuleta
-    private double GrosorDeGrasaDorsal; // grosor de la grasa dorsal de la carne
+    private double pesoCanalFrioDer; // peso de la canal frio derecha
+    private double pesoCanalFrioIzq; // peso de la canal frio izquierda
+    private double ojoDeLaChuleta; // ancho del ojo de la chuleta
+    private double grosorDeGrasaDorsal; // grosor de la grasa dorsal de la carne
     private ArrayList<AtributoCarne> calidades; // Array de calidades
     private Calidad calidad; // Calidad final
 
@@ -33,7 +33,7 @@ public class Carne {
      * @return double peso KG
      */
     public double getPesoCanalFrioDer() {
-        return PesoCanalFrioDer;
+        return pesoCanalFrioDer;
     }
 
     /**
@@ -41,7 +41,7 @@ public class Carne {
      * @return double peso Kg
      */
     public double getPesoCanalFrioIzq() {
-        return PesoCanalFrioIzq;
+        return pesoCanalFrioIzq;
     }
 
     /**
@@ -49,7 +49,7 @@ public class Carne {
      * @return double anchura en cm2
      */
     public double getOjoDeLaChuleta() {
-        return OjoDeLaChuleta;
+        return ojoDeLaChuleta;
     }
 
     /**
@@ -57,7 +57,7 @@ public class Carne {
      * @return double grosor en ml
      */
     public double getGrosorDeGrasaDorsal() {
-        return GrosorDeGrasaDorsal;
+        return grosorDeGrasaDorsal;
     }
 
     /**
@@ -78,21 +78,21 @@ public class Carne {
     
     /**
      * Crea una Carne de res en base a la información suministrada
-     * @param PesoCanalFrioDer peso de la canal frio derecha
-     * @param PesoCanalFrioIzq peso de la canal frio izquierda
-     * @param OjoDeLaChuleta ancho del ojo de la chuleta
-     * @param GrosorDeGrasaDorsal grosor de la grasa dorsal de la carne
+     * @param pesoCanalFrioDer peso de la canal frio derecha
+     * @param pesoCanalFrioIzq peso de la canal frio izquierda
+     * @param ojoDeLaChuleta ancho del ojo de la chuleta
+     * @param grosorDeGrasaDorsal grosor de la grasa dorsal de la carne
      * @param calidades Array de calidades
      * @param calidad Calidad final
      */    
-    public Carne(double PesoCanalFrioDer, double PesoCanalFrioIzq, 
-            double OjoDeLaChuleta, double GrosorDeGrasaDorsal, 
+    public Carne(double pesoCanalFrioDer, double pesoCanalFrioIzq, 
+            double ojoDeLaChuleta, double grosorDeGrasaDorsal, 
             ArrayList<AtributoCarne> calidades, Calidad calidad){
 
-        this.PesoCanalFrioDer = PesoCanalFrioDer;
-        this.PesoCanalFrioIzq = PesoCanalFrioIzq; 
-        this.OjoDeLaChuleta = OjoDeLaChuleta;
-        this.GrosorDeGrasaDorsal = GrosorDeGrasaDorsal;
+        this.pesoCanalFrioDer = pesoCanalFrioDer;
+        this.pesoCanalFrioIzq = pesoCanalFrioIzq; 
+        this.ojoDeLaChuleta = ojoDeLaChuleta;
+        this.grosorDeGrasaDorsal = grosorDeGrasaDorsal;
         this.calidades = calidades; 
         this.calidad = calidad; 
 

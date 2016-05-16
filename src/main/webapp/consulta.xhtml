@@ -1,0 +1,203 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui" >
+    <h:head>
+        <title>Consulta</title>
+        <style type="text/css">
+            body{
+                background: mediumseagreen;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <h:form id="consulta">
+            <p:layout>
+                <p:layoutUnit position="north" resizable = "false" size="50" minSize="50" maxSize="50" style="text-align: center;  background: mediumseagreen">
+                    <h:outputText value="Consulta Clasificador de Carne" style="font-size: larger" />
+                </p:layoutUnit>
+                <p:layoutUnit position="center" size="600" style="text-align: center;  background: #009933">
+                    <p:tabView dynamic="true" cache="true">
+                        <p:tab title="Información del animal">
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <p:accordionPanel dynamic="true" cache="true">                        
+                                    <p:tab title="Edad">
+                                        <h:panelGrid columns="2" cellpadding="5">
+                                            <h:panelGrid columns="2" cellpadding="5">
+                                                <p:outputLabel for="edad" value="Edad: " />
+                                                <p:inputText id="edad" value="#{beanConsulta.edad}"/>                                                          
+                                            </h:panelGrid>
+                                            <h:outputText
+                                                value="La Edad del animal al momento de la muerte" />
+                                        </h:panelGrid>
+                                    </p:tab>
+                                    <p:tab title="KPV">
+                                        <h:panelGrid columns="2" cellpadding="5">
+                                            <h:panelGrid columns="2" cellpadding="5">
+                                                <p:outputLabel for="kpv" value="KPV: " />
+                                                <p:inputText id="kpv" value="#{beanConsulta.kpv}"/>                                                      
+                                            </h:panelGrid>
+                                            <h:outputText
+                                                value="Kilogramo por peso vivo (Kg)" />
+                                        </h:panelGrid>
+                                    </p:tab>
+                                    <p:tab title="Tipo de animal">
+                                        <h:panelGrid columns="2" cellpadding="5">
+                                            <h:panelGrid columns="2" cellpadding="5">
+                                                <p:outputLabel for="tipo" value="Tipo: " />
+                                                <p:inputText id="tipo" value="#{beanConsulta.tipo}"/>                                                           
+                                            </h:panelGrid>
+                                            <h:panelGrid columns="1" cellpadding="5">
+                                                <p:outputLabel value="Descripción del animal según su sexo" />
+                                                <p:dataTable var="todosTipo" value="#{beanConsulta.todosTipo}" sortBy="#{todosTipo.key}">
+                                                    <p:column  headerText="ID">
+                                                        <h:outputText value="#{todosTipo.key}" />
+                                                    </p:column>                                                
+                                                    <p:column headerText="Descripción">
+                                                        <h:outputText value="#{todosTipo.descripcion}" />
+                                                    </p:column>
+                                                </p:dataTable>                                                         
+                                            </h:panelGrid>
+                                        </h:panelGrid>
+                                    </p:tab>
+                                    
+                                    <p:tab title="Localidad de procedencia">
+                                        <h:panelGrid columns="2" cellpadding="5">
+                                            <h:panelGrid columns="2" cellpadding="5">
+                                                <p:outputLabel for="localidad" value="Localidad: " />
+                                                <p:inputText id="localidad" value="#{beanConsulta.localidad}"/>                                                         
+                                            </h:panelGrid>
+                                            <h:panelGrid columns="1" cellpadding="5">
+                                                <p:outputLabel value="Lugar de procedencia del animal" />
+                                                <p:dataTable var="todosLocalidad" value="#{beanConsulta.todosLocalidad}" sortBy="#{todosLocalidad.key}">
+                                                    <p:column sortBy="#{todosLocalidad.key}" headerText="ID">
+                                                        <h:outputText value="#{todosLocalidad.key}" />
+                                                    </p:column>                                                
+                                                    <p:column headerText="Descripción">
+                                                        <h:outputText value="#{todosLocalidad.descripcion}" />
+                                                    </p:column>
+                                                </p:dataTable>
+                                            </h:panelGrid>
+                                        </h:panelGrid>
+                                    </p:tab>
+                                    <p:tab title="Grupo Racial">
+                                        <h:panelGrid columns="2" cellpadding="5">
+                                            <h:panelGrid columns="2" cellpadding="5">
+                                                <p:outputLabel for="grupoRacial" value="Grupo Racial: " />
+                                                <p:inputText id="grupoRacial" value="#{beanConsulta.grupoRacial}"/>                                                         
+                                            </h:panelGrid>
+                                            <h:panelGrid columns="1" cellpadding="5">
+                                                <p:outputLabel value="Grupo racial del animal" />
+                                                <p:dataTable var="todosGrupoRacial" value="#{beanConsulta.todosGrupoRacial}" sortBy="#{todosGrupoRacial.key}">
+                                                    <p:column headerText="ID">
+                                                        <h:outputText value="#{todosGrupoRacial.key}" />
+                                                    </p:column>                                                
+                                                    <p:column headerText="Descripción">
+                                                        <h:outputText value="#{todosGrupoRacial.descripcion}" />
+                                                    </p:column>
+                                                </p:dataTable>
+                                            </h:panelGrid>
+                                        </h:panelGrid>
+                                    </p:tab>
+                                    <p:tab title="Sistema de alimentación">
+                                        <h:panelGrid columns="2" cellpadding="5">
+                                            <h:panelGrid columns="2" cellpadding="5">
+                                                <p:outputLabel for="sistema" value="Sistema: " />
+                                                <p:inputText id="sistema" value="#{beanConsulta.sistema}" />                                                         
+                                            </h:panelGrid>
+                                            <h:panelGrid columns="1" cellpadding="5">
+                                                <p:outputLabel value="Sistema de alimentación empleado con el animal" />
+                                                <p:dataTable var="todosSistema" value="#{beanConsulta.todosSistema}" sortBy="#{todosSistema.key}">
+                                                    <p:column headerText="ID">
+                                                        <h:outputText value="#{todosSistema.key}" />
+                                                    </p:column>                                                
+                                                    <p:column headerText="Descripción">
+                                                        <h:outputText value="#{todosSistema.descripcion}" />
+                                                    </p:column>
+                                                </p:dataTable>
+                                            </h:panelGrid>
+                                        </h:panelGrid>
+                                    </p:tab>
+                                </p:accordionPanel>                                                                                                      
+                            </h:panelGrid>
+                        </p:tab>
+                        <p:tab title="Información de la carne">
+                            
+                        </p:tab>
+                    </p:tabView>    
+                        
+                    
+                    <h:panelGrid columns="2" cellpadding="5">                        
+
+                            
+                        <p:outputLabel for="conformacionCanal" value="Conformación Canal: " />
+                        <p:inputText id="conformacionCanal" value="#{beanConsulta.conformacionCanal}"/>
+                        <p:outputLabel for="distribucionGrasaSubcutanea" value="Distribución Grasa Subcutánea: " />
+                        <p:inputText id="distribucionGrasaSubcutanea" value="#{beanConsulta.distribucionGrasaSubcutanea}"/>
+                        <p:outputLabel for="grasaPerirrenal" value="Grasa Perirrenal: " />
+                        <p:inputText id="grasaPerirrenal" value="#{beanConsulta.grasaPerirrenal}"/>
+                        <p:outputLabel for="colorGrasa" value="Color Grasa: " />
+                        <p:inputText id="colorGrasa" value="#{beanConsulta.colorGrasa}"/>
+                        <p:outputLabel for="colorCarne" value="Color Carne: " />
+                        <p:inputText id="colorCarne" value="#{beanConsulta.colorCarne}"/>
+                            
+                        <p:outputLabel for="pesoCanalFrioDer" value="Peso Canal Frio Derecho: " />
+                        <p:inputText id="pesoCanalFrioDer" value="#{beanConsulta.pesoCanalFrioDer}"/>
+                        <p:outputLabel for="pesoCanalFrioIzq" value="Peso Canal Frio Izquierdo: " />
+                        <p:inputText id="pesoCanalFrioIzq" value="#{beanConsulta.pesoCanalFrioIzq}"/>
+                        <p:outputLabel for="ojoDeLaChuleta" value="Ojo de la chuleta: " />
+                        <p:inputText id="ojoDeLaChuleta" value="#{beanConsulta.ojoDeLaChuleta}"/>
+                        <p:outputLabel for="grosorDeGrasaDorsal" value="Grosor de Grasa Dorsal: " />
+                        <p:inputText id="grosorDeGrasaDorsal" value="#{beanConsulta.grosorDeGrasaDorsal}"/>
+                            
+                        <p:commandButton value="Reset" type="reset" />
+                        <p:commandButton value="Submit" update="display" oncomplete="PF('dlg').show()"/>
+                    </h:panelGrid>
+                </p:layoutUnit>
+                <p:layoutUnit position="south" size="200">
+                    <p:outputLabel value="Grosor de Grasa Dorsal: " />
+                </p:layoutUnit>
+            </p:layout>
+                
+                
+            <p:dialog widgetVar="dlg" modal="true" resizable="false" header="Values" showEffect="fade"> 
+                <p:panelGrid id="display" columns="2" columnClasses="label,value">
+                    <p:outputLabel value="Edad: " />
+                    <p:outputLabel id="edadKey" value="#{beanConsulta.edad}"/>                        
+                    <p:outputLabel value="KPV: " />
+                    <p:outputLabel id="kpvKey" value="#{beanConsulta.kpv}"/>                  
+                    <p:outputLabel value="Tipo: " />
+                    <p:outputLabel id="tipoKey" value="#{beanConsulta.tipo}"/>                    
+                    <p:outputLabel value="Localidad: " />
+                    <p:outputLabel id="localidadKey" value="#{beanConsulta.localidad}"/>                    
+                    <p:outputLabel value="Grupo Racial: " />
+                    <p:outputLabel id="grupoRacialKey" value="#{beanConsulta.grupoRacial}"/>                    
+                    <p:outputLabel value="Sistema: " />
+                    <p:outputLabel id="sistemaKey" value="#{beanConsulta.sistema}"/>
+                        
+                    <p:outputLabel value="Conformación Canal: " />
+                    <p:outputLabel id="conformacionCanalKey" value="#{beanConsulta.conformacionCanal}"/>
+                    <p:outputLabel value="Distribución Grasa Subcutánea: " />
+                    <p:outputLabel id="distribucionGrasaSubcutaneaKey" value="#{beanConsulta.distribucionGrasaSubcutanea}"/>
+                    <p:outputLabel value="Grasa Perirrenal: " />
+                    <p:outputLabel id="grasaPerirrenalKey" value="#{beanConsulta.grasaPerirrenal}"/>
+                    <p:outputLabel value="Color Grasa: " />
+                    <p:outputLabel id="colorGrasaKey" value="#{beanConsulta.colorGrasa}"/>
+                    <p:outputLabel value="Color Carne: " />
+                    <p:outputLabel id="colorCarneKey" value="#{beanConsulta.colorCarne}"/>
+                        
+                    <p:outputLabel value="Peso Canal Frio Derecho: " />
+                    <p:outputLabel id="pesoCanalFrioDerKey" value="#{beanConsulta.pesoCanalFrioDer}"/>
+                    <p:outputLabel value="Peso Canal Frio Izquierdo: " />
+                    <p:outputLabel id="pesoCanalFrioIzqKey" value="#{beanConsulta.pesoCanalFrioIzq}"/>
+                    <p:outputLabel value="Ojo de la chuleta: " />
+                    <p:outputLabel id="ojoDeLaChuletaKey" value="#{beanConsulta.ojoDeLaChuleta}"/>
+                    <p:outputLabel value="Grosor de Grasa Dorsal: " />
+                    <p:outputLabel id="grosorDeGrasaDorsalKey" value="#{beanConsulta.grosorDeGrasaDorsal}"/>
+                </p:panelGrid>
+            </p:dialog>
+                
+        </h:form>
+    </h:body>
+</html>
