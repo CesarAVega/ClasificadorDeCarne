@@ -6,12 +6,14 @@
 package services;
 
 import entities.*;
+import entities.Graficador.Graficador;
 import java.io.*;
 import java.sql.*;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.neuroph.core.data.DataSetRow;
+import org.primefaces.model.chart.LineChartModel;
 import persistence.*;
 
 /**
@@ -51,33 +53,7 @@ public class ServicesFacade {
         return instance;
     }
 
-    /**
-     * Carga todos los datos de la base de datos
-     * @return Set<Animal> Conjunto de datos
-     * @throws SQLException 
-     */
-    public Set<Animal> getData() throws SQLException{
-        Set<Animal> ans = new LinkedHashSet<>();
-        try{
-            DaoFactory df = DaoFactory.getInstance(properties); // se obtiene las características de la conexión
-            
-            df.beginSession(); // se abre la sesión
-
-            DaoAnimal dpro = df.getDaoAnimal(); // se obtiene la referencia del DAO con respecto a la conexión abierta
-            
-            ans = dpro.getAnimals(); // función de carga para todos los datos de la base de datos
-
-            df.commitTransaction(); // se verifica que toda la acción se cumplió con éxito
- 
-            df.endSession(); // se cierra la conexión
-            
-            
-        }catch (PersistenceException ex) {
-            Logger.getLogger(ServicesFacade.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return ans;
-    }
-
+    /****************************** FUNCIONES DE APOYO ***************************************/
     /**
      * Convierte un String a double
      * @param s String a convertir
@@ -95,7 +71,50 @@ public class ServicesFacade {
     public static int pint(String s){
         return Integer.parseInt(s);
     }
+    
+    /**
+     * Función de normalización de un dato
+     * @param index Valor de la posición en el arregla de mínimos o máximos a comparar
+     * @param a Valor entero a ser comparado con lo guardo en los arreglos mínimos y máximos
+     * @return valor normalizado y redondeado a 5 dígitos
+     */
+    private double normalizacion(int index, double a){
+        return Math.rint(((a-nnet.getMins()[index])/nnet.getDiff()[index])*100000)/100000;
+    }
+    
+    /**
+     * Convierte el vector de la solución con los valores redondeados en una Calidad 
+     * @param d double[] contiene los valores redondeados de la solución
+     * @return Calidad esta hace referencia a la calidad final de la carne
+     */
+    private Calidad valorRespuesta(double[] d){
+        // se toma como primera instancia suponiendo que la carne es de calidad superior
+        String ans = "SUPERIOR";        
+        int ID = 1;
+        // Verifica si el estado inicial es mentiras
+        switch (Arrays.toString(d)) {
+            case "[0.0, 0.0, 1.0, 0.0]":
+                ans = "SELECCIONADA";
+                ID = 2;
+                break;
+            case "[0.0, 1.0, 0.0, 0.0]":
+                ans = "ESTANDAR";
+                ID = 3;
+                break;
+            case "[1.0, 0.0, 0.0, 0.0]":
+                ans = "COMERCIAL";
+                ID = 4;
+                break;
+            default:
+                break;
+        }        
+        
+        return new Calidad(ID, ans);
+    }
 
+    
+    
+    /****************************** RED NEURONAL BASE ***************************************/
     //Contiene la información de la Red Neuronal entrenada previamente y es la de mayor nivel de efectividad
     private static RedNeuronal nnet = new RedNeuronal();
     
@@ -104,6 +123,8 @@ public class ServicesFacade {
     }
     
     
+    /****************************** SERVICIOS DE LA APP ***************************************/
+    /**************** EVALUAR ANIMALES *******************************/    
     /**
      * Con relación a la red neuronal ya entrenada y más óptima se dan los resultados
      * @param animal Entrada
@@ -154,47 +175,7 @@ public class ServicesFacade {
         Calidad calidad = valorRespuesta(networkOutput);
         animal.getCarne().setCalidad(calidad);
         return animal;
-    }
-    
-    /**
-     * Función de normalización de un dato
-     * @param index Valor de la posición en el arregla de mínimos o máximos a comparar
-     * @param a Valor entero a ser comparado con lo guardo en los arreglos mínimos y máximos
-     * @return valor normalizado y redondeado a 5 dígitos
-     */
-    private double normalizacion(int index, double a){
-        return Math.rint(((a-nnet.getMins()[index])/nnet.getDiff()[index])*100000)/100000;
-    }
-    
-    /**
-     * Convierte el vector de la solución con los valores redondeados en una Calidad 
-     * @param d double[] contiene los valores redondeados de la solución
-     * @return Calidad esta hace referencia a la calidad final de la carne
-     */
-    private Calidad valorRespuesta(double[] d){
-        // se toma como primera instancia suponiendo que la carne es de calidad superior
-        String ans = "SUPERIOR";        
-        int ID = 1;
-        // Verifica si el estado inicial es mentiras
-        switch (Arrays.toString(d)) {
-            case "[0.0, 0.0, 1.0, 0.0]":
-                ans = "SELECCIONADA";
-                ID = 2;
-                break;
-            case "[0.0, 1.0, 0.0, 0.0]":
-                ans = "ESTANDAR";
-                ID = 3;
-                break;
-            case "[1.0, 0.0, 0.0, 0.0]":
-                ans = "COMERCIAL";
-                ID = 4;
-                break;
-            default:
-                break;
-        }        
-        
-        return new Calidad(ID, ans);
-    }
+    }        
     
     /**
      * Implementa la opción de modificar varios animales
@@ -205,6 +186,50 @@ public class ServicesFacade {
         for (Animal a: data){
             valueOf(a);
         }
+    }
+    
+    
+    /**************** GRAFICADOR *******************************/   
+    
+    /**
+     * Obtiene un objeto graficador para se usado por la capa de presentación
+     * @return LineChartModel objeto listo para ser presentado
+     */
+    public LineChartModel getGraficador(){
+        Graficador graficador = new Graficador();
+        return graficador.getLineChartModel(getTodosCalidad());
+    }
+    
+    
+    
+    
+    
+    /****************************** USO DE LA BASE DE DATOS ***************************************/
+    /**
+     * Carga todos los datos de la base de datos
+     * @return Set<Animal> Conjunto de datos
+     * @throws SQLException 
+     */
+    public Set<Animal> getData() throws SQLException{
+        Set<Animal> ans = new LinkedHashSet<>();
+        try{
+            DaoFactory df = DaoFactory.getInstance(properties); // se obtiene las características de la conexión
+            
+            df.beginSession(); // se abre la sesión
+
+            DaoAnimal dpro = df.getDaoAnimal(); // se obtiene la referencia del DAO con respecto a la conexión abierta
+            
+            ans = dpro.getAnimals(); // función de carga para todos los datos de la base de datos
+
+            df.commitTransaction(); // se verifica que toda la acción se cumplió con éxito
+ 
+            df.endSession(); // se cierra la conexión
+            
+            
+        }catch (PersistenceException ex) {
+            Logger.getLogger(ServicesFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ans;
     }
     
     /**

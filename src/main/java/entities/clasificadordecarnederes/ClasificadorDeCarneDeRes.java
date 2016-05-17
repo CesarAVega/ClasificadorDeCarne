@@ -380,4 +380,6 @@ public class ClasificadorDeCarneDeRes {
         return data;
     }
     
+    
+    
 }

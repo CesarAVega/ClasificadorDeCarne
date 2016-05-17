@@ -13,19 +13,130 @@
     </h:head>
     <body>
         <h:form id="adminRedNeuronal" style="background: mediumseagreen">
-            <p:layout>
+            
                 <!--Encabezado de la pagina-->
                 <p:layoutUnit position="north" resizable = "false" size="100" minSize="80" maxSize="300" style="text-align: center;">
                     <h:outputText value="Bienvenido a la Página Principal del Clasificador de Carne" style="font-size: larger" />
                 </p:layoutUnit>  
                 <!--panel central contiene la información de la red neuronal que se encuentra guardad en el archivo .nnet-->
                 <p:layoutUnit position="center">
+                    <!-- Grid Base-->
                     <h:panelGrid columns="2" cellpadding="5">
-                        
-                    </h:panelGrid>
-                    
+                        <!--Columna 1 información de la red Neuronal-->
+                        <h:panelGrid columns="1" cellpadding="5">
+                            <!--Fila 1 encabezado-->
+                            <h:outputText value="Información de la Red Neuronal Base" />
+                            <!--Fila 2 información de la red Neuronla-->            
+                            <h:panelGrid columns="2" cellpadding="5">                                
+                                                              
+                                <h:outputText value="Archivo: "/>
+                                <h:outputText value="myMlPerceptron.nnet"/>
+                                
+                                <h:outputText value="Porcentaje efecitividad: "/>
+                                <h:outputText value="#{beanAdminRedNeuronal.nnet.porcentajeEfectividad}"/>
+                                
+                                <h:outputText value="Función de transferencia: "/>
+                                <h:outputText value="#{beanAdminRedNeuronal.nnet.transferFunctionType}"/>
+                                
+                                <h:outputText value="Número de datos de entrada: "/> 
+                                <h:outputText value="#{beanAdminRedNeuronal.nnet.input}"/>
+                                
+                                <h:outputText value="Número de datos de salida: "/>
+                                <h:outputText value="#{beanAdminRedNeuronal.nnet.output}"/>
+                                
+                                <h:outputText value="Número de neuronas en capa oculta: "/>
+                                <h:outputText value="#{beanAdminRedNeuronal.nnet.k}"/>                                                                
+                            </h:panelGrid>
+                            <!--Fila 3 datos de la Red Nueronal--> 
+                            <p:commandButton value="Datos" update="adminRedNeuronal" oncomplete="PF('DataRed').show()" />
+                        </h:panelGrid>  
+                        <!--Columna 2 Administracion de la base de datos-->
+                    </h:panelGrid>                    
                 </p:layoutUnit>                
-            </p:layout>
+            
+            
+            
+            <!--===========================CUADROS DE DIALOGO=============================-->
+            <p:dialog header="Datos de la Red Neuronal" widgetVar="DataRed" modal="true" showEffect="fade" hideEffect="fade" resizable="true" width = "800">
+                <h:panelGrid columns="1" cellpadding="5">               
+                    <p:outputLabel value="Grafica" />
+                    <p:chart type="line" model="#{beanAdminRedNeuronal.lineModel}" style="width:400px;height:300px" rendered="#{beanAdminRedNeuronal.lineModel != null}" />                            
+                        
+                    <p:outputLabel value="DataTable" />
+                    <p:dataTable var="data" value="#{beanAdminRedNeuronal.table}" style="margin-top:20px">                           
+                        
+                        <p:column headerText="ID">
+                            <h:outputText value="#{i+=1}" />
+                        </p:column>
+                            
+                        <p:column headerText="Localidad de Procedencia">
+                            <h:outputText value="#{data[0]}" />
+                        </p:column>
+                            
+                        <p:column headerText="Grupo Racial">
+                            <h:outputText value="#{data[1]}" />
+                        </p:column>
+                            
+                        <p:column headerText="TIPO">
+                            <h:outputText value="#{data[2]}" />
+                        </p:column>
+                            
+                        <p:column headerText="SISTEMA">
+                            <h:outputText value="#{data[3]}" />
+                        </p:column>
+                            
+                        <p:column headerText="EDAD">
+                            <h:outputText value="#{data[4]}" />
+                        </p:column>
+                            
+                        <p:column headerText="KPV">
+                            <h:outputText value="#{data[5]}" />
+                        </p:column>
+                            
+                        <p:column headerText="Conformación de la canal">
+                            <h:outputText value="#{data[6]}" />
+                        </p:column>
+                        
+                        <p:column headerText="Distribución de grasa subcútaneo">
+                            <h:outputText value="#{data[7]}" />
+                        </p:column>
+                            
+                        <p:column headerText="Cobertura de grasa perirrenal">
+                            <h:outputText value="#{data[8]}" />
+                        </p:column>
+                            
+                        <p:column headerText="Color de la grasa">
+                            <h:outputText value="#{data[9]}" />
+                        </p:column>
+                            
+                        <p:column headerText="Color de la carne">
+                            <h:outputText value="#{data[10]}" />
+                        </p:column>
+                        
+                        <p:column headerText="P. de la canal frio Der (Kg)">
+                            <h:outputText value="#{data[11]}" />
+                        </p:column>
+                            
+                        <p:column headerText="P. de la canal frio Izq. (Kg)">
+                            <h:outputText value="#{data[12]}" />
+                        </p:column>
+                        
+                        <p:column headerText="Ojo de chuleta cm2">
+                            <h:outputText value="#{data[13]}" />
+                        </p:column>
+                            
+                        <p:column headerText="Grosor de grasa de dorsal (ml)">
+                            <h:outputText value="#{data[14]}" />
+                        </p:column>
+                            
+                        <p:column headerText="CALIDAD">
+                            <h:outputText value="#{data[15]}" />
+                        </p:column>
+                            
+                    </p:dataTable>                    
+                </h:panelGrid>                                    
+            </p:dialog>
         </h:form>
+                               
     </body>
 </html>

@@ -402,4 +402,34 @@ public class AppTest {
         }
         
     }
+    
+    @Test
+    public void getTodosCalidad(){
+    
+        try {
+            clearDB();
+            Connection conn = DriverManager.getConnection("jdbc:h2:file:./target/db/testdb;MODE=MYSQL", "sa", "");
+            
+            Statement stmt = conn.createStatement();
+            stmt.execute("INSERT INTO calidad (id, descripcion) "
+                    + "VALUES (1, 'SUPERIOR')");
+            stmt.execute("INSERT INTO calidad (id, descripcion) "
+                    + "VALUES (2, 'SELECCIONADA')");
+            stmt.execute("INSERT INTO calidad (id, descripcion) "
+                    + "VALUES (3, 'ESTANDAR')");
+            stmt.execute("INSERT INTO calidad (id, descripcion) "
+                    + "VALUES (4, 'COMERCIAL')");
+            
+            ServicesFacade sf = ServicesFacade.getInstance("h2-applicationconfig.properties");
+            
+            ArrayList<Calidad> calidades = sf.getTodosCalidad();
+            
+            for (int i = 0; i < calidades.size(); i++){
+                Assert.assertTrue("NO obtiene los datos en orden", i+1 == calidades.get(i).getKey());    
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AppTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
+    }
 }

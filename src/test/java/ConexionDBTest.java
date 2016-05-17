@@ -2,7 +2,7 @@ import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class JDBCExample {
+public class ConexionDBTest {
 
 	public void main(String[] argv) {
 
