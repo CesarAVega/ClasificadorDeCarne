@@ -25,7 +25,7 @@ public class RedNeuronal {
     private final NeuralNetwork nnet = NeuralNetwork.createFromFile("myMlPerceptron.nnet");
     private final File file = new File("FinalDataTraining.in");
     private double[] mins, maxs, diff;
-    private Set<double[]> data = new LinkedHashSet<>();
+    private Set<double[]> data;
 
     /**
      * Porcentaje de efecitividad de la Red Neuronal Base
@@ -171,17 +171,21 @@ public class RedNeuronal {
                 for (int i = 0; i < input+1; i++){
                     diff[i] = maxs[i]-mins[i];
                 }
-                
-                // Almacena los datos con los que la red fue entrenada
-                data.clear();
-                double[] temp = new double[input+1];
+                data = new LinkedHashSet<>();
+                // Almacena los datos con los que la red fue entrenada                
+                double[] temp;
+                Animal animal;
+                int j = 1;
                 while(in.ready()){
-                    tok = in.readLine().split(",");
-                    for (int i = 0; i < input+1; i++){
-                        temp[i] = ServicesFacade.pdou(tok[i]);
-                    }
+                    tok = in.readLine().split(",");                     
+                    temp = new double[tok.length];
+                    for (int i = 0; i < tok.length-1; i++){
+                        temp[i] = desNormalizar(i, ServicesFacade.pdou(tok[i]));
+                    }                 
+                    temp[tok.length-1] = Integer.parseInt(tok[tok.length-1]);                   
                     data.add(temp);
                 }
+                
             }
             
         } catch (FileNotFoundException ex) {
@@ -189,5 +193,15 @@ public class RedNeuronal {
         } catch (IOException ex) {
             Logger.getLogger(ServicesFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }    
+    
+        /**
+     * Función de normalización de un dato
+     * @param index Valor de la posición en el arregla de mínimos o máximos a comparar
+     * @param a Valor entero a ser comparado con lo guardo en los arreglos mínimos y máximos
+     * @return valor normalizado y redondeado a 5 dígitos
+     */
+    private double desNormalizar(int index, double y){
+        return Math.rint(((y*diff[index])+mins[index])*1000)/1000;
     }
 }

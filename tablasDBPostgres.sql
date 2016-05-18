@@ -6,6 +6,7 @@ DROP TABLE rolepermission;
 DROP TABLE users;
 DROP TABLE role;
 DROP TABLE permission;
+
 DROP TABLE atributos_carne;
 DROP TABLE calidad;
 DROP TABLE carne;
@@ -14,6 +15,7 @@ DROP TABLE grupo_racial;
 DROP TABLE sistema;
 DROP TABLE localidad;
 DROP TABLE animal;
+--DROP TABLE red_neuronal;
 
 --Borrar información de las tablas
 DELETE TABLE userroles;
@@ -21,6 +23,7 @@ DELETE TABLE rolepermission;
 DELETE TABLE users;
 DELETE TABLE role;
 DELETE TABLE permission;
+
 DELETE TABLE atributos_carne;
 DELETE TABLE calidad;
 DELETE TABLE carne;
@@ -29,37 +32,42 @@ DELETE TABLE grupo_racial;
 DELETE TABLE sistema;
 DELETE TABLE localidad;
 DELETE TABLE animal;
-
+--DELETE TABLE red_neuronal;
 
 -- Table localidad
 CREATE TABLE localidad(
 	id INT NOT NULL,
 	nombre VARCHAR(200) NOT NULL,
-	PRIMARY KEY (id));
+	PRIMARY KEY (id)
+);
 
 -- Table grupo_racial
 CREATE TABLE grupo_racial(
 	id INT NOT NULL,
 	nombre VARCHAR(200) NOT NULL,
-	PRIMARY KEY (id));
+	PRIMARY KEY (id)
+);
 
 -- Table tipo
 CREATE TABLE tipo(
 	id INT NOT NULL,
 	nombre VARCHAR(200) NOT NULL,
-	PRIMARY KEY (id));
+	PRIMARY KEY (id)
+);
 
 -- Table sistema
 CREATE TABLE sistema(
 	id INT NOT NULL,
 	nombre VARCHAR(200) NOT NULL,
-	PRIMARY KEY (id));
+	PRIMARY KEY (id)
+);
 
 -- Table calidad
 CREATE TABLE calidad(
 	id INT NOT NULL,
 	descripcion VARCHAR(200) NOT NULL,
-	PRIMARY KEY (id));
+	PRIMARY KEY (id)
+);
 
 -- Table carne
 CREATE TABLE carne(
@@ -70,7 +78,8 @@ CREATE TABLE carne(
 	grosor_grasa_dorsal VARCHAR(100) NOT NULL,
 	calidad_id INT,  
 	PRIMARY KEY (id),
-	FOREIGN KEY(calidad_id) REFERENCES calidad (id));
+	FOREIGN KEY(calidad_id) REFERENCES calidad (id)
+);
 
 -- Table animal
 CREATE TABLE animal(
@@ -86,13 +95,15 @@ CREATE TABLE animal(
 	FOREIGN KEY(localidad_id) REFERENCES localidad (id),
 	FOREIGN KEY(carne_id) REFERENCES carne (id),
 	FOREIGN KEY(grupo_racial_id) REFERENCES grupo_racial (id),
-	FOREIGN KEY(sistema_id) REFERENCES sistema (id));
+	FOREIGN KEY(sistema_id) REFERENCES sistema (id)
+);
 
 -- Table atributos_carne
 CREATE TABLE atributos_carne(
 	id INT NOT NULL,
 	descripcion VARCHAR(200) NOT NULL,
-	PRIMARY KEY (id));
+	PRIMARY KEY (id)
+);
 
 -- Table calidad_atributos_carne
 CREATE TABLE calidad_atributos_carne(
@@ -102,7 +113,8 @@ CREATE TABLE calidad_atributos_carne(
 	PRIMARY KEY(carne_id,calidad_id,atributos_carne_id),
 	FOREIGN KEY(carne_id) REFERENCES carne (id),
 	FOREIGN KEY(calidad_id) REFERENCES calidad (id),
-	FOREIGN KEY(atributos_carne_id) REFERENCES atributos_carne (id));
+	FOREIGN KEY(atributos_carne_id) REFERENCES atributos_carne (id)
+);
 
 	
 --poblar la base de datos

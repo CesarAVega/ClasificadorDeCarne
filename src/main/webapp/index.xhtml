@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui" >
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Principal</title>
         <style type="text/css">
@@ -20,8 +21,9 @@
                     <h:outputText value="Por Favor, Seleccione una opción: " style="font-size: large" />
                 </p:layoutUnit>
                 <p:layoutUnit position="center" resizable = "false" style="text-align: center;">
-                    <br></br>
-                    <p:commandButton value="Administración" action="restricted/index.xhtml"></p:commandButton>
+                    <br></br>                    
+                    <p:commandButton value="Administración" action="restricted/index.xhtml" ></p:commandButton>
+<!--                    onclick="PF('dlg').show();"-->
                     <br></br>
                     <br></br>
                     <p:commandButton value="Consultar" action="open/index.xhtml"></p:commandButton>
@@ -41,7 +43,13 @@
                     </p:panel>
                 </p:layoutUnit>
             </p:layout>
-
-       </h:form>
+            
+            <!-- Dialogo de loging-->
+            <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false" >
+                <p:graphicImage library="images" name="loading1.gif" />
+            </p:dialog>               
+                
+            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />                              
+        </h:form>
     </h:body>
 </html>

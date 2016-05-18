@@ -5,16 +5,15 @@
  */
 package webapp.controller;
 
+import entities.Animal;
+import entities.Calidad;
 import entities.RedNeuronal;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Set;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ManagedBean;
-import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.LineChartModel;
-import org.primefaces.model.chart.PieChartModel;
 import services.ServicesFacade;
 
 
@@ -36,34 +35,15 @@ public class AdminRedNeuronalBackingBean implements Serializable{
     private LineChartModel lineModel = ServicesFacade.getInstance("applicationconfig.properties").getGraficador();
 
     public LineChartModel getLineModel() {
-        lineModel.setAnimate(true);
+        
         return lineModel;    
     }
     
-    private Set<double[]> data = nnet.getData();
+    private Set<Animal> data = ServicesFacade.getInstance("applicationconfig.properties").vectorToAnimalAll(nnet.getData());
 
-    public Set<double[]> getTable() {
+    public Set<Animal> getTable() {
         return data;
     }
+
     
-    /**
-    public void graficar(){
-        Set<double[]> data = nnet.getData();
-        //Table
-        table = new ArrayList<>();
-        String[] temp = new String[]{      
-        };
-        table.add(temp);        
-        int i = 1;
-        for (double[] d : data){
-            temp = new String[d.length+1];
-            temp[0] = (i++)+"";
-            for (int j = 0; j < d.length; j++){
-                temp[j+1] = d[j]+"";
-            }
-            System.out.println(Arrays.toString(temp));
-            table.add(temp);
-        }              
-    }
-    */
 }

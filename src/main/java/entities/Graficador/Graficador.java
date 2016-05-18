@@ -10,6 +10,10 @@ import java.io.*;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.primefaces.model.chart.Axis;
+import org.primefaces.model.chart.AxisType;
+import org.primefaces.model.chart.CategoryAxis;
+import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.LineChartModel;
 import org.primefaces.model.chart.LineChartSeries;
 import services.ServicesFacade;
@@ -22,7 +26,7 @@ public class Graficador {
     
     private HashMap<String, ArrayList<double[]>> data;
     private double[] dataRow;    
-    private LineChartSeries lineSeries;
+    private ChartSeries lineSeries;
     
     public Graficador(){
     }
@@ -42,10 +46,10 @@ public class Graficador {
             data = new HashMap<>();
             int x, y; double d;
             while(in.ready()){
-                tok = in.readLine().split(",");
+                tok = in.readLine().split(",");                
                 x = 0; y = 0;
                 //key en String de la calidad
-                key = calidades.get(Integer.parseInt(tok[tok.length-1])).getDescripcion();                
+                key = calidades.get(Integer.parseInt(tok[tok.length-1])-1).getDescripcion();                
                 for(int i = 0; i < tok.length-1; i++){
                     d = ServicesFacade.pdou(tok[i]);
                     if(i < 6){
@@ -53,7 +57,7 @@ public class Graficador {
                     }else{
                         y += (d*d);
                     }
-                }
+                }                
                 //prepara los datos para la graficadores
                 dataRow = new double[]{Math.sqrt(x), Math.sqrt(y)};
                 
@@ -68,15 +72,24 @@ public class Graficador {
             // preparando el lineChartModel
             model = new LineChartModel();
             for (String s: data.keySet()){
-                lineSeries = new LineChartSeries();
-                lineSeries.setLabel(s);
-                for (double[] dou: data.get(s)){
+                lineSeries = new ChartSeries();
+                lineSeries.setLabel(s);                         
+                for (double[] dou: data.get(s)){                    
                     lineSeries.set(dou[0], dou[1]);
                 }
-                
+
                 model.addSeries(lineSeries);
+                
             }            
-            
+            model.setTitle("Datos");
+            model.setLegendPosition("e");
+            model.setShowPointLabels(false);
+            model.setAnimate(true);
+            model.getAxes().put(AxisType.X, new CategoryAxis("Animal"));
+            Axis yAxis = model.getAxis(AxisType.Y);
+            yAxis.setLabel("Carne");
+            yAxis.setMin(-0.5);
+            yAxis.setMax(2);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Graficador.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {

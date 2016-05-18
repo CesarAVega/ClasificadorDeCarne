@@ -14,6 +14,14 @@ public class AtributoCarne {
     private int key; //ID de referencia en la base de datos
     private String descripcion; // descripción del atributo adicional para la carne
     private Calidad calidad;
+
+    /**
+     * Permite modificar el valor de la Calidad
+     * @param calidad 
+     */
+    public void setCalidad(Calidad calidad) {
+        this.calidad = calidad;
+    }
     
     /**
      * Obtiene el ID de referencia para el atributo
@@ -38,6 +46,8 @@ public class AtributoCarne {
     public Calidad getCalidad() {
         return calidad;
     }
+    
+    
     
     /**
      * Crea un atributo para la carne y contiene una calidad

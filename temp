@@ -1,0 +1,290 @@
+                    <p:column>
+                        <p:outputLabel value="DataTable" />
+                        <p:dataTable var="data" value="#{beanAdminRedNeuronal.table}" style="margin-top:80px" scrollable="true" scrollHeight="150">                           
+                            
+                            <p:column headerText="ID">
+                                <h:outputText value="#{i+=1}" />
+                            </p:column>
+                            
+                            <p:column headerText="Localidad de Procedencia">
+                                <p:dataTable var="data0" value="#{data[0]}">
+                                <h:outputText value="#{data0}" />
+                                </p:dataTable>
+                            </p:column>
+                            
+                            <p:column headerText="Grupo Racial">
+                                <h:outputText value="#{data[1]}" />
+                            </p:column>
+                            
+                            <p:column headerText="TIPO">
+                                <h:outputText value="#{data[2]}" />
+                            </p:column>
+                            
+                            <p:column headerText="SISTEMA">
+                                <h:outputText value="#{data[3]}" />
+                            </p:column>
+                            
+                            <p:column headerText="EDAD">
+                                <h:outputText value="#{data[4]}" />
+                            </p:column>
+                            
+                            <p:column headerText="KPV">
+                                <h:outputText value="#{data[5]}" />
+                            </p:column>
+                            
+                            <p:column headerText="Conformación de la canal">
+                                <h:outputText value="#{data[6]}" />
+                            </p:column>
+                            
+                            <p:column headerText="Distribución de grasa subcútaneo">
+                                <h:outputText value="#{data[7]}" />
+                            </p:column>
+                            
+                            <p:column headerText="Cobertura de grasa perirrenal">
+                                <h:outputText value="#{data[8]}" />
+                            </p:column>
+                            
+                            <p:column headerText="Color de la grasa">
+                                <h:outputText value="#{data[9]}" />
+                            </p:column>
+                            
+                            <p:column headerText="Color de la carne">
+                                <h:outputText value="#{data[10]}" />
+                            </p:column>
+                            
+                            <p:column headerText="P. de la canal frio Der (Kg)">
+                                <h:outputText value="#{data[11]}" />
+                            </p:column>
+                            
+                            <p:column headerText="P. de la canal frio Izq. (Kg)">
+                                <h:outputText value="#{data[12]}" />
+                            </p:column>
+                            
+                            <p:column headerText="Ojo de chuleta cm2">
+                                <h:outputText value="#{data[13]}" />
+                            </p:column>
+                            
+                            <p:column headerText="Grosor de grasa de dorsal (ml)">
+                                <h:outputText value="#{data[14]}" />
+                            </p:column>
+                            
+                            <p:column headerText="CALIDAD">
+                                <h:outputText value="#{data[15]}" />
+                            </p:column>
+                            
+                        </p:dataTable>                    
+                    </p:column>
+					
+					
+					
+					
+					
+					
+					
+    /**
+     * Obtiene la localidad en base a su ID
+     * @param ID identificador de la localidad
+     * @return Localidad a la que pertenece el animal
+     */
+    public Localidad getLocalidad(int ID){
+        Localidad ans  = null;
+        try{
+            DaoFactory df = DaoFactory.getInstance(properties); // se obtiene las características de la conexión
+            
+            df.beginSession(); // se abre la sesión
+
+            DaoAnimal dpro = df.getDaoAnimal(); // se obtiene la referencia del DAO con respecto a la conexión abierta
+            
+            ans = dpro.getLocalidad(ID); // función de carga la localidad de la que procede el animal
+
+            df.commitTransaction(); // se verifica que toda la acción se cumplió con éxito
+ 
+            df.endSession(); // se cierra la conexión            
+            
+        }catch (PersistenceException ex) {
+            Logger.getLogger(ServicesFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ans;
+    }
+    
+    /**
+     * Obtiene el grupo racial en base a su ID
+     * @param ID identificador del grupo racial
+     * @return GrupoRacial al que pertenece el animal
+     */
+    public GrupoRacial getGrupoRacial(int ID){
+        GrupoRacial ans  = null;
+        try{
+            DaoFactory df = DaoFactory.getInstance(properties); // se obtiene las características de la conexión
+            
+            df.beginSession(); // se abre la sesión
+
+            DaoAnimal dpro = df.getDaoAnimal(); // se obtiene la referencia del DAO con respecto a la conexión abierta
+            
+            ans = dpro.getGrupoRacial(ID); // función de carga el grupo racial al que pertenece el animal
+
+            df.commitTransaction(); // se verifica que toda la acción se cumplió con éxito
+ 
+            df.endSession(); // se cierra la conexión            
+            
+        }catch (PersistenceException ex) {
+            Logger.getLogger(ServicesFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ans;
+    }
+    
+    /**
+     * Obtiene el sistema en base a su ID
+     * @param ID identificador del sistema con el que fue alimentado el animal
+     * @return Sistema con el que fue alimentado el animal
+     */
+    public Sistema getSistema(int ID){
+        Sistema ans  = null;
+        try{
+            DaoFactory df = DaoFactory.getInstance(properties); // se obtiene las características de la conexión
+            
+            df.beginSession(); // se abre la sesión
+
+            DaoAnimal dpro = df.getDaoAnimal(); // se obtiene la referencia del DAO con respecto a la conexión abierta
+            
+            ans = dpro.getSistema(ID); // función de carga el sistema con el que fue alimentado el animal
+
+            df.commitTransaction(); // se verifica que toda la acción se cumplió con éxito
+ 
+            df.endSession(); // se cierra la conexión            
+            
+        }catch (PersistenceException ex) {
+            Logger.getLogger(ServicesFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ans;
+    }
+    
+    /**
+     * Obtiene el tipo en base a su ID
+     * @param ID identificador del tipo de animal
+     * @return Tipo al que pertenece el animal
+     */
+    public Tipo getTipo(int ID){
+        Tipo ans  = null;
+        try{
+            DaoFactory df = DaoFactory.getInstance(properties); // se obtiene las características de la conexión
+            
+            df.beginSession(); // se abre la sesión
+
+            DaoAnimal dpro = df.getDaoAnimal(); // se obtiene la referencia del DAO con respecto a la conexión abierta
+            
+            ans = dpro.getTipo(ID); // función de carga el tipo de animal
+
+            df.commitTransaction(); // se verifica que toda la acción se cumplió con éxito
+ 
+            df.endSession(); // se cierra la conexión            
+            
+        }catch (PersistenceException ex) {
+            Logger.getLogger(ServicesFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ans;
+    }
+    
+    /**
+     * Obtiene la Carne en base a su ID
+     * @param ID identificador de la carne es el mismo del animal
+     * @return Carne que contiene las características de esta y pertenece al animal
+     */
+    public Carne getCarne(int ID){
+        Carne ans  = null;
+        try{
+            DaoFactory df = DaoFactory.getInstance(properties); // se obtiene las características de la conexión
+            
+            df.beginSession(); // se abre la sesión
+
+            DaoAnimal dpro = df.getDaoAnimal(); // se obtiene la referencia del DAO con respecto a la conexión abierta
+            
+            ans = dpro.getCarne(ID); // función de carga la carne que pertenece a un animal
+
+            df.commitTransaction(); // se verifica que toda la acción se cumplió con éxito
+ 
+            df.endSession(); // se cierra la conexión            
+            
+        }catch (PersistenceException ex) {
+            Logger.getLogger(ServicesFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ans;
+    }
+    
+    /**
+     * Obtiene el grupo de atributos adicionales de la carne en base a su ID
+     * @param ID identificador de la carne
+     * @return ArrayList< AtributoCarne > de la carne estos cuentan con su propia calificación de calidad
+     */
+    public ArrayList<AtributoCarne> getAtributo(int ID){
+        ArrayList<AtributoCarne> ans  = null;
+        try{
+            DaoFactory df = DaoFactory.getInstance(properties); // se obtiene las características de la conexión
+            
+            df.beginSession(); // se abre la sesión
+
+            DaoAnimal dpro = df.getDaoAnimal(); // se obtiene la referencia del DAO con respecto a la conexión abierta
+            
+            ans = dpro.getAtributo(ID); // función de carga de todos los atributos especiales de la carne que tiene calidad
+
+            df.commitTransaction(); // se verifica que toda la acción se cumplió con éxito
+ 
+            df.endSession(); // se cierra la conexión            
+            
+        }catch (PersistenceException ex) {
+            Logger.getLogger(ServicesFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ans;
+    }
+    
+        /**
+     * Obtiene la descripcion de un atributo
+     * @param ID identificador del atributo
+     * @return String nombre del atributo
+     */
+    public String detDescripcioAtributo(int ID){
+        String ans  = null;
+        try{
+            DaoFactory df = DaoFactory.getInstance(properties); // se obtiene las características de la conexión
+            
+            df.beginSession(); // se abre la sesión
+
+            DaoAnimal dpro = df.getDaoAnimal(); // se obtiene la referencia del DAO con respecto a la conexión abierta
+            
+            ans = dpro.getDescripcioAtributo(ID); // función de carga Descripcion de un atributo especial de la carne
+
+            df.commitTransaction(); // se verifica que toda la acción se cumplió con éxito
+ 
+            df.endSession(); // se cierra la conexión            
+            
+        }catch (PersistenceException ex) {
+            Logger.getLogger(ServicesFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ans;
+    }
+    
+    /**
+     * Obtiene la calidad en base a su ID
+     * @param ID identificador de la calidad
+     * @return Calidad del atributo o la carne del animal
+     */
+    public Calidad getCalidad(int ID){
+        Calidad ans  = null;
+        try{
+            DaoFactory df = DaoFactory.getInstance(properties); // se obtiene las características de la conexión
+            
+            df.beginSession(); // se abre la sesión
+
+            DaoAnimal dpro = df.getDaoAnimal(); // se obtiene la referencia del DAO con respecto a la conexión abierta
+            
+            ans = dpro.getCalidad(ID); // función de carga Calidad
+
+            df.commitTransaction(); // se verifica que toda la acción se cumplió con éxito
+ 
+            df.endSession(); // se cierra la conexión            
+            
+        }catch (PersistenceException ex) {
+            Logger.getLogger(ServicesFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ans;
+    }  

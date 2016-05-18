@@ -322,77 +322,38 @@ public class AppTest {
                     + "VALUES (5, 'Color de la carne')");
             
             // Sección de ServiceFacade
-            ServicesFacade sf = ServicesFacade.getInstance("h2-applicationconfig.properties");
-            
-            //Variables a usar
-            ArrayList<AtributoCarne> calidades; // Atributos adicionales de la carne
-            Carne carne;
-            Animal animal;
-            Set<Animal> data = new LinkedHashSet<>(); // contiene los animales del archivo de datos enviados
-            ArrayList<String> dataSolve = new ArrayList<>(); // contiene en orden las calidades de entrada para posterior comparación
-            Calidad calidad;
+            ServicesFacade sf = ServicesFacade.getInstance("h2-applicationconfig.properties");            
             //Lectura de archivo
             BufferedReader in = new BufferedReader(new FileReader("base de datos calidad de la canal.txt")); 
-            String[] tok; 
+            String[] tok; double[] temp; 
             int key = 1; // identificador para cada animal
+            Set<double[]> doubles = new LinkedHashSet<>();
+            ArrayList<String> dataSolve = new ArrayList<>();
             while (in.ready()){
                 tok = in.readLine().split("\\s+"); //Lectura de linea y separada por espacio
+                temp = new double[tok.length];
                 //System.out.println(key+" "+Arrays.toString(tok));
-                
-                // creando las propiedades de los atributos adicionales para cada carne
-                calidades = new ArrayList<>();
-                for (int i = 1; i < 6; i++){
-                    calidad = sf.getCalidad(pint(tok[5+i]));
-                    calidades.add(new AtributoCarne(i, sf.detDescripcioAtributo(i), calidad));                    
+                for (int i = 0; i < tok.length; i++){                    
+                    if (11 <= i && i <=14){
+                        temp[i] = pdouConComa(tok[i]);
+                    }else{
+                        temp[i] = Double.parseDouble(tok[i]);
+                    }
                 }
-                
-                // crear carne se usa el metodo en ClasificadorDeCarneDeRes para convertir un String con coma a double
-                carne = new Carne(pdouConComa(tok[11]), pdouConComa(tok[12]),
-                        pdouConComa(tok[13]), pdouConComa(tok[14]), calidades,
-                        sf.getCalidad(pint(tok[15])));
-                
-                // se incrementa key
-                animal = new Animal(key++, sf.getTipo(pint(tok[2])) , pint(tok[4]), pint(tok[5]),
-                        sf.getLocalidad(pint(tok[0])), carne,
-                        sf.getGrupoRacial(pint(tok[1])), sf.getSistema(pint(tok[3])));
-                /**
-                System.out.println(animal.getID()+" "
-                        + ""+animal.getLocalidad().getKey()+" "
-                        + ""+animal.getGrupoRacial().getKey()+" "
-                        + ""+animal.getTipo().getKey()+" "
-                        + ""+animal.getSistema().getKey()+" "
-                        + ""+animal.getEdad()+" "
-                        + ""+animal.getKpv()+" "
-                        + ""+animal.getCarne().getCalidades().get(0).getCalidad().getKey()+" "
-                        + ""+animal.getCarne().getCalidades().get(1).getCalidad().getKey()+" "
-                        + ""+animal.getCarne().getCalidades().get(2).getCalidad().getKey()+" "
-                        + ""+animal.getCarne().getCalidades().get(3).getCalidad().getKey()+" "
-                        + ""+animal.getCarne().getCalidades().get(4).getCalidad().getKey()+" "
-                        + ""+animal.getCarne().getPesoCanalFrioDer()+" "
-                        + ""+animal.getCarne().getPesoCanalFrioIzq()+" "
-                        + ""+animal.getCarne().getOjoDeLaChuleta()+" "
-                        + ""+animal.getCarne().getGrosorDeGrasaDorsal()+" "
-                        + ""+animal.getCarne().getCalidad().getKey());
-                   */     
-                data.add(animal); // set de datos convertidos a objetos animal
-                dataSolve.add(animal.getCarne().getCalidad().getDescripcion()); // almacena en orden las calidades
+                dataSolve.add(tok[tok.length-1]);
+                doubles.add(temp);
             }
+            Set<Animal> data = sf.vectorToAnimalAll(doubles);
+            
             sf.valueOfall(data); // modifica las calidades de la carne de cada animal
             key = 0; // index para el arreglo de calidades de comparación
             int cont = 0; //contador de colisiones correctas           
-            for(Animal a: data){
+            for(Animal a: data){                
                 if (a.getID() == key+1 && 
-                        a.getCarne().getCalidad().getDescripcion().equals(dataSolve.get(key))
-                    ){
+                        a.getCarne().getCalidad().getKey() == Integer.parseInt(dataSolve.get(key))
+                        ){
                     cont++; // si las calidades son iguales contador para posterior uso comparativo de eficiencia
                 }
-                /**
-                else{
-               
-                System.out.println(a.getID()+" "
-                        + ""+a.getCarne().getCalidad().getDescripcion()+" "
-                        + ""+dataSolve.get(key));
-                }*/
                 key++;
             }                      
             // Se compara con la efectividad de la Red Neuronal Base -1 para efectos de errores
@@ -429,7 +390,8 @@ public class AppTest {
             }
         } catch (SQLException ex) {
             Logger.getLogger(AppTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    
+        }    
     }
+    
+    
 }
