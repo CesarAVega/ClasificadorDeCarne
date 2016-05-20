@@ -76,19 +76,41 @@
                 </h:panelGrid>                                    
             </p:dialog>
             <p:dialog header="Datos de la Red Neuronal" widgetVar="DataRed" modal="true" showEffect="fade" hideEffect="fade" resizable="true" width = "1200" height="600">
+                <h3>Export Page Data Only</h3>
+                <h:commandLink>
+                    <p:graphicImage library="images" name="excel.png" />
+                    <p:dataExporter type="xls" target="tbl" fileName="data" pageOnly="true"/>
+                </h:commandLink>
+        
+                <h:commandLink>
+                    <p:graphicImage library="images" name="pdf.png" />
+                    <p:dataExporter type="pdf" target="tbl" fileName="data" pageOnly="true" />
+                </h:commandLink>
+        
                 <p:panelGrid columns="1">
-                    <p:dataTable  var="animal" value="#{beanAdminRedNeuronal.table}" resizableColumns="true">                           
+                    <p:dataTable id='tbl' var="animal" value="#{beanAdminRedNeuronal.table}" resizableColumns="true">                           
                         <f:facet name="header">
 
                         </f:facet>
+                        <f:facet name="{Exporters}">
+                            <h:commandLink>
+                                <p:graphicImage library="images" name="excel.png" width="24"/>
+                                <p:dataExporter type="xls" target="tbl" fileName="data" pageOnly="true"/>
+                            </h:commandLink>
                     
+                            <h:commandLink>
+                                <p:graphicImage library="images" name="pdf.png" width="24"/>
+                                <p:dataExporter type="pdf" target="tbl" fileName="data" pageOnly="true" />
+                            </h:commandLink>
+                        </f:facet>
+            
                         <p:columnGroup type="header">
                             <p:row>
                                 <p:column rowspan="3" headerText="ID" />
                                 <p:column rowspan="2" colspan="6" headerText="Información del animal" />
                                 <p:column colspan="9" headerText="Información de la carne" />
                                 <p:column rowspan="3" headerText="Calidad" />
-                                    
+                                
                             </p:row>
                             <p:row>                                
                                 <p:column colspan="5" headerText="Atributos" />

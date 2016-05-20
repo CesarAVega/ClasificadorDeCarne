@@ -22,8 +22,9 @@
                 </p:layoutUnit>
                 <p:layoutUnit position="center" resizable = "false" style="text-align: center;">
                     <br></br>                    
-                    <p:commandButton value="Administración" action="restricted/index.xhtml" ></p:commandButton>
-<!--                    onclick="PF('dlg').show();"-->
+                    <p:commandButton value="Administración" onclick="PF('dlg').show();" 
+                                     onstart="PF('loadpag').show()" onsuccess="PF('loadpag').hide()" />
+                    
                     <br></br>
                     <br></br>
                     <p:commandButton value="Consultar" action="open/index.xhtml"></p:commandButton>
@@ -45,11 +46,52 @@
             </p:layout>
             
             <!-- Dialogo de loging-->
-            <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false" >
+            <p:dialog widgetVar="statusDialog"  modal="true" draggable="false" closable="false" 
+                      resizable="false" showHeader="false" hideEffect="bounce" style="color: black">
+                <p:graphicImage library="images" name="psy.gif" />
+            </p:dialog>               
+
+            <p:dialog widgetVar="loadpag"  modal="true" draggable="false" closable="false" 
+                      resizable="false" showHeader="false" hideEffect="bounce">
                 <p:graphicImage library="images" name="loading1.gif" />
             </p:dialog>               
                 
-            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />                              
+            <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+            <p:dialog header="Login" widgetVar="dlg" resizable="false">
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputLabel for="username" value="Username:" />
+                    <p:inputText id="username" value="#{userLoginView.username}" required="true" label="username" />
+                
+                    <h:outputLabel for="password" value="Password:" />
+                    <p:password id="password" value="#{userLoginView.password}" required="true" label="password" />
+                
+                    <f:facet name="footer">
+                        <p:commandButton value="Login" update="growl" actionListener="#{userLoginView.login}"
+                                         oncomplete="handleLoginRequest(xhr, status, args)"/>
+                    </f:facet>  
+                </h:panelGrid>
+            </p:dialog>
+            
+            <p:dialog header="Welcome" widgetVar="dlgWelcome" modal="true" >                  
+                <p:commandButton value="Aceptar" action="restricted/index.xhtml" 
+                                 onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"/>                
+            </p:dialog>
+        
+        
+        
         </h:form>
+        <script type="text/javascript">
+            function handleLoginRequest(xhr, status, args) {
+                if(args.validationFailed || !args.loggedIn) {
+                    PF('dlg').jq.effect("shake", {times:5}, 100);
+                }
+                else {
+                    PF('dlgWelcome').show();
+                    PF('dlg').hide();                    
+                    $('#loginLink').fadeOut();
+                    
+                }
+            }
+        </script>
     </h:body>
 </html>
