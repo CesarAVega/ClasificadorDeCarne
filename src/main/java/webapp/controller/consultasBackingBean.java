@@ -11,6 +11,7 @@ import entities.GrupoRacial;
 import entities.Localidad;
 import entities.Sistema;
 import entities.Tipo;
+import java.io.Serializable;
 import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -22,7 +23,7 @@ import services.ServicesFacade;
  */
 @ManagedBean(name = "beanConsulta")
 @SessionScoped
-public class consultasBackingBean{
+public class consultasBackingBean implements Serializable{
     
     //información del animal
     private int edad;
