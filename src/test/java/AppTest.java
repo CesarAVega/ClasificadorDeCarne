@@ -364,6 +364,9 @@ public class AppTest {
         
     }
     
+    /**
+     * Verifica que la informacion de la base de datos sea traida con exito
+     */
     @Test
     public void getTodosCalidad(){
     
@@ -381,12 +384,20 @@ public class AppTest {
             stmt.execute("INSERT INTO calidad (id, descripcion) "
                     + "VALUES (4, 'COMERCIAL')");
             
+            ArrayList<Calidad> solveCalidad = new ArrayList<>();
+            solveCalidad.add(new Calidad(1, "SUPERIOR"));
+            solveCalidad.add(new Calidad(2, "SELECCIONADA"));
+            solveCalidad.add(new Calidad(3, "ESTANDAR"));
+            solveCalidad.add(new Calidad(4, "COMERCIAL"));
+                                    
             ServicesFacade sf = ServicesFacade.getInstance("h2-applicationconfig.properties");
             
             ArrayList<Calidad> calidades = sf.getTodosCalidad();
             
             for (int i = 0; i < calidades.size(); i++){
-                Assert.assertTrue("NO obtiene los datos en orden", i+1 == calidades.get(i).getKey());    
+                Assert.assertTrue("NO obtiene los datos en orden", 
+                        solveCalidad.get(i).getKey() == calidades.get(i).getKey() 
+                        && solveCalidad.get(i).getDescripcion().equals(calidades.get(i).getDescripcion()));    
             }
         } catch (SQLException ex) {
             Logger.getLogger(AppTest.class.getName()).log(Level.SEVERE, null, ex);
@@ -394,4 +405,289 @@ public class AppTest {
     }
     
     
+    /**
+     * Verifica que la informacion de la base de datos sea traida con exito
+     */
+    @Test
+    public void getTodosLocalidad(){
+    
+        try {
+            clearDB();
+            Connection conn = DriverManager.getConnection("jdbc:h2:file:./target/db/testdb;MODE=MYSQL", "sa", "");
+            
+            Statement stmt = conn.createStatement();
+            
+            stmt.execute("INSERT INTO localidad (id, nombre) "
+                    + "VALUES (1, 'PLATON')");
+            stmt.execute("INSERT INTO localidad (id, nombre) "
+                    + "VALUES (2, 'TEMPOAL')");
+            stmt.execute("INSERT INTO localidad (id, nombre) "
+                    + "VALUES (3, 'TANTOYUCA')");
+            stmt.execute("INSERT INTO localidad (id, nombre) "
+                    + "VALUES (4, 'EL HIGO')");                        
+            
+            ArrayList<Localidad> solveLocalidad = new ArrayList<>();
+            solveLocalidad.add(new Localidad(1, "PLATON"));
+            solveLocalidad.add(new Localidad(2, "TEMPOAL"));
+            solveLocalidad.add(new Localidad(3, "TANTOYUCA"));
+            solveLocalidad.add(new Localidad(4, "EL HIGO"));
+                                    
+            ServicesFacade sf = ServicesFacade.getInstance("h2-applicationconfig.properties");
+            
+            ArrayList<Localidad> localidades = sf.getTodosLocalidad();
+            
+            for (int i = 0; i < localidades.size(); i++){
+                Assert.assertTrue("NO obtiene los datos en orden", 
+                        solveLocalidad.get(i).getKey() == localidades.get(i).getKey() 
+                        && solveLocalidad.get(i).getDescripcion().equals(localidades.get(i).getDescripcion()));    
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AppTest.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+    }
+    
+    /**
+     * Verifica que la informacion de la base de datos sea traida con exito
+     */
+    @Test
+    public void getTodosGrupoRacial(){
+    
+        try {
+            clearDB();
+            Connection conn = DriverManager.getConnection("jdbc:h2:file:./target/db/testdb;MODE=MYSQL", "sa", "");
+            
+            Statement stmt = conn.createStatement();
+
+            stmt.execute("INSERT INTO grupo_racial (id, nombre) "
+                    + "VALUES (1, 'CEBU')");
+            stmt.execute("INSERT INTO grupo_racial (id, nombre) "
+                    + "VALUES (2, 'CEBU Y SUIZO')");
+            stmt.execute("INSERT INTO grupo_racial (id, nombre) "
+                    + "VALUES (3, 'CEBU, SUIZO Y SIMENTAL')");
+            stmt.execute("INSERT INTO grupo_racial (id, nombre) "
+                    + "VALUES (4, 'CEBU, SUIZO Y HOLTEINS')");
+            
+            ArrayList<GrupoRacial> solveGrupoRacial = new ArrayList<>();
+            solveGrupoRacial.add(new GrupoRacial(1, "CEBU"));
+            solveGrupoRacial.add(new GrupoRacial(2, "CEBU Y SUIZO"));
+            solveGrupoRacial.add(new GrupoRacial(3, "CEBU, SUIZO Y SIMENTAL"));
+            solveGrupoRacial.add(new GrupoRacial(4, "CEBU, SUIZO Y HOLTEINS"));
+                                    
+            ServicesFacade sf = ServicesFacade.getInstance("h2-applicationconfig.properties");
+            
+            ArrayList<GrupoRacial> gruposRaciales = sf.getTodosGrupoRacial();
+            
+            for (int i = 0; i < gruposRaciales.size(); i++){
+                Assert.assertTrue("NO obtiene los datos en orden", 
+                        solveGrupoRacial.get(i).getKey() == gruposRaciales.get(i).getKey() 
+                        && solveGrupoRacial.get(i).getDescripcion().equals(gruposRaciales.get(i).getDescripcion()));    
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AppTest.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+    }
+    
+        /**
+     * Verifica que la informacion de la base de datos sea traida con exito
+     */
+    @Test
+    public void getTodosTipo(){
+    
+        try {
+            clearDB();
+            Connection conn = DriverManager.getConnection("jdbc:h2:file:./target/db/testdb;MODE=MYSQL", "sa", "");
+            
+            Statement stmt = conn.createStatement();
+
+            stmt.execute("INSERT INTO tipo (id, nombre) "
+                    + "VALUES (1, 'NOVILLA')");
+            stmt.execute("INSERT INTO tipo (id, nombre) "
+                    + "VALUES (2, 'VACA')");
+            stmt.execute("INSERT INTO tipo (id, nombre) "
+                    + "VALUES (3, 'TORETE')");
+            
+            ArrayList<Tipo> solveTipo = new ArrayList<>();
+            solveTipo.add(new Tipo(1, "NOVILLA"));
+            solveTipo.add(new Tipo(2, "VACA"));
+            solveTipo.add(new Tipo(3, "TORETE"));            
+                                    
+            ServicesFacade sf = ServicesFacade.getInstance("h2-applicationconfig.properties");
+            
+            ArrayList<Tipo> tipos = sf.getTodosTipo();
+            
+            for (int i = 0; i < tipos.size(); i++){
+                Assert.assertTrue("NO obtiene los datos en orden", 
+                        solveTipo.get(i).getKey() == tipos.get(i).getKey() 
+                        && solveTipo.get(i).getDescripcion().equals(tipos.get(i).getDescripcion()));    
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AppTest.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+    }
+    
+        /**
+     * Verifica que la informacion de la base de datos sea traida con exito
+     */
+    @Test
+    public void getTodosSistemas(){
+    
+        try {
+            clearDB();
+            Connection conn = DriverManager.getConnection("jdbc:h2:file:./target/db/testdb;MODE=MYSQL", "sa", "");
+            
+            Statement stmt = conn.createStatement();
+            
+            stmt.execute("INSERT INTO sistema (id, nombre) "
+                    + "VALUES (1, 'A.C')");
+            stmt.execute("INSERT INTO sistema (id, nombre) "
+                    + "VALUES (2, 'A.P')");
+            
+            ArrayList<Sistema> solveSistemas = new ArrayList<>();
+            solveSistemas.add(new Sistema(1, "A.C"));
+            solveSistemas.add(new Sistema(2, "A.P"));
+                                    
+            ServicesFacade sf = ServicesFacade.getInstance("h2-applicationconfig.properties");
+            
+            ArrayList<Sistema> sistemas = sf.getTodosSistema();
+            
+            for (int i = 0; i < sistemas.size(); i++){
+                Assert.assertTrue("NO obtiene los datos en orden", 
+                        solveSistemas.get(i).getKey() == sistemas.get(i).getKey() 
+                        && solveSistemas.get(i).getDescripcion().equals(sistemas.get(i).getDescripcion()));    
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AppTest.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+    }
+    
+    @Test
+    public void insertLocalidad(){
+        try {
+            clearDB();
+            ArrayList<Localidad> solveLocalidades = new ArrayList<>();
+            solveLocalidades.add(new Localidad(1, "Tantoyuca"));
+            solveLocalidades.add(new Localidad(2, "Colombia"));
+            
+            ServicesFacade sf = ServicesFacade.getInstance("h2-applicationconfig.properties");
+            for (Localidad l : solveLocalidades){
+                sf.insertLocalidad(l);
+            }
+            
+            ArrayList<Localidad> localidades = sf.getTodosLocalidad();
+            
+            for (int i = 0; i < localidades.size(); i++){
+                Assert.assertTrue("No ingreso el valor correcto",
+                        solveLocalidades.get(i).getKey() == localidades.get(i).getKey()
+                                && solveLocalidades.get(i).getDescripcion().equals(localidades.get(i).getDescripcion())
+                );
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AppTest.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+    }
+    
+    @Test
+    public void insertGrupoRacial(){
+        try {
+            clearDB();
+            ArrayList<GrupoRacial> solveGrupoRacial = new ArrayList<>();
+            solveGrupoRacial.add(new GrupoRacial(1, "Tantoyuquense"));
+            solveGrupoRacial.add(new GrupoRacial(2, "Colombiano"));
+            
+            ServicesFacade sf = ServicesFacade.getInstance("h2-applicationconfig.properties");
+            for (GrupoRacial grupoRacial : solveGrupoRacial){
+                sf.insertGrupoRacial(grupoRacial);
+            }
+            
+            ArrayList<GrupoRacial> gruposRaciales = sf.getTodosGrupoRacial();
+            
+            for (int i = 0; i < gruposRaciales.size(); i++){
+                Assert.assertTrue("No ingreso el valor correcto",
+                        solveGrupoRacial.get(i).getKey() == gruposRaciales.get(i).getKey()
+                                && solveGrupoRacial.get(i).getDescripcion().equals(gruposRaciales.get(i).getDescripcion())
+                );
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AppTest.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+    }
+    
+    @Test
+    public void insertTipo(){
+        try {
+            clearDB();
+            ArrayList<Tipo> solveTipo = new ArrayList<>();
+            solveTipo.add(new Tipo(1, "CAVA"));
+            solveTipo.add(new Tipo(2, "TOROTE"));
+            
+            ServicesFacade sf = ServicesFacade.getInstance("h2-applicationconfig.properties");
+            for (Tipo tipo : solveTipo){
+                sf.insertTipo(tipo);
+            }
+            
+            ArrayList<Tipo> tipos = sf.getTodosTipo();
+            
+            for (int i = 0; i < tipos.size(); i++){
+                Assert.assertTrue("No ingreso el valor correcto",
+                        solveTipo.get(i).getKey() == tipos.get(i).getKey()
+                                && solveTipo.get(i).getDescripcion().equals(tipos.get(i).getDescripcion())
+                );
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AppTest.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+    }
+    
+    @Test
+    public void insertSistema(){
+        try {
+            clearDB();
+            ArrayList<Sistema> solveSistemas = new ArrayList<>();
+            solveSistemas.add(new Sistema(1, "A.M"));
+            solveSistemas.add(new Sistema(2, "A.T"));
+            
+            ServicesFacade sf = ServicesFacade.getInstance("h2-applicationconfig.properties");
+            for (Sistema sistema : solveSistemas){
+                sf.insertSistema(sistema);
+            }
+            
+            ArrayList<Sistema> sistemas = sf.getTodosSistema();
+            
+            for (int i = 0; i < sistemas.size(); i++){
+                Assert.assertTrue("No ingreso el valor correcto",
+                        solveSistemas.get(i).getKey() == sistemas.get(i).getKey()
+                                && solveSistemas.get(i).getDescripcion().equals(sistemas.get(i).getDescripcion())
+                );
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AppTest.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+    }
+    
+    @Test
+    public void insertCalidad(){
+        try {
+            clearDB();
+            ArrayList<Calidad> solveCalidad = new ArrayList<>();
+            solveCalidad.add(new Calidad(1, "Muy Superior"));
+            solveCalidad.add(new Calidad(2, "Super superior"));
+            
+            ServicesFacade sf = ServicesFacade.getInstance("h2-applicationconfig.properties");
+            for (Calidad calidad : solveCalidad){
+                sf.insertCalidad(calidad);
+            }
+            
+            ArrayList<Calidad> calidades = sf.getTodosCalidad();
+            
+            for (int i = 0; i < calidades.size(); i++){
+                Assert.assertTrue("No ingreso el valor correcto",
+                        solveCalidad.get(i).getKey() == calidades.get(i).getKey()
+                                && solveCalidad.get(i).getDescripcion().equals(calidades.get(i).getDescripcion())
+                );
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AppTest.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+    }
+   
 }

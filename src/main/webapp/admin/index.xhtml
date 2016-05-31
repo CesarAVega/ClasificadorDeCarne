@@ -10,61 +10,160 @@
             body{
                 background: mediumseagreen;
             }
-                    
+            
             #p_dataTableid{
                 margin-top: 80px;
             }
-</style>
+        </style>
     </h:head>
     <body>
         <h:form id="adminRedNeuronal" style="background: mediumseagreen">
             
-                <!--Encabezado de la pagina-->
-                <p:layoutUnit position="north" resizable = "false" size="100" minSize="80" maxSize="300" style="text-align: center;">
-                    <h:outputText value="Bienvenido a la Página Principal del Clasificador de Carne" style="font-size: larger" />
-                </p:layoutUnit>  
-                <!--panel central contiene la información de la red neuronal que se encuentra guardad en el archivo .nnet-->
-                <p:layoutUnit position="center">
-                    <!-- Grid Base-->
-                    <h:panelGrid columns="2" cellpadding="5">
-                        <!--Columna 1 información de la red Neuronal-->
-                        <h:panelGrid columns="1" cellpadding="5">
-                            <!--Fila 1 encabezado-->
-                            <h:outputText value="Información de la Red Neuronal Base" />
-                            <!--Fila 2 información de la red Neuronla-->            
-                            <h:panelGrid columns="2" cellpadding="5">                                
-                                                              
-                                <h:outputText value="Archivo: "/>
-                                <h:outputText value="myMlPerceptron.nnet"/>
-                                
-                                <h:outputText value="Porcentaje efecitividad: "/>
-                                <h:outputText value="#{beanAdminRedNeuronal.nnet.porcentajeEfectividad}"/>
-                                
-                                <h:outputText value="Función de transferencia: "/>
-                                <h:outputText value="#{beanAdminRedNeuronal.nnet.transferFunctionType}"/>
-                                
-                                <h:outputText value="Número de datos de entrada: "/> 
-                                <h:outputText value="#{beanAdminRedNeuronal.nnet.input}"/>
-                                
-                                <h:outputText value="Número de datos de salida: "/>
-                                <h:outputText value="#{beanAdminRedNeuronal.nnet.output}"/>
-                                
-                                <h:outputText value="Número de neuronas en capa oculta: "/>
-                                <h:outputText value="#{beanAdminRedNeuronal.nnet.k}"/>                                                                
-                            </h:panelGrid>
-                            <!--Fila 3 datos de la Red Nueronal--> 
-                            <h:panelGrid columns="2" cellpadding="5">
-                                <p:commandButton value="Graficar" update="adminRedNeuronal" oncomplete="PF('Graficar').show()" />
-                                <p:commandButton value="Datos" update="adminRedNeuronal" oncomplete="PF('DataRed').show()" />    
-                            </h:panelGrid>
+            <!--Encabezado de la pagina-->
+            <p:layoutUnit position="north" resizable = "false" size="100" minSize="80" maxSize="300" style="text-align: center;">
+                <h:outputText value="Bienvenido a la Página Principal del Clasificador de Carne" style="font-size: larger" />
+            </p:layoutUnit>  
+            <!--panel central contiene la información de la red neuronal que se encuentra guardad en el archivo .nnet-->
+            <p:layoutUnit position="center">                    
+                <h:panelGrid columns="2" cellpadding="5">
+                    <!--Columna 1 información de la red Neuronal-->
+                    <h:panelGrid columns="1" cellpadding="5">
+                        <!--Fila 1 encabezado-->
+                        <h:outputText value="Información de la Red Neuronal Base" />
+                        <!--Fila 2 información de la red Neuronla-->            
+                        <h:panelGrid columns="2" cellpadding="5">                                
                             
-                        </h:panelGrid>  
-                        <!--Columna 2 Administracion de la base de datos-->
-                    </h:panelGrid>                    
-                </p:layoutUnit>                
+                            <h:outputText value="Archivo: "/>
+                            <h:outputText value="myMlPerceptron.nnet"/>
+                            
+                            <h:outputText value="Porcentaje efecitividad: "/>
+                            <h:outputText value="#{beanAdminRedNeuronal.nnet.porcentajeEfectividad}"/>
+                            
+                            <h:outputText value="Función de transferencia: "/>
+                            <h:outputText value="#{beanAdminRedNeuronal.nnet.transferFunctionType}"/>
+                            
+                            <h:outputText value="Número de datos de entrada: "/> 
+                            <h:outputText value="#{beanAdminRedNeuronal.nnet.input}"/>
+                            
+                            <h:outputText value="Número de datos de salida: "/>
+                            <h:outputText value="#{beanAdminRedNeuronal.nnet.output}"/>
+                            
+                            <h:outputText value="Número de neuronas en capa oculta: "/>
+                            <h:outputText value="#{beanAdminRedNeuronal.nnet.k}"/>                                                                
+                        </h:panelGrid>
+                        <!--Fila 3 datos de la Red Nueronal--> 
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <p:commandButton value="Graficar" update="adminRedNeuronal" oncomplete="PF('Graficar').show()" />
+                            <p:commandButton value="Datos" update="adminRedNeuronal" oncomplete="PF('DataRed').show()" />    
+                        </h:panelGrid>
+                        
+                    </h:panelGrid>                              
+                    <!-- Grid base columna 2-->
+                    <h:panelGrid  columns="1" cellpadding="5">
+                        <h:outputText value="Administración de la Base de datos" />
+                        <p:tabView orientation="left">
+                            <p:tab title="Localidad">
+                                <p:toolbar >
+                                    <f:facet name="right">
+                                        <p:commandButton type="button" value="help" icon="ui-icon-help" onclick="PF('helpLocalidad').show()"/>                                            
+                                    </f:facet>                                        
+                                </p:toolbar>
+                                <h:panelGrid columns="3" cellpadding="5">                                        
+                                    <p:outputLabel for="nuevaLocalidad" value="Nueva Localidad: " />
+                                    <p:inputText id="nuevaLocalidad" value="#{beanAdminRedNeuronal.descripcion}" required="true"/>                                        
+                                    <p:column>
+                                        <p:commandButton type="submit" icon="ui-icon-help" action="#{beanAdminRedNeuronal.insertLocalidad()}" 
+                                        update=":adminRedNeuronal:adminDB" onsuccess="PF('bar').show()" />       
+                                                             
+                                    </p:column>
+                                </h:panelGrid>
+                            </p:tab>      
+                                
+                            <p:tab title="Grupo Racial">
+                                <p:toolbar >
+                                    <f:facet name="right">
+                                        <p:commandButton type="button" value="help" icon="ui-icon-help" onclick="PF('helpGrupoRacial').show()"/>                                            
+                                    </f:facet>                                        
+                                </p:toolbar>
+                                <h:panelGrid columns="3" cellpadding="5">                                        
+                                    <p:outputLabel for="nuevoGrupoRacial" value="Nuevo Grupo Racial: " />
+                                    <p:inputText id="nuevoGrupoRacial" value="#{beanAdminRedNeuronal.descripcion}" required="true"/>                                        
+                                    <p:column>
+                                        <p:commandButton type="submit" icon="ui-icon-help" action="#{beanAdminRedNeuronal.insertGrupoRacial()}" 
+                                        update=":adminRedNeuronal:adminDB" onsuccess="PF('bar').show()" />       
+                                                             
+                                    </p:column>
+                                </h:panelGrid>
+                            </p:tab>   
+                                
+                            <p:tab title="Tipo">
+                                <p:toolbar >
+                                    <f:facet name="right">
+                                        <p:commandButton type="button" value="help" icon="ui-icon-help" onclick="PF('helpTipo').show()"/>                                            
+                                    </f:facet>                                        
+                                </p:toolbar>
+                                <h:panelGrid columns="3" cellpadding="5">                                        
+                                    <p:outputLabel for="nuevoTipo" value="Nuevo Tipo: " />
+                                    <p:inputText id="nuevoTipo" value="#{beanAdminRedNeuronal.descripcion}" required="true"/>                                        
+                                    <p:column>
+                                        <p:commandButton type="submit" icon="ui-icon-help" action="#{beanAdminRedNeuronal.insertTipo()}" 
+                                        update=":adminRedNeuronal:adminDB" onsuccess="PF('bar').show()" />       
+                                                             
+                                    </p:column>
+                                </h:panelGrid>
+                            </p:tab>   
+                                
+                            <p:tab title="Sistema">
+                                <p:toolbar >
+                                    <f:facet name="right">
+                                        <p:commandButton type="button" value="help" icon="ui-icon-help" onclick="PF('helpSistema').show()"/>                                            
+                                    </f:facet>                                        
+                                </p:toolbar>
+                                <h:panelGrid columns="3" cellpadding="5">                                        
+                                    <p:outputLabel for="nuevaSistema" value="Nuevo Sistema: " />
+                                    <p:inputText id="nuevaSistema" value="#{beanAdminRedNeuronal.descripcion}" required="true"/>                                        
+                                    <p:column>
+                                        <p:commandButton type="submit" icon="ui-icon-help" action="#{beanAdminRedNeuronal.insertSistema()}" 
+                                        update=":adminRedNeuronal:adminDB" onsuccess="PF('bar').show()" />       
+                                                             
+                                    </p:column>
+                                </h:panelGrid>
+                            </p:tab>   
+                                
+                            <p:tab title="Calidad">
+                                <p:toolbar >
+                                    <f:facet name="right">
+                                        <p:commandButton type="button" value="help" icon="ui-icon-help" onclick="PF('helpCalidad').show()"/>                                            
+                                    </f:facet>                                        
+                                </p:toolbar>
+                                <h:panelGrid columns="3" cellpadding="5">                                        
+                                    <p:outputLabel for="nuevaCalidad" value="Nueva Calidad: " />
+                                    <p:inputText id="nuevaCalidad" value="#{beanAdminRedNeuronal.descripcion}" required="true"/>                                        
+                                    <p:column>
+                                        <p:commandButton type="submit" icon="ui-icon-help" action="#{beanAdminRedNeuronal.insertCalidad()}" 
+                                        update=":adminRedNeuronal:adminDB" onsuccess="PF('bar').show()" />       
+                                                             
+                                    </p:column>
+                                </h:panelGrid>
+                            </p:tab>   
+                                
+                        </p:tabView>
+                    </h:panelGrid>
+                        
+                        
+                </h:panelGrid>                    
+                    
+                    
+            </p:layoutUnit>                
             
             
             
+            <p:notificationBar id="bar" position="top" effect="slide" styleClass="top" widgetVar="bar">                    
+                <h:outputText value="Su dato se ingreso con exito el id es: #{beanAdminRedNeuronal.id}" style="font-size:36px;" />
+                <p:commandButton value="Aceptar" onclick="PF('bar').hide()" type="button" icon="ui-icon-arrow-1-n"/>
+            </p:notificationBar>
+                
+                
             <!--===========================CUADROS DE DIALOGO=============================-->
             <p:dialog header="Datos de la Red Neuronal" widgetVar="Graficar" modal="true" showEffect="fade" hideEffect="fade" resizable="true" width = "850" height="500">
                 <h:panelGrid columns="1" cellpadding="5">
@@ -75,35 +174,36 @@
                     </p:column>                    
                 </h:panelGrid>                                    
             </p:dialog>
+                
             <p:dialog header="Datos de la Red Neuronal" widgetVar="DataRed" modal="true" showEffect="fade" hideEffect="fade" resizable="true" width = "1200" height="600">
                 <h3>Export Page Data Only</h3>
                 <h:commandLink>
                     <p:graphicImage library="images" name="excel.png" />
                     <p:dataExporter type="xls" target="tbl" fileName="data" pageOnly="true"/>
                 </h:commandLink>
-        
+                    
                 <h:commandLink>
                     <p:graphicImage library="images" name="pdf.png" />
                     <p:dataExporter type="pdf" target="tbl" fileName="data" pageOnly="true" />
                 </h:commandLink>
-        
+                    
                 <p:panelGrid columns="1">
                     <p:dataTable id='tbl' var="animal" value="#{beanAdminRedNeuronal.table}" resizableColumns="true">                           
                         <f:facet name="header">
-
+                            
                         </f:facet>
                         <f:facet name="{Exporters}">
                             <h:commandLink>
                                 <p:graphicImage library="images" name="excel.png" width="24"/>
                                 <p:dataExporter type="xls" target="tbl" fileName="data" pageOnly="true"/>
                             </h:commandLink>
-                    
+                            
                             <h:commandLink>
                                 <p:graphicImage library="images" name="pdf.png" width="24"/>
                                 <p:dataExporter type="pdf" target="tbl" fileName="data" pageOnly="true" />
                             </h:commandLink>
                         </f:facet>
-            
+                        
                         <p:columnGroup type="header">
                             <p:row>
                                 <p:column rowspan="3" headerText="ID" />
@@ -123,13 +223,13 @@
                                 <p:column headerText="Sistema" />
                                 <p:column headerText="EDAD" />
                                 <p:column headerText="KPV" />
-                                    
+                                
                                 <p:column headerText="Conf. canal" />
                                 <p:column headerText="Dist. Grasa sub." />
                                 <p:column headerText="Cob. Grasa perirrenal" />
                                 <p:column headerText="Color Grasa" />
                                 <p:column headerText="Color Carne" />
-                                    
+                                
                                 <p:column headerText="P. Canal Frio Der. (kg)" />
                                 <p:column headerText="P. Canal Frio Izq. (kg)" />
                                 <p:column headerText="Ojo Chuleta (cm2)" />
@@ -140,76 +240,151 @@
                         <p:column>
                             <h:outputText value="#{animal.ID}" />
                         </p:column>
-                            
+                        
                         <p:column >                                
                             <h:outputText value="#{animal.localidad.descripcion}" />                                
                         </p:column>
-                            
+                        
                         <p:column >
                             <h:outputText value="#{animal.grupoRacial.descripcion}" />
                         </p:column>
-                            
+                        
                         <p:column >
                             <h:outputText value="#{animal.tipo.descripcion}" />
                         </p:column>
-                            
+                        
                         <p:column >
                             <h:outputText value="#{animal.sistema.descripcion}" />
                         </p:column>
-                            
+                        
                         <p:column >
                             <h:outputText value="#{animal.edad}" />
                         </p:column>
-                            
+                        
                         <p:column >
                             <h:outputText value="#{animal.kpv}" />
                         </p:column>
-                            
+                        
                         <p:column >
-                            <h:outputText value="#{animal.carne.calidades.get(0).calidad.key}" />
+                            <h:outputText value="#{animal.carne.atri1.descripcion}" />
                         </p:column>
-                            
+                        
                         <p:column >
-                            <h:outputText value="#{animal.carne.calidades.get(1).calidad.key}" />
+                            <h:outputText value="#{animal.carne.atri2.descripcion}" />
                         </p:column>
-                            
+                        
                         <p:column >
-                            <h:outputText value="#{animal.carne.calidades.get(2).calidad.key}" />
+                            <h:outputText value="#{animal.carne.atri3.descripcion}" />
                         </p:column>
-                            
+                        
                         <p:column >
-                            <h:outputText value="#{animal.carne.calidades.get(3).calidad.key}" />
+                            <h:outputText value="#{animal.carne.atri4.descripcion}" />
                         </p:column>
-                            
+                        
                         <p:column >
-                            <h:outputText value="#{animal.carne.calidades.get(4).calidad.key}" />
+                            <h:outputText value="#{animal.carne.atri5.descripcion}" />
                         </p:column>
-                            
+                        
                         <p:column >
                             <h:outputText value="#{animal.carne.pesoCanalFrioDer}" />
                         </p:column>
-                            
+                        
                         <p:column >
                             <h:outputText value="#{animal.carne.pesoCanalFrioIzq}" />
                         </p:column>
-                            
+                        
                         <p:column >
                             <h:outputText value="#{animal.carne.ojoDeLaChuleta}" />
                         </p:column>
-                            
+                        
                         <p:column >
                             <h:outputText value="#{animal.carne.grosorDeGrasaDorsal}" />
                         </p:column>
-                            
+                        
                         <p:column >
                             <h:outputText value="#{animal.carne.calidad.descripcion}" />
                         </p:column>
-                            
+                        
                     </p:dataTable>                    
                     <p:commandButton value="Aceptar" oncomplete="PF('DataRed').hide()" />                                      
                 </p:panelGrid>                                                                     
             </p:dialog>
-        </h:form>
             
+            <!-- LOCALIDAD -->
+            <p:dialog widgetVar="helpLocalidad" header="Localidad" resizable="false" showEffect="clip" hideEffect="clip">
+                <h:panelGrid columns="2" cellpadding="5" style="align-content: center">
+                    <h:outputText value="Recuerde que para ingresar una nueva localidad debe verificar que el valor no este en la siguiente tabla" />
+                    <p:dataTable var="localidad" value="#{beanAdminRedNeuronal.localidades}">
+                        <p:column headerText="ID">
+                            <h:outputText value="#{localidad.key}" />
+                        </p:column>
+                        <p:column headerText="Descripción">
+                            <h:outputText value="#{localidad.descripcion}" />
+                        </p:column>
+                    </p:dataTable>
+                </h:panelGrid>
+            </p:dialog>
+            
+            <!-- GRUPO RACIAL -->
+            <p:dialog widgetVar="helpGrupoRacial" header="Grupo Racial" resizable="false" showEffect="clip" hideEffect="clip">
+                <h:panelGrid columns="2" cellpadding="5" style="align-content: center">
+                    <h:outputText value="Recuerde que para ingresar un nuevo Grupo Racial debe verificar que el valor no este en la siguiente tabla" />
+                    <p:dataTable var="GrupoRacial" value="#{beanAdminRedNeuronal.grupoRaciales}">
+                        <p:column headerText="ID">
+                            <h:outputText value="#{GrupoRacial.key}" />
+                        </p:column>
+                        <p:column headerText="Descripción">
+                            <h:outputText value="#{GrupoRacial.descripcion}" />
+                        </p:column>
+                    </p:dataTable>
+                </h:panelGrid>
+            </p:dialog>
+            
+            <!-- TIPO -->
+            <p:dialog widgetVar="helpTipo" header="Tipo" resizable="false" showEffect="clip" hideEffect="clip">
+                <h:panelGrid columns="2" cellpadding="5" style="align-content: center">
+                    <h:outputText value="Recuerde que para ingresar un nuevo tipo debe verificar que el valor no este en la siguiente tabla" />
+                    <p:dataTable var="tipo" value="#{beanAdminRedNeuronal.tipos}">
+                        <p:column headerText="ID">
+                            <h:outputText value="#{tipo.key}" />
+                        </p:column>
+                        <p:column headerText="Descripción">
+                            <h:outputText value="#{tipo.descripcion}" />
+                        </p:column>
+                    </p:dataTable>
+                </h:panelGrid>
+            </p:dialog>
+            
+            <!-- SISTEMA -->
+            <p:dialog widgetVar="helpSistema" header="Sistema" resizable="false" showEffect="clip" hideEffect="clip">
+                <h:panelGrid columns="2" cellpadding="5" style="align-content: center">
+                    <h:outputText value="Recuerde que para ingresar un nuevo sistema de alimentación debe verificar que el valor no este en la siguiente tabla" />
+                    <p:dataTable var="sistema" value="#{beanAdminRedNeuronal.sistemas}">
+                        <p:column headerText="ID">
+                            <h:outputText value="#{sistema.key}" />
+                        </p:column>
+                        <p:column headerText="Descripción">
+                            <h:outputText value="#{sistema.descripcion}" />
+                        </p:column>
+                    </p:dataTable>
+                </h:panelGrid>
+            </p:dialog>
+            
+            <!-- CALIDAD -->
+            <p:dialog widgetVar="helpCalidad" header="Calidad" resizable="false" showEffect="clip" hideEffect="clip">
+                <h:panelGrid columns="2" cellpadding="5" style="align-content: center">
+                    <h:outputText value="Recuerde que para ingresar una nueva Calidad debe verificar que el valor no este en la siguiente tabla" />
+                    <p:dataTable var="calidad" value="#{beanAdminRedNeuronal.calidades}">
+                        <p:column headerText="ID">
+                            <h:outputText value="#{calidad.key}" />
+                        </p:column>
+                        <p:column headerText="Descripción">
+                            <h:outputText value="#{calidad.descripcion}" />
+                        </p:column>
+                    </p:dataTable>
+                </h:panelGrid>
+            </p:dialog>
+        </h:form>
+        
     </body>
 </html>

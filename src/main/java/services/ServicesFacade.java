@@ -299,6 +299,121 @@ public class ServicesFacade {
         return atributos;
     }
     
+    /**
+     * Inserta una Localidad a la base de datos
+     * @param localidad a ser ingresada en la base de datos
+     */
+    public void insertLocalidad(Localidad localidad) {        
+        try{
+            DaoFactory df = DaoFactory.getInstance(properties); // se obtiene las características de la conexión
+            
+            df.beginSession(); // se abre la sesión
+
+            DaoAnimal dpro = df.getDaoAnimal(); // se obtiene la referencia del DAO con respecto a la conexión abierta
+            
+            dpro.insertLocalidad(localidad); // ingresa la localidad a la base de datos
+
+            df.commitTransaction(); // se verifica que toda la acción se cumplió con éxito
+ 
+            df.endSession(); // se cierra la conexión            
+            
+        }catch (PersistenceException ex) {
+            Logger.getLogger(ServicesFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     * Inserta un Grupo Racial a la base de datos
+     * @param grupoRacial a ser ingresada en la base de datos
+     */
+    public void insertGrupoRacial(GrupoRacial grupoRacial) {
+        try{
+            DaoFactory df = DaoFactory.getInstance(properties); // se obtiene las características de la conexión
+            
+            df.beginSession(); // se abre la sesión
+
+            DaoAnimal dpro = df.getDaoAnimal(); // se obtiene la referencia del DAO con respecto a la conexión abierta
+            
+            dpro.insertGrupoRacial(grupoRacial); // llama a todos los atributos
+
+            df.commitTransaction(); // se verifica que toda la acción se cumplió con éxito
+ 
+            df.endSession(); // se cierra la conexión            
+            
+        }catch (PersistenceException ex) {
+            Logger.getLogger(ServicesFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     * Inserta un Tipo a la base de datos
+     * @param tipo a ser ingresada en la base de datos
+     */
+    public void insertTipo(Tipo tipo) {
+                try{
+            DaoFactory df = DaoFactory.getInstance(properties); // se obtiene las características de la conexión
+            
+            df.beginSession(); // se abre la sesión
+
+            DaoAnimal dpro = df.getDaoAnimal(); // se obtiene la referencia del DAO con respecto a la conexión abierta
+            
+            dpro.insertTipo(tipo); // llama a todos los atributos
+
+            df.commitTransaction(); // se verifica que toda la acción se cumplió con éxito
+ 
+            df.endSession(); // se cierra la conexión            
+            
+        }catch (PersistenceException ex) {
+            Logger.getLogger(ServicesFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     * Inserta un sistema a la base de datos
+     * @param sistema a ser ingresada en la base de datos
+     */
+    public void insertSistema(Sistema sistema) {
+        try{
+            DaoFactory df = DaoFactory.getInstance(properties); // se obtiene las características de la conexión
+            
+            df.beginSession(); // se abre la sesión
+
+            DaoAnimal dpro = df.getDaoAnimal(); // se obtiene la referencia del DAO con respecto a la conexión abierta
+            
+            dpro.insertSistema(sistema); // llama a todos los atributos
+
+            df.commitTransaction(); // se verifica que toda la acción se cumplió con éxito
+ 
+            df.endSession(); // se cierra la conexión            
+            
+        }catch (PersistenceException ex) {
+            Logger.getLogger(ServicesFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     * Inserta una calidad a la base de datos
+     * @param calidad a ser ingresada en la base de datos
+     */
+    public void insertCalidad(Calidad calidad) {
+        try{
+            DaoFactory df = DaoFactory.getInstance(properties); // se obtiene las características de la conexión
+            
+            df.beginSession(); // se abre la sesión
+
+            DaoAnimal dpro = df.getDaoAnimal(); // se obtiene la referencia del DAO con respecto a la conexión abierta
+            
+            dpro.insertCalidad(calidad); // llama a todos los atributos
+
+            df.commitTransaction(); // se verifica que toda la acción se cumplió con éxito
+ 
+            df.endSession(); // se cierra la conexión            
+            
+        }catch (PersistenceException ex) {
+            Logger.getLogger(ServicesFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     
     /****************************** RED NEURONAL BASE ***************************************/
     //Contiene la información de la Red Neuronal entrenada previamente y es la de mayor nivel de efectividad

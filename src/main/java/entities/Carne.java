@@ -76,6 +76,33 @@ public class Carne {
         return calidad;
     }
     
+    /**Variables exclusivas para mostrar en pantalla*/
+    private Calidad atri1;
+    private Calidad atri2;
+    private Calidad atri3;
+    private Calidad atri4;
+    private Calidad atri5;
+
+    public Calidad getAtri1() {
+        return atri1;
+    }
+
+    public Calidad getAtri2() {
+        return atri2;
+    }
+
+    public Calidad getAtri3() {
+        return atri3;
+    }
+
+    public Calidad getAtri4() {
+        return atri4;
+    }
+
+    public Calidad getAtri5() {
+        return atri5;
+    }
+    
     /**
      * Crea una Carne de res en base a la información suministrada
      * @param pesoCanalFrioDer peso de la canal frio derecha
@@ -95,7 +122,13 @@ public class Carne {
         this.grosorDeGrasaDorsal = grosorDeGrasaDorsal;
         this.calidades = calidades; 
         this.calidad = calidad; 
-
+        
+        atri1 = calidades.get(0).getCalidad();
+        atri2 = calidades.get(1).getCalidad();
+        atri3 = calidades.get(2).getCalidad();
+        atri4 = calidades.get(3).getCalidad();
+        atri5 = calidades.get(4).getCalidad();
+        
     }
     
     

@@ -128,6 +128,36 @@ public interface DaoAnimal {
      */
     public ArrayList<Calidad> getTodosCalidad() throws PersistenceException;
     
+    /**
+     * Inserta una calidad a la base de datos
+     * @param localidad a ser ingresada en la base de datos
+     */
+    public void insertLocalidad(Localidad localidad);
+    
+    /**
+     * Inserta una calidad a la base de datos
+     * @param grupoRacial a ser ingresada en la base de datos
+     */
+    public void insertGrupoRacial(GrupoRacial grupoRacial);
+    
+    /**
+     * Inserta una calidad a la base de datos
+     * @param tipo a ser ingresada en la base de datos
+     */
+    public void insertTipo(Tipo tipo);
+    
+    /**
+     * Inserta una calidad a la base de datos
+     * @param sistema a ser ingresada en la base de datos 
+     */
+    public void insertSistema(Sistema sistema);
+    
+    /**
+     * Inserta una calidad a la base de datos
+     * @param calidad a ser ingresada en la base de datos
+     */
+    public void insertCalidad(Calidad calidad);
+    
     
 }
 

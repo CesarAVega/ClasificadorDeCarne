@@ -8,6 +8,8 @@ package persistence.jdbcimpl;
 import entities.*;
 import java.sql.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import persistence.*;
 import services.ServicesFacade;
 
@@ -36,7 +38,8 @@ public class JDBCDaoAnimal implements DaoAnimal{
             
             //Consulta de las reservas que existen en la semana ingresada como parámetro 
             ps = con.prepareStatement("SELECT id, edad, kpv, tipo_id, localidad_id, carne_id, grupo_racial_id, sistema_id "
-                    + "FROM animal");
+                    + "FROM animal "
+                    + "ORDER BY id");
             ResultSet rs = ps.executeQuery(); // conjunto de soluciones
             while (rs.next()){
                 /**Valores que retorna la consulta
@@ -217,7 +220,8 @@ public class JDBCDaoAnimal implements DaoAnimal{
             // prepara la consulta
             ps = con.prepareStatement("SELECT  cac.calidad_id, cac.atributos_carne_id, ac.descripcion "
                     + "FROM calidad_atributos_carne AS cac, atributos_carne AS ac "
-                    + "WHERE cac.carne_id = ? AND cac.atributos_carne_id = ac.id");
+                    + "WHERE cac.carne_id = ? AND cac.atributos_carne_id = ac.id "
+                    + "ORDER BY cac.atributos_carne_id");
             ps.setInt(1, ID); //modifica el valor a consultar
             ResultSet rs = ps.executeQuery(); // conjunto de soluciones
             while (rs.next()){
@@ -293,7 +297,8 @@ public class JDBCDaoAnimal implements DaoAnimal{
             ArrayList<Localidad> localidades = new ArrayList<>();
             // prepara la consulta
             ps = con.prepareStatement("SELECT id, nombre "
-                    + "FROM localidad ");
+                    + "FROM localidad "
+                    + "ORDER BY id");
             ResultSet rs = ps.executeQuery(); // Conjunto de soluciones
             while (rs.next()){
                 /**Valores que retorna la consulta
@@ -317,7 +322,8 @@ public class JDBCDaoAnimal implements DaoAnimal{
             ArrayList<GrupoRacial> gruposRaciales = new ArrayList<>();
             // Prepara la consulta
             ps = con.prepareStatement("SELECT id, nombre "
-                    + "FROM grupo_racial ");            
+                    + "FROM grupo_racial "
+                    + "ORDER BY id");            
             ResultSet rs = ps.executeQuery(); // Conjunto de soluciones
             while (rs.next()){
                 /**Valores que retorna la consulta
@@ -341,7 +347,8 @@ public class JDBCDaoAnimal implements DaoAnimal{
             ArrayList<Sistema> sistemas = new ArrayList<>();
             // Prepara la consulta
             ps = con.prepareStatement("SELECT id, nombre "
-                    + "FROM sistema ");            
+                    + "FROM sistema "
+                    + "ORDER BY id");            
             ResultSet rs = ps.executeQuery(); // conjunto de soluciones 
             while (rs.next()){
                 /**Valores que retorna la consulta
@@ -365,7 +372,8 @@ public class JDBCDaoAnimal implements DaoAnimal{
             ArrayList<Tipo> tipos = new ArrayList<>();
             // prepara la consulta
             ps = con.prepareStatement("SELECT id, nombre "
-                    + "FROM tipo ");            
+                    + "FROM tipo "
+                    + "ORDER BY id");            
             ResultSet rs = ps.executeQuery(); // conjunto de soluciones
             while (rs.next()){
                 /**Valores que retorna la consulta
@@ -389,7 +397,8 @@ public class JDBCDaoAnimal implements DaoAnimal{
             ArrayList<AtributoCarne> atributosCarne = new ArrayList<>();
             Calidad calidad = null;
             ps = con.prepareStatement("SELECT id, descripcion "
-                    + "FROM  atributos_carne ");            
+                    + "FROM  atributos_carne "
+                    + "ORDER BY id");            
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
                 /**Valores que retorna la consulta
@@ -411,7 +420,8 @@ public class JDBCDaoAnimal implements DaoAnimal{
             ArrayList<Calidad> calidades = new ArrayList<>();
             
             ps = con.prepareStatement("SELECT id, descripcion "
-                    + "FROM calidad ");            
+                    + "FROM calidad "
+                    + "ORDER BY id");
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
                 /**Valores que retorna la consulta
@@ -423,6 +433,76 @@ public class JDBCDaoAnimal implements DaoAnimal{
             return calidades;
         }catch(SQLException ex){
             throw new PersistenceException("An error ocurred while loading 'Todas las Calidades'.",ex);
+        }
+    }
+    
+    @Override
+    public void insertLocalidad(Localidad localidad) {
+        try {
+            PreparedStatement ps;
+            ps = con.prepareStatement("INSERT INTO localidad (id, nombre) "
+                    + "VALUES (?, ?)");
+            ps.setInt(1, localidad.getKey());
+            ps.setString(2, localidad.getDescripcion());
+            ps.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(JDBCDaoAnimal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    @Override
+    public void insertGrupoRacial(GrupoRacial grupoRacial) {
+        try {
+            PreparedStatement ps;
+            ps = con.prepareStatement("INSERT INTO grupo_racial (id, nombre) "
+                    + "VALUES (?, ?)");
+            ps.setInt(1, grupoRacial.getKey());
+            ps.setString(2, grupoRacial.getDescripcion());
+            ps.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(JDBCDaoAnimal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    @Override
+    public void insertTipo(Tipo tipo) {
+        try {
+            PreparedStatement ps;
+            ps = con.prepareStatement("INSERT INTO tipo (id, nombre) "
+                    + "VALUES (?, ?)");
+            ps.setInt(1, tipo.getKey());
+            ps.setString(2, tipo.getDescripcion());
+            ps.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(JDBCDaoAnimal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    @Override
+    public void insertSistema(Sistema sistema) {
+        try {
+            PreparedStatement ps;
+            ps = con.prepareStatement("INSERT INTO sistema (id, nombre) "
+                    + "VALUES (?, ?)");
+            ps.setInt(1, sistema.getKey());
+            ps.setString(2, sistema.getDescripcion());
+            ps.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(JDBCDaoAnimal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    @Override
+    public void insertCalidad(Calidad calidad) {
+        try {
+            PreparedStatement ps;
+            ps = con.prepareStatement("INSERT INTO calidad (id, descripcion) "
+                    + "VALUES (?, ?)");
+            ps.setInt(1, calidad.getKey());
+            ps.setString(2, calidad.getDescripcion());
+            ps.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(JDBCDaoAnimal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
