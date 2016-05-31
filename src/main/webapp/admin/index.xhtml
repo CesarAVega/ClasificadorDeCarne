@@ -72,7 +72,7 @@
                                     <p:outputLabel for="nuevaLocalidad" value="Nueva Localidad: " />
                                     <p:inputText id="nuevaLocalidad" value="#{beanAdminRedNeuronal.descripcion}" required="true"/>                                        
                                     <p:column>
-                                        <p:commandButton type="submit" icon="ui-icon-help" action="#{beanAdminRedNeuronal.insertLocalidad()}" 
+                                        <p:commandButton type="submit" icon="ui-icon-help" actionListener="#{beanAdminRedNeuronal.insertLocalidad}" 
                                         update=":adminRedNeuronal:adminDB" onsuccess="PF('bar').show()" />       
                                                              
                                     </p:column>
@@ -156,7 +156,12 @@
                     
             </p:layoutUnit>                
             
-            
+            <p:layoutUnit position="south" >
+                <h:panelGrid columns="2" cellpadding="5">
+                    
+                </h:panelGrid>
+                
+            </p:layoutUnit>
             
             <p:notificationBar id="bar" position="top" effect="slide" styleClass="top" widgetVar="bar">                    
                 <h:outputText value="Su dato se ingreso con exito el id es: #{beanAdminRedNeuronal.id}" style="font-size:36px;" />
