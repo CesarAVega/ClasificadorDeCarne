@@ -10,166 +10,185 @@
             body{
                 background: mediumseagreen;
             }
-            
+                
             #p_dataTableid{
                 margin-top: 80px;
             }
         </style>
     </h:head>
     <body>
-        <h:form id="adminRedNeuronal" style="background: mediumseagreen">
+        <h:form id="adminRedNeuronal" style="background: mediumseagreen" enctype="multipart/form-data">
             
             <!--Encabezado de la pagina-->
-            <p:layoutUnit position="north" resizable = "false" size="100" minSize="80" maxSize="300" style="text-align: center;">
-                <h:outputText value="Bienvenido a la Página Principal del Clasificador de Carne" style="font-size: larger" />
+            <p:layoutUnit position="north" resizable = "false" size="500" minSize="500" maxSize="500" style="text-align: center;">
+                <p:panel>
+                    <h:outputText value="Administración del contenido de la red neuronal" style="font-size: larger" />    
+                </p:panel>
+                    
             </p:layoutUnit>  
             <!--panel central contiene la información de la red neuronal que se encuentra guardad en el archivo .nnet-->
-            <p:layoutUnit position="center">                    
+            <p:layoutUnit position="center" resizable = "true" size="500">                    
                 <h:panelGrid columns="2" cellpadding="5">
-                    <!--Columna 1 información de la red Neuronal-->
-                    <h:panelGrid columns="1" cellpadding="5">
-                        <!--Fila 1 encabezado-->
-                        <h:outputText value="Información de la Red Neuronal Base" />
-                        <!--Fila 2 información de la red Neuronla-->            
-                        <h:panelGrid columns="2" cellpadding="5">                                
+                    <p:column>
+                        <!--Columna 1 información de la red Neuronal-->
+                        <h:panelGrid columns="1" cellpadding="5">
+                            <!--Fila 1 encabezado-->
+                            <h:outputText value="Información de la Red Neuronal Base" />
+                            <!--Fila 2 información de la red Neuronla-->            
+                            <h:panelGrid columns="2" cellpadding="5">                                
+                                
+                                <h:outputText value="Archivo: "/>
+                                <h:outputText value="myMlPerceptron.nnet"/>
+                                    
+                                <h:outputText value="Porcentaje efecitividad: "/>
+                                <h:outputText value="#{beanAdminRedNeuronal.nnet.porcentajeEfectividad}"/>
+                                    
+                                <h:outputText value="Función de transferencia: "/>
+                                <h:outputText value="#{beanAdminRedNeuronal.nnet.transferFunctionType}"/>
+                                    
+                                <h:outputText value="Número de datos de entrada: "/> 
+                                <h:outputText value="#{beanAdminRedNeuronal.nnet.input}"/>
+                                    
+                                <h:outputText value="Número de datos de salida: "/>
+                                <h:outputText value="#{beanAdminRedNeuronal.nnet.output}"/>
+                                    
+                                <h:outputText value="Número de neuronas en capa oculta: "/>
+                                <h:outputText value="#{beanAdminRedNeuronal.nnet.k}"/>                                                                
+                            </h:panelGrid>
+                            <!--Fila 3 datos de la Red Nueronal--> 
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <p:commandButton value="Graficar" update="adminRedNeuronal" oncomplete="PF('Graficar').show()" />
+                                <p:commandButton value="Datos" update="adminRedNeuronal" oncomplete="PF('DataRed').show()" />    
+                            </h:panelGrid>
+                                
+                        </h:panelGrid>              
+                    </p:column>
+                    <p:column>
+                        <!-- Grid base columna 2-->
+                        <h:panelGrid  columns="1" cellpadding="5">
                             
-                            <h:outputText value="Archivo: "/>
-                            <h:outputText value="myMlPerceptron.nnet"/>
-                            
-                            <h:outputText value="Porcentaje efecitividad: "/>
-                            <h:outputText value="#{beanAdminRedNeuronal.nnet.porcentajeEfectividad}"/>
-                            
-                            <h:outputText value="Función de transferencia: "/>
-                            <h:outputText value="#{beanAdminRedNeuronal.nnet.transferFunctionType}"/>
-                            
-                            <h:outputText value="Número de datos de entrada: "/> 
-                            <h:outputText value="#{beanAdminRedNeuronal.nnet.input}"/>
-                            
-                            <h:outputText value="Número de datos de salida: "/>
-                            <h:outputText value="#{beanAdminRedNeuronal.nnet.output}"/>
-                            
-                            <h:outputText value="Número de neuronas en capa oculta: "/>
-                            <h:outputText value="#{beanAdminRedNeuronal.nnet.k}"/>                                                                
+                            <h:outputText value="Administración de la Base de datos" />
+                            <p:tabView orientation="left">
+                                <p:tab title="Localidad">
+                                    <p:toolbar >
+                                        <f:facet name="right">
+                                            <p:commandButton type="button" value="help" icon="ui-icon-help" onclick="PF('helpLocalidad').show()"/>                                            
+                                        </f:facet>                                        
+                                    </p:toolbar>
+                                    <h:panelGrid columns="3" cellpadding="5">                                        
+                                        <p:outputLabel for="nuevaLocalidad" value="Nueva Localidad: " />
+                                        <p:inputText id="nuevaLocalidad" value="#{beanAdminRedNeuronal.descripcion}" required="true"/>                                        
+                                        <p:column>
+                                            <p:commandButton value="Submit" actionListener="#{beanAdminRedNeuronal.insertLocalidad}" 
+                                                             update=":adminRedNeuronal" oncomplete="PF('messagesOK').show()">
+                                                                 
+                                                <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />  
+                                            </p:commandButton>
+                                        </p:column>
+                                    </h:panelGrid>
+                                </p:tab>      
+                                    
+                                <p:tab title="Grupo Racial">
+                                    <p:toolbar >
+                                        <f:facet name="right">
+                                            <p:commandButton type="button" value="help" icon="ui-icon-help" onclick="PF('helpGrupoRacial').show()"/>                                            
+                                        </f:facet>                                        
+                                    </p:toolbar>
+                                    <h:panelGrid columns="3" cellpadding="5">                                        
+                                        <p:outputLabel for="nuevoGrupoRacial" value="Nuevo Grupo Racial: " />
+                                        <p:inputText id="nuevoGrupoRacial" value="#{beanAdminRedNeuronal.descripcion}" required="true"/>                                        
+                                        <p:column>
+                                            <p:commandButton value="Submit" actionListener="#{beanAdminRedNeuronal.insertGrupoRacial}"  
+                                                             update=":adminRedNeuronal" oncomplete="PF('messagesOK').show()">       
+                                                <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />    
+                                            </p:commandButton>
+                                        </p:column>
+                                    </h:panelGrid>
+                                </p:tab>   
+                                    
+                                <p:tab title="Tipo">
+                                    <p:toolbar >
+                                        <f:facet name="right">
+                                            <p:commandButton type="button" value="help" icon="ui-icon-help" onclick="PF('helpTipo').show()"/>                                            
+                                        </f:facet>                                        
+                                    </p:toolbar>
+                                    <h:panelGrid columns="3" cellpadding="5">                                        
+                                        <p:outputLabel for="nuevoTipo" value="Nuevo Tipo: " />
+                                        <p:inputText id="nuevoTipo" value="#{beanAdminRedNeuronal.descripcion}" required="true"/>                                        
+                                        <p:column>
+                                            <p:commandButton value="Submit" actionListener="#{beanAdminRedNeuronal.insertTipo}" 
+                                                             update=":adminRedNeuronal" oncomplete="PF('messagesOK').show()">       
+                                                <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" /> 
+                                            </p:commandButton>
+                                        </p:column>
+                                    </h:panelGrid>
+                                </p:tab>   
+                                    
+                                <p:tab title="Sistema">
+                                    <p:toolbar >
+                                        <f:facet name="right">
+                                            <p:commandButton type="button" value="help" icon="ui-icon-help" onclick="PF('helpSistema').show()"/>                                            
+                                        </f:facet>                                        
+                                    </p:toolbar>
+                                    <h:panelGrid columns="3" cellpadding="5">                                        
+                                        <p:outputLabel for="nuevaSistema" value="Nuevo Sistema: " />
+                                        <p:inputText id="nuevaSistema" value="#{beanAdminRedNeuronal.descripcion}" required="true"/>                                        
+                                        <p:column>
+                                            <p:commandButton value="Submit" actionListener="#{beanAdminRedNeuronal.insertSistema}" 
+                                                             update=":adminRedNeuronal" oncomplete="PF('messagesOK').show()">       
+                                                <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                                            </p:commandButton>
+                                        </p:column>
+                                    </h:panelGrid>
+                                </p:tab>   
+                                    
+                                <p:tab title="Calidad">
+                                    <p:toolbar >
+                                        <f:facet name="right">
+                                            <p:commandButton type="button" value="help" icon="ui-icon-help" onclick="PF('helpCalidad').show()"/>                                            
+                                        </f:facet>                                        
+                                    </p:toolbar>
+                                    <h:panelGrid columns="3" cellpadding="5">                                        
+                                        <p:outputLabel for="nuevaCalidad" value="Nueva Calidad: " />
+                                        <p:inputText id="nuevaCalidad" value="#{beanAdminRedNeuronal.descripcion}" required="true"/>                                        
+                                        <p:column>
+                                            <p:commandButton value="Submit" actionListener="#{beanAdminRedNeuronal.insertCalidad}" 
+                                                             update=":adminRedNeuronal" oncomplete="PF('messagesOK').show()">
+                                                <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                                            </p:commandButton>                                                                
+                                        </p:column>
+                                    </h:panelGrid>
+                                </p:tab>   
+                                    
+                            </p:tabView>
                         </h:panelGrid>
-                        <!--Fila 3 datos de la Red Nueronal--> 
-                        <h:panelGrid columns="2" cellpadding="5">
-                            <p:commandButton value="Graficar" update="adminRedNeuronal" oncomplete="PF('Graficar').show()" />
-                            <p:commandButton value="Datos" update="adminRedNeuronal" oncomplete="PF('DataRed').show()" />    
-                        </h:panelGrid>
-                        
-                    </h:panelGrid>                              
-                    <!-- Grid base columna 2-->
-                    <h:panelGrid  columns="1" cellpadding="5">
-                        <h:outputText value="Administración de la Base de datos" />
-                        <p:tabView orientation="left">
-                            <p:tab title="Localidad">
-                                <p:toolbar >
-                                    <f:facet name="right">
-                                        <p:commandButton type="button" value="help" icon="ui-icon-help" onclick="PF('helpLocalidad').show()"/>                                            
-                                    </f:facet>                                        
-                                </p:toolbar>
-                                <h:panelGrid columns="3" cellpadding="5">                                        
-                                    <p:outputLabel for="nuevaLocalidad" value="Nueva Localidad: " />
-                                    <p:inputText id="nuevaLocalidad" value="#{beanAdminRedNeuronal.descripcion}" required="true"/>                                        
-                                    <p:column>
-                                        <p:commandButton type="submit" icon="ui-icon-help" actionListener="#{beanAdminRedNeuronal.insertLocalidad}" 
-                                        update=":adminRedNeuronal:adminDB" onsuccess="PF('bar').show()" />       
-                                                             
-                                    </p:column>
-                                </h:panelGrid>
-                            </p:tab>      
-                                
-                            <p:tab title="Grupo Racial">
-                                <p:toolbar >
-                                    <f:facet name="right">
-                                        <p:commandButton type="button" value="help" icon="ui-icon-help" onclick="PF('helpGrupoRacial').show()"/>                                            
-                                    </f:facet>                                        
-                                </p:toolbar>
-                                <h:panelGrid columns="3" cellpadding="5">                                        
-                                    <p:outputLabel for="nuevoGrupoRacial" value="Nuevo Grupo Racial: " />
-                                    <p:inputText id="nuevoGrupoRacial" value="#{beanAdminRedNeuronal.descripcion}" required="true"/>                                        
-                                    <p:column>
-                                        <p:commandButton type="submit" icon="ui-icon-help" action="#{beanAdminRedNeuronal.insertGrupoRacial()}" 
-                                        update=":adminRedNeuronal:adminDB" onsuccess="PF('bar').show()" />       
-                                                             
-                                    </p:column>
-                                </h:panelGrid>
-                            </p:tab>   
-                                
-                            <p:tab title="Tipo">
-                                <p:toolbar >
-                                    <f:facet name="right">
-                                        <p:commandButton type="button" value="help" icon="ui-icon-help" onclick="PF('helpTipo').show()"/>                                            
-                                    </f:facet>                                        
-                                </p:toolbar>
-                                <h:panelGrid columns="3" cellpadding="5">                                        
-                                    <p:outputLabel for="nuevoTipo" value="Nuevo Tipo: " />
-                                    <p:inputText id="nuevoTipo" value="#{beanAdminRedNeuronal.descripcion}" required="true"/>                                        
-                                    <p:column>
-                                        <p:commandButton type="submit" icon="ui-icon-help" action="#{beanAdminRedNeuronal.insertTipo()}" 
-                                        update=":adminRedNeuronal:adminDB" onsuccess="PF('bar').show()" />       
-                                                             
-                                    </p:column>
-                                </h:panelGrid>
-                            </p:tab>   
-                                
-                            <p:tab title="Sistema">
-                                <p:toolbar >
-                                    <f:facet name="right">
-                                        <p:commandButton type="button" value="help" icon="ui-icon-help" onclick="PF('helpSistema').show()"/>                                            
-                                    </f:facet>                                        
-                                </p:toolbar>
-                                <h:panelGrid columns="3" cellpadding="5">                                        
-                                    <p:outputLabel for="nuevaSistema" value="Nuevo Sistema: " />
-                                    <p:inputText id="nuevaSistema" value="#{beanAdminRedNeuronal.descripcion}" required="true"/>                                        
-                                    <p:column>
-                                        <p:commandButton type="submit" icon="ui-icon-help" action="#{beanAdminRedNeuronal.insertSistema()}" 
-                                        update=":adminRedNeuronal:adminDB" onsuccess="PF('bar').show()" />       
-                                                             
-                                    </p:column>
-                                </h:panelGrid>
-                            </p:tab>   
-                                
-                            <p:tab title="Calidad">
-                                <p:toolbar >
-                                    <f:facet name="right">
-                                        <p:commandButton type="button" value="help" icon="ui-icon-help" onclick="PF('helpCalidad').show()"/>                                            
-                                    </f:facet>                                        
-                                </p:toolbar>
-                                <h:panelGrid columns="3" cellpadding="5">                                        
-                                    <p:outputLabel for="nuevaCalidad" value="Nueva Calidad: " />
-                                    <p:inputText id="nuevaCalidad" value="#{beanAdminRedNeuronal.descripcion}" required="true"/>                                        
-                                    <p:column>
-                                        <p:commandButton type="submit" icon="ui-icon-help" action="#{beanAdminRedNeuronal.insertCalidad()}" 
-                                        update=":adminRedNeuronal:adminDB" onsuccess="PF('bar').show()" />       
-                                                             
-                                    </p:column>
-                                </h:panelGrid>
-                            </p:tab>   
-                                
-                        </p:tabView>
-                    </h:panelGrid>
-                        
+                    </p:column>
                         
                 </h:panelGrid>                    
-                    
-                    
             </p:layoutUnit>                
             
-            <p:layoutUnit position="south" >
-                <h:panelGrid columns="2" cellpadding="5">
-                    
-                </h:panelGrid>
+            <p:layoutUnit position="south" style="text-align: center" size="300">
+                <p:panel >
+                    <p:commandButton value="Entrenamiento" oncomplete="pages('entrenarRN.xhtml')" />    
+                </p:panel>
+                
                 
             </p:layoutUnit>
             
-            <p:notificationBar id="bar" position="top" effect="slide" styleClass="top" widgetVar="bar">                    
-                <h:outputText value="Su dato se ingreso con exito el id es: #{beanAdminRedNeuronal.id}" style="font-size:36px;" />
-                <p:commandButton value="Aceptar" onclick="PF('bar').hide()" type="button" icon="ui-icon-arrow-1-n"/>
-            </p:notificationBar>
                 
-                
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>    
             <!--===========================CUADROS DE DIALOGO=============================-->
+            
+            <p:dialog header="Dato ingresado" widgetVar="messagesOK" modal="true" showEffect="clip" hideEffect="clip" >
+                <h:panelGrid columns="2" cellpadding="5">                   
+                    <p:outputLabel value="Su dato se a ingresado con exito con el ID: " />
+                    <p:outputLabel value="#{beanAdminRedNeuronal.id}" />
+                </h:panelGrid>                                    
+            </p:dialog>
+            
             <p:dialog header="Datos de la Red Neuronal" widgetVar="Graficar" modal="true" showEffect="fade" hideEffect="fade" resizable="true" width = "850" height="500">
                 <h:panelGrid columns="1" cellpadding="5">
                     <p:column>
@@ -389,7 +408,16 @@
                     </p:dataTable>
                 </h:panelGrid>
             </p:dialog>
+            
+            
         </h:form>
+                <!-- Script para el paso de paginas-->
+        <script type="text/javascript">
+            function pages(url) {  
+                window.location = url;            
+            }
+        </script>
         
     </body>
+    
 </html>

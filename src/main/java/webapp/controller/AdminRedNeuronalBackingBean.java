@@ -12,6 +12,11 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ManagedBean;
 import org.primefaces.model.chart.LineChartModel;
 import services.ServicesFacade;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.servlet.annotation.MultipartConfig;
 
 /**
  *
@@ -19,6 +24,7 @@ import services.ServicesFacade;
  */
 @ManagedBean(name = "beanAdminRedNeuronal")
 @SessionScoped
+@MultipartConfig
 public class AdminRedNeuronalBackingBean implements Serializable{
     
     private static final ServicesFacade sp = ServicesFacade.getInstance("applicationconfig.properties");
@@ -93,6 +99,7 @@ public class AdminRedNeuronalBackingBean implements Serializable{
         sp.insertLocalidad(localidad);
         localidades = sp.getTodosLocalidad();        
         descripcion = null;
+        mensaje("Localidad");
     }
     
     public void insertGrupoRacial(){        
@@ -101,6 +108,7 @@ public class AdminRedNeuronalBackingBean implements Serializable{
         sp.insertGrupoRacial(grupoRacial);
         grupoRaciales = sp.getTodosGrupoRacial();        
         descripcion = null;
+        mensaje("Grupo Racial");
     }
     
     public void insertTipo(){
@@ -109,6 +117,7 @@ public class AdminRedNeuronalBackingBean implements Serializable{
         sp.insertTipo(tipo);
         tipos = sp.getTodosTipo();        
         descripcion = null;
+        mensaje("Tipo");
     }
     
     public void insertSistema(){
@@ -117,6 +126,7 @@ public class AdminRedNeuronalBackingBean implements Serializable{
         sp.insertSistema(sistema);
         sistemas = sp.getTodosSistema();        
         descripcion = null;
+        mensaje("Sistema");
     }
     
     public void insertCalidad(){
@@ -125,6 +135,37 @@ public class AdminRedNeuronalBackingBean implements Serializable{
         sp.insertCalidad(calidad);
         calidades = sp.getTodosCalidad();        
         descripcion = null;
+        mensaje("Calidad");
     }
     
+    
+    private UploadedFile file;
+ 
+    public UploadedFile getFile() {
+        return file;
+    }
+ 
+    public void setFile(UploadedFile file) {
+        this.file = file;
+    }
+    
+    FacesContext context = FacesContext.getCurrentInstance();
+    
+    public void handleFileUpload(FileUploadEvent event) {
+        if(file != null){
+            file = event.getFile();
+            addMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
+        }
+
+    }
+    
+    private void mensaje(String mgs){
+        FacesMessage message = new FacesMessage("Su "+mgs+" ha sido ingresado con exito el id es: "+id);
+        context.addMessage(null, message);
+    }
+     
+    public void addMessage(String summary, String detail) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
 }

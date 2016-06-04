@@ -6,7 +6,9 @@
         <title>Login</title>
         <style type="text/css">
             body{
-                background: mediumseagreen;
+                background-image:url(resources/images/login-bg.jpg);
+                background-repeat:no-repeat;
+                background-size:100% 100%;
             }
         </style>
     </h:head> 
@@ -15,7 +17,7 @@
         <h:form>
             <p:growl id="mensajes" sticky="true" showDetail="true" life="3000" />
                 
-            <p:panel header="Login" style="width:350px">
+            <p:panel header="Login" style="width:350px;">
                 <h:panelGrid columns="2" cellpadding="5">
                     <h:outputLabel for="username" value="Usuario:" />
                     <p:inputText value="#{loginBean.nombre}" id="username" required="true" label="username" />
@@ -28,6 +30,8 @@
                     </f:facet>
                 </h:panelGrid>
             </p:panel>
+                
+                
         </h:form>
             
         <!-- Dialogo de loging-->
