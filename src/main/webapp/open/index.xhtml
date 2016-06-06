@@ -405,13 +405,13 @@
                     <p:outputLabel id="grosorDeGrasaDorsalKey" value="#{beanConsulta.grosorDeGrasaDorsal}"/>
                     
                 </p:panelGrid>
-                <p:commandButton action="#{beanConsulta.obtenerCalidad}" onclick="PF('verificar').show()">
+                <p:commandLink action="#{beanConsulta.obtenerCalidad}" onclick="PF('verificar').show()">
                     <p:graphicImage library="images" name="buttons/Aceptar.png" />
-                </p:commandButton>
+                </p:commandLink>
                 
-                <p:commandButton update="consulta">
+                <p:commandLink update="consulta">
                     <p:graphicImage library="images" name="buttons/Cancelar.png" />
-                </p:commandButton>
+                </p:commandLink>
             </p:dialog>
             <p:dialog widgetVar="verificar" modal="true" resizable="false" header="Values" showEffect="fade">
                 <p:outputLabel value="Calidad: " />
