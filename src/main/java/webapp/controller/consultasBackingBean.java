@@ -21,7 +21,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -31,7 +30,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.servlet.annotation.MultipartConfig;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -44,8 +42,7 @@ import services.ServicesFacade;
  */
 @ManagedBean(name = "beanConsulta")
 @SessionScoped
-@MultipartConfig
-public class consultasBackingBean implements Serializable{
+public class consultasBackingBean{
     
     //información del animal
     private int edad;
@@ -268,7 +265,7 @@ public class consultasBackingBean implements Serializable{
         FacesMessage message = new FacesMessage("Enhorabuena ", event.getFile().getFileName() + " está cargado.");
         FacesContext.getCurrentInstance().addMessage(null, message);
         obtenerCalidades();
-        guardarCalidades();
+        guardarCalidades();        
     }
     
     /**
@@ -340,7 +337,7 @@ public class consultasBackingBean implements Serializable{
         BufferedWriter bwr;
         try {
             bwr = new BufferedWriter(new FileWriter("clasificados.txt"));
-            for (Animal animales : data) {
+            for (Animal animales : data) {                
                 // escrive en la linea del archivo el texto
                 bwr.write(animales.getCarne().getCalidad().getDescripcion());
                 //Cambia de linea
