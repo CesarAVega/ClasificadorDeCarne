@@ -5,6 +5,7 @@
       xmlns:p="http://primefaces.org/ui" >
     <h:head>
         <title>Consulta</title>
+        <link rel="stylesheet" href="font-awesome-4.6.3/css/font-awesome.min.css"></link>
         <style type="text/css">
             body{
                 background: mediumseagreen;
@@ -17,11 +18,22 @@
             <!-- -->
             <p:layout>
                 <!-- -->
-                <p:layoutUnit position="north" resizable = "false" size="50" minSize="50" maxSize="50" style="text-align: center;  background: mediumseagreen">
-                    <h:outputText value="Consulta Clasificador de Carne" style="font-size: larger" />
+                <p:layoutUnit position="north" resizable = "false" size="79" minSize="79" maxSize="79" style="text-align: center;  background: mediumseagreen">
+                    <p:layout>
+                        <p:layoutUnit position="center" resizable = "false" size="50" minSize="50" maxSize="50" style="text-align: center;  background: mediumseagreen">
+                            <h:outputText value="Consulta Clasificador de Carne" style="font-size: larger" />
+                        </p:layoutUnit>
+                        <p:layoutUnit position="west" resizable = "false" size="150"  style="text-align: center;  background: mediumseagreen">                            
+                            <h:panelGrid columns="1">
+                                <p:commandLink oncomplete="pages('index.xhtml')" >
+                                    <p:graphicImage library="images" name="buttons/Atras.png" /> 
+                                </p:commandLink>
+                            </h:panelGrid>
+                        </p:layoutUnit>
+                    </p:layout>
                 </p:layoutUnit>
                 <!-- -->
-                <p:layoutUnit position="center" size="600" style="text-align: center;  background: #009933">
+                <p:layoutUnit position="center" size="1300" style="text-align: center;  background: #009933">
                     <!--Visualización de los datos que se necesitan para hacer una consulta se divide en 3 clases
                         Esta es la del animal-->
                     <p:tabView dynamic="true" cache="true">
@@ -34,7 +46,7 @@
                                         <h:panelGrid columns="2" cellpadding="5">
                                             <!--Columna 1 para ingresar los datos de la edad del animal-->
                                             <h:panelGrid columns="2" cellpadding="5">
-                                                <p:outputLabel for="edad" value="Edad: " />
+                                                <p:outputLabel for="edad" value="Edad: "/>
                                                 <p:inputText id="edad" value="#{beanConsulta.edad}"/>                                                          
                                             </h:panelGrid>
                                             <!--Columna 2 para visualizar la descripción de atributo-->
@@ -151,40 +163,208 @@
                             </h:panelGrid>
                         </p:tab>
                         <p:tab title="Información de la carne">
-                            
+                            <!--panel base-->
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <!--Acordion del tab contiene los datos que necesita para crear una animal-->
+                                <p:accordionPanel dynamic="true" cache="true">                        
+                                    <p:tab title="Medidas">
+                                        <h:panelGrid columns="2" cellpadding="5">
+                                            <p:accordionPanel dynamic="true" cache="true">
+                                                <p:tab title="Peso Canal Frio Derecho">
+                                                    <h:panelGrid columns="2" cellpadding="5">
+                                                        <!--Columna 1 para ingresar los datos del peso canal frio derecho-->
+                                                        <h:panelGrid columns="2" cellpadding="5">
+                                                            <p:outputLabel for="pesoCanalFrioDer" value="Peso Canal Frio Derecho: " />
+                                                            <p:inputText id="pesoCanalFrioDer" value="#{beanConsulta.pesoCanalFrioDer}"/>
+                                                        </h:panelGrid>
+                                                        <!--Columna 2 para visualizar la descripción de atributo-->
+                                                        <h:outputText
+                                                            value="Es el peso de la canal frio derecho en KG" />
+                                                    </h:panelGrid>
+                                                </p:tab>
+                                                <p:tab title="Peso Canal Frio Izquierdo">
+                                                    <h:panelGrid columns="2" cellpadding="5">
+                                                        <!--Columna 1 para ingresar los datos del peso canal frio izquierdo-->
+                                                        <h:panelGrid columns="2" cellpadding="5">
+                                                            <p:outputLabel for="pesoCanalFrioIzq" value="Peso Canal Frio Izquierdo: " />
+                                                            <p:inputText id="pesoCanalFrioIzq" value="#{beanConsulta.pesoCanalFrioIzq}"/>                                                        
+                                                        </h:panelGrid>
+                                                        <!--Columna 2 para visualizar la descripción de atributo-->
+                                                        <h:outputText
+                                                            value="Es el peso de la canal frio izquierdo en KG" />
+                                                    </h:panelGrid>
+                                                </p:tab>
+                                                <p:tab title="Ojo de chuleta">
+                                                    <h:panelGrid columns="2" cellpadding="5">
+                                                        <!--Columna 1 para ingresar los datos del ojo de chuleta del animal-->
+                                                        <h:panelGrid columns="2" cellpadding="5">
+                                                            <p:outputLabel for="ojoDeLaChuleta" value="Ojo de la chuleta: " />
+                                                            <p:inputText id="ojoDeLaChuleta" value="#{beanConsulta.ojoDeLaChuleta}"/>                                                          
+                                                        </h:panelGrid>
+                                                        <!--Columna 2 para visualizar la descripción de atributo-->
+                                                        <h:outputText
+                                                            value="Es el area del ojo de chuleta en cm2" />
+                                                    </h:panelGrid>
+                                                </p:tab>
+                                                <p:tab title="Grosor de Grasa Dorsal">
+                                                    <h:panelGrid columns="2" cellpadding="5">
+                                                        <!--Columna 1 para ingresar los datos del grosor de la grasa dorzal del animal-->
+                                                        <h:panelGrid columns="2" cellpadding="5">
+                                                            <p:outputLabel for="grosorDeGrasaDorsal" value="Grosor de Grasa Dorsal: " />
+                                                            <p:inputText id="grosorDeGrasaDorsal" value="#{beanConsulta.grosorDeGrasaDorsal}"/>                                                         
+                                                        </h:panelGrid>
+                                                        <!--Columna 2 para visualizar la descripción de atributo-->
+                                                        <h:outputText
+                                                            value="Es la medida del grosor de grasa dorsal en ml" />
+                                                    </h:panelGrid>
+                                                </p:tab>
+                                            </p:accordionPanel>
+                                        </h:panelGrid>
+                                    </p:tab>
+                                    <p:tab title="Calidad Atributos">
+                                        <h:panelGrid columns="2" cellpadding="5">
+                                            <p:accordionPanel dynamic="true" cache="true">
+                                                <p:tab title="Conformación Canal">
+                                                    <h:panelGrid columns="2" cellpadding="5">
+                                                        <!--Columna 1 para ingresar los datos de la Conformación Canal del animal-->
+                                                        <h:panelGrid columns="2" cellpadding="5">
+                                                            <p:outputLabel for="conformacionCanal" value="Conformación Canal: " />
+                                                            <p:inputText id="conformacionCanal" value="#{beanConsulta.conformacionCanal}"/>                                                          
+                                                        </h:panelGrid>
+                                                        <!--Columna 2 para visualizar la descripción de atributo-->
+                                                        <h:panelGrid columns="1" cellpadding="5">
+                                                            <!--Encabesado de la tabla-->
+                                                            <p:outputLabel value="La calidad de la Conformación Canal puede ser:" />
+                                                            <!--Columna 2 para visualiza una tabla con los datos que hay en la base de datos pertenecientes a la calidad de animal-->
+                                                            <p:dataTable var="todosCalidad" value="#{beanConsulta.todosCalidad}" sortBy="#{todosCalidad.key}">
+                                                                <p:column  headerText="ID">
+                                                                    <h:outputText value="#{todosCalidad.key}" />
+                                                                </p:column>                                                
+                                                                <p:column headerText="Descripción">
+                                                                    <h:outputText value="#{todosCalidad.descripcion}" />
+                                                                </p:column>
+                                                            </p:dataTable>                                                         
+                                                        </h:panelGrid>
+                                                    </h:panelGrid>
+                                                </p:tab>
+                                                <p:tab title="Distribución Grasa Subcutánea">
+                                                    <h:panelGrid columns="2" cellpadding="5">
+                                                        <!--Columna 1 para ingresar los datos de la Distribución Grasa Subcutánea del animal-->
+                                                        <h:panelGrid columns="2" cellpadding="5">
+                                                            <p:outputLabel for="distribucionGrasaSubcutanea" value="Distribución Grasa Subcutánea: " />
+                                                            <p:inputText id="distribucionGrasaSubcutanea" value="#{beanConsulta.distribucionGrasaSubcutanea}"/>                                                          
+                                                        </h:panelGrid>
+                                                        <!--Columna 2 para visualizar la descripción de atributo-->
+                                                        <h:panelGrid columns="1" cellpadding="5">
+                                                            <!--Encabesado de la tabla-->
+                                                            <p:outputLabel value="La calidad de la Distribución Grasa Subcutánea puede ser:" />
+                                                            <!--Columna 2 para visualiza una tabla con los datos que hay en la base de datos pertenecientes a la calidad de animal-->
+                                                            <p:dataTable var="todosCalidad" value="#{beanConsulta.todosCalidad}" sortBy="#{todosCalidad.key}">
+                                                                <p:column  headerText="ID">
+                                                                    <h:outputText value="#{todosCalidad.key}" />
+                                                                </p:column>                                                
+                                                                <p:column headerText="Descripción">
+                                                                    <h:outputText value="#{todosCalidad.descripcion}" />
+                                                                </p:column>
+                                                            </p:dataTable>                                                         
+                                                        </h:panelGrid>
+                                                    </h:panelGrid>
+                                                </p:tab>
+                                                <p:tab title="Grasa Perirrenal">
+                                                    <h:panelGrid columns="2" cellpadding="5">
+                                                        <!--Columna 1 para ingresar los datos de la Grasa Perirrenal del animal-->
+                                                        <h:panelGrid columns="2" cellpadding="5">
+                                                            <p:outputLabel for="grasaPerirrenal" value="Grasa Perirrenal: " />
+                                                            <p:inputText id="grasaPerirrenal" value="#{beanConsulta.grasaPerirrenal}"/>                                                          
+                                                        </h:panelGrid>
+                                                        <!--Columna 2 para visualizar la descripción de atributo-->
+                                                        <h:panelGrid columns="1" cellpadding="5">
+                                                            <!--Encabesado de la tabla-->
+                                                            <p:outputLabel value="La calidad de la Grasa Perirrenal puede ser:" />
+                                                            <!--Columna 2 para visualiza una tabla con los datos que hay en la base de datos pertenecientes a la calidad de animal-->
+                                                            <p:dataTable var="todosCalidad" value="#{beanConsulta.todosCalidad}" sortBy="#{todosCalidad.key}">
+                                                                <p:column  headerText="ID">
+                                                                    <h:outputText value="#{todosCalidad.key}" />
+                                                                </p:column>                                                
+                                                                <p:column headerText="Descripción">
+                                                                    <h:outputText value="#{todosCalidad.descripcion}" />
+                                                                </p:column>
+                                                            </p:dataTable>                                                         
+                                                        </h:panelGrid>                                                        
+                                                    </h:panelGrid>
+                                                </p:tab>
+                                                <p:tab title="Color Grasa">
+                                                    <h:panelGrid columns="2" cellpadding="5">
+                                                        <!--Columna 1 para ingresar los datos del Color de la Grasa del animal-->
+                                                        <h:panelGrid columns="2" cellpadding="5">
+                                                            <p:outputLabel for="colorGrasa" value="Color Grasa: " />
+                                                            <p:inputText id="colorGrasa" value="#{beanConsulta.colorGrasa}"/>                                                         
+                                                        </h:panelGrid>
+                                                        <!--Columna 2 para visualizar la descripción de atributo-->
+                                                        <h:panelGrid columns="1" cellpadding="5">
+                                                            <!--Encabesado de la tabla-->
+                                                            <p:outputLabel value="La calidad del color de la grasa puede ser:" />
+                                                            <!--Columna 2 para visualiza una tabla con los datos que hay en la base de datos pertenecientes a la calidad de animal-->
+                                                            <p:dataTable var="todosCalidad" value="#{beanConsulta.todosCalidad}" sortBy="#{todosCalidad.key}">
+                                                                <p:column  headerText="ID">
+                                                                    <h:outputText value="#{todosCalidad.key}" />
+                                                                </p:column>                                                
+                                                                <p:column headerText="Descripción">
+                                                                    <h:outputText value="#{todosCalidad.descripcion}" />
+                                                                </p:column>
+                                                            </p:dataTable>                                                         
+                                                        </h:panelGrid>
+                                                    </h:panelGrid>
+                                                </p:tab>
+                                                <p:tab title="Color Carne">
+                                                    <h:panelGrid columns="2" cellpadding="5">
+                                                        <!--Columna 1 para ingresar los datos del color de la carne del animal-->
+                                                        <h:panelGrid columns="2" cellpadding="5">
+                                                            <p:outputLabel for="colorCarne" value="Color Carne: " />
+                                                            <p:inputText id="colorCarne" value="#{beanConsulta.colorCarne}"/>                                                         
+                                                        </h:panelGrid>
+                                                        <!--Columna 2 para visualizar la descripción de atributo-->
+                                                        <h:panelGrid columns="1" cellpadding="5">
+                                                            <!--Encabesado de la tabla-->
+                                                            <p:outputLabel value="La calidad del color de la carne puede ser:" />
+                                                            <!--Columna 2 para visualiza una tabla con los datos que hay en la base de datos pertenecientes a la calidad de animal-->
+                                                            <p:dataTable var="todosCalidad" value="#{beanConsulta.todosCalidad}" sortBy="#{todosCalidad.key}">
+                                                                <p:column  headerText="ID">
+                                                                    <h:outputText value="#{todosCalidad.key}" />
+                                                                </p:column>                                                
+                                                                <p:column headerText="Descripción">
+                                                                    <h:outputText value="#{todosCalidad.descripcion}" />
+                                                                </p:column>
+                                                            </p:dataTable>                                                         
+                                                        </h:panelGrid>
+                                                    </h:panelGrid>
+                                                </p:tab>
+                                            </p:accordionPanel>
+                                        </h:panelGrid>
+                                    </p:tab>
+                                </p:accordionPanel>                                                                                                      
+                            </h:panelGrid>
                         </p:tab>
                     </p:tabView>    
                         
-                    
-                    <h:panelGrid columns="2" cellpadding="5">                        
-
-                            
-                        <p:outputLabel for="conformacionCanal" value="Conformación Canal: " />
-                        <p:inputText id="conformacionCanal" value="#{beanConsulta.conformacionCanal}"/>
-                        <p:outputLabel for="distribucionGrasaSubcutanea" value="Distribución Grasa Subcutánea: " />
-                        <p:inputText id="distribucionGrasaSubcutanea" value="#{beanConsulta.distribucionGrasaSubcutanea}"/>
-                        <p:outputLabel for="grasaPerirrenal" value="Grasa Perirrenal: " />
-                        <p:inputText id="grasaPerirrenal" value="#{beanConsulta.grasaPerirrenal}"/>
-                        <p:outputLabel for="colorGrasa" value="Color Grasa: " />
-                        <p:inputText id="colorGrasa" value="#{beanConsulta.colorGrasa}"/>
-                        <p:outputLabel for="colorCarne" value="Color Carne: " />
-                        <p:inputText id="colorCarne" value="#{beanConsulta.colorCarne}"/>
-                            
-                        <p:outputLabel for="pesoCanalFrioDer" value="Peso Canal Frio Derecho: " />
-                        <p:inputText id="pesoCanalFrioDer" value="#{beanConsulta.pesoCanalFrioDer}"/>
-                        <p:outputLabel for="pesoCanalFrioIzq" value="Peso Canal Frio Izquierdo: " />
-                        <p:inputText id="pesoCanalFrioIzq" value="#{beanConsulta.pesoCanalFrioIzq}"/>
-                        <p:outputLabel for="ojoDeLaChuleta" value="Ojo de la chuleta: " />
-                        <p:inputText id="ojoDeLaChuleta" value="#{beanConsulta.ojoDeLaChuleta}"/>
-                        <p:outputLabel for="grosorDeGrasaDorsal" value="Grosor de Grasa Dorsal: " />
-                        <p:inputText id="grosorDeGrasaDorsal" value="#{beanConsulta.grosorDeGrasaDorsal}"/>
-                            
-                        <p:commandButton value="Reset" type="reset" />
-                        <p:commandButton value="Submit" update="display" oncomplete="PF('dlg').show()"/>
+                        
+                    <h:panelGrid columns="3" cellpadding="5">                            
+                        <p:commandLink type="reset" >
+                            <p:graphicImage library="images" name="buttons/Reset.png" />
+                        </p:commandLink>
+                        <p:commandLink update="consulta">
+                            <p:graphicImage library="images" name="buttons/Actualizar.png" />
+                        </p:commandLink>
+                        <p:commandLink oncomplete="PF('dlg').show()" update="display">
+                            <p:graphicImage library="images" name="buttons/Submit.png" />
+                        </p:commandLink>
+                        <p:commandLink oncomplete="pages('cargar.xhtml')" >
+                            <p:graphicImage library="images" name="buttons/Cargar.png" /> 
+                        </p:commandLink>
+                        <p:commandLink oncomplete="pages('guardar.xhtml')" >
+                            <p:graphicImage library="images" name="buttons/Guardar.png" /> 
+                        </p:commandLink>
                     </h:panelGrid>
-                </p:layoutUnit>
-                <p:layoutUnit position="south" size="200">
-                    <p:outputLabel value="Grosor de Grasa Dorsal: " />
                 </p:layoutUnit>
             </p:layout>
                 
@@ -223,9 +403,26 @@
                     <p:outputLabel id="ojoDeLaChuletaKey" value="#{beanConsulta.ojoDeLaChuleta}"/>
                     <p:outputLabel value="Grosor de Grasa Dorsal: " />
                     <p:outputLabel id="grosorDeGrasaDorsalKey" value="#{beanConsulta.grosorDeGrasaDorsal}"/>
+                    
                 </p:panelGrid>
-            </p:dialog>
+                <p:commandButton action="#{beanConsulta.obtenerCalidad}" onclick="PF('verificar').show()">
+                    <p:graphicImage library="images" name="buttons/Aceptar.png" />
+                </p:commandButton>
                 
+                <p:commandButton update="consulta">
+                    <p:graphicImage library="images" name="buttons/Cancelar.png" />
+                </p:commandButton>
+            </p:dialog>
+            <p:dialog widgetVar="verificar" modal="true" resizable="false" header="Values" showEffect="fade">
+                <p:outputLabel value="Calidad: " />
+                <p:outputLabel id="calidad" value="#{beanConsulta.calidad.descripcion}"/>
+            </p:dialog>
         </h:form>
+            
+        <script type="text/javascript">
+            function pages(url) {  
+                window.location = url;            
+            }
+        </script>
     </h:body>
 </html>

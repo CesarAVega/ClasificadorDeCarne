@@ -91,6 +91,7 @@ public class AdminRedNeuronalBackingBean implements Serializable{
     
     public void insertLocalidad(){
         if(descripcion != null){
+            localidades = getLocalidades();
             id = localidades.get(localidades.size()-1).getKey()+1;
             Localidad localidad = new Localidad(id, descripcion);
             sp.insertLocalidad(localidad);
@@ -102,6 +103,7 @@ public class AdminRedNeuronalBackingBean implements Serializable{
     
     public void insertGrupoRacial(){
         if(descripcion != null){
+            grupoRaciales = getGrupoRaciales();
             id = grupoRaciales.get(grupoRaciales.size()-1).getKey()+1;
             GrupoRacial grupoRacial = new GrupoRacial(id, descripcion);
             sp.insertGrupoRacial(grupoRacial);
@@ -113,6 +115,7 @@ public class AdminRedNeuronalBackingBean implements Serializable{
     
     public void insertTipo(){
         if(descripcion != null){
+            tipos = getTipos();
             id = tipos.get(tipos.size()-1).getKey()+1;
             Tipo tipo = new Tipo(id, descripcion);
             sp.insertTipo(tipo);
@@ -124,6 +127,7 @@ public class AdminRedNeuronalBackingBean implements Serializable{
     
     public void insertSistema(){
         if(descripcion != null){
+            sistemas = getSistemas();
             id = sistemas.get(sistemas.size()-1).getKey()+1;
             Sistema sistema = new Sistema(id, descripcion);
             sp.insertSistema(sistema);
