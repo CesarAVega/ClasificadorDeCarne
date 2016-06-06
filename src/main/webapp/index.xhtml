@@ -15,20 +15,26 @@
         <h:form id="pagina_principal" style="background: mediumseagreen">
             <p:layout fullPage="true">
                 <p:layoutUnit position="north" resizable = "false" size="100" minSize="80" maxSize="300" style="text-align: center;">
-                    <h:outputText value="Bienvenido a la Página Principal del Clasificador de Carne" style="font-size: larger" />
-                    <br></br>
-                    <h:outputText value="Por Favor, Seleccione una opción: " style="font-size: large" />
+                    <p:panel>
+                        <h:outputText value="Bienvenido a la Página Principal del Clasificador de Carne" style="font-size: larger" />    
+                    </p:panel>
+                                       
                 </p:layoutUnit>
                 <p:layoutUnit position="center" resizable = "false" style="text-align: center;">
-                    <br></br>                    
-                    <p:commandButton value="Administración" oncomplete="pages('admin/index.xhtml')" 
-                                     onstart="PF('loadpag').show()" onsuccess="PF('loadpag').hide()" />                    
-                    <br></br>
-                    <br></br>
-                    <p:commandButton value="Consultar" oncomplete="pages('open/index.xhtml')" 
-                                     onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"/>
-                    <br></br>
-                    <br></br>
+                    <p:panel >
+                        <p:column>
+                            <p:commandLink oncomplete="pages('login.xhtml')" 
+                                           onstart="PF('loadpag').show()" onsuccess="PF('loadpag').hide()" >
+                                <p:graphicImage library="images" name="buttons/Administracion.png" />               
+                            </p:commandLink> 
+                        </p:column>
+                        <p:column>
+                            <p:commandLink oncomplete="pages('open/index.xhtml')" 
+                                           onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()">
+                                <p:graphicImage library="images" name="buttons/Consultar.png" /> 
+                            </p:commandLink>
+                        </p:column>
+                    </p:panel>
                 </p:layoutUnit>
                 <p:layoutUnit position="south" header="Desarrolladores" resizable="false" size="300" style="text-align: center">                                        
                     <p:panel>

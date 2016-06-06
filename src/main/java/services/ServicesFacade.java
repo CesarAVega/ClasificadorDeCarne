@@ -7,11 +7,13 @@ package services;
 
 import entities.*;
 import entities.Graficador.Graficador;
+import entities.clasificadordecarnederes.ClasificadorDeCarneDeRes;
 import java.io.*;
 import java.sql.*;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.neuroph.core.data.DataSet;
 import org.neuroph.core.data.DataSetRow;
 import org.primefaces.model.chart.LineChartModel;
 import persistence.*;
@@ -504,7 +506,7 @@ public class ServicesFacade {
         int i = 1;
         for (double[] d: data){
             ans.add(vectorToAnimal(i++, d));
-        }    
+        }
         return ans;
     }
     
@@ -514,17 +516,17 @@ public class ServicesFacade {
      * @param d vector de propiedades del animal
      * @return Animal con las caracteristicas del vector
      */
-    public Animal vectorToAnimal(int id,double[] d){            
+    public Animal vectorToAnimal(int id,double[] d){
         ArrayList<AtributoCarne> ac = new ArrayList<>();
-        for(int i = 0; i < atributos.size(); i++){               
-            ac.add(new AtributoCarne(atributos.get(i).getKey(), atributos.get(i).getDescripcion(), calidades.get((int)d[5+atributos.get(i).getKey()]-1)));            
-        }        
+        for(int i = 0; i < atributos.size(); i++){
+            ac.add(new AtributoCarne(atributos.get(i).getKey(), atributos.get(i).getDescripcion(), calidades.get((int)d[5+atributos.get(i).getKey()]-1)));
+        }
         Carne carne = new Carne(d[11], d[12], d[13], d[14], ac, calidades.get((int)d[15]-1));
         Animal animal = new Animal(id, tipos.get((int)d[2]-1), (int)d[4], (int)d[5], localidades.get((int)d[0]-1), carne, gruposRaciales.get((int)d[1]-1), sistemas.get((int)d[3]-1));
         return animal;
     }
     
-    /**************** GRAFICADOR *******************************/   
+    /**************** GRAFICADOR *******************************/
     
     /**
      * Obtiene un objeto graficador para se usado por la capa de presentación
@@ -535,5 +537,6 @@ public class ServicesFacade {
         if(calidades == null){ getTodosCalidad();}
         return graficador.getLineChartModel(calidades);
     }
+    
      
 }

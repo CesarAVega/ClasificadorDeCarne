@@ -17,18 +17,37 @@
         <h:form>
             <p:growl id="mensajes" sticky="true" showDetail="true" life="3000" />
                 
-            <p:panel header="Login" style="width:350px;">
-                <h:panelGrid columns="2" cellpadding="5">
+            <p:panel header="Login" style="width:500px;">
+                <h:panelGrid columns="1" cellpadding="5">
+                    <h:panelGrid columns="2" cellpadding="5">
                     <h:outputLabel for="username" value="Usuario:" />
                     <p:inputText value="#{loginBean.nombre}" id="username" required="true" label="username" />
                     <h:outputLabel for="password" value="Clave:" />
                     <p:password value="#{loginBean.clave}" id="password" required="true" label="password" />
-                    <f:facet name="footer">
-                        <p:commandButton value="Login" update="mensajes" actionListener="#{loginBean.login}" 
-                                         oncomplete="manejarLogin(xhr, status, args)" 
-                                         onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"/>
-                    </f:facet>
+                        
+                    </h:panelGrid>
+                    <h:panelGrid columns="3" cellpadding="5">
+                        <p:column >                  
+                            <p:commandLink update="mensajes" actionListener="#{loginBean.login}" 
+                                             oncomplete="manejarLogin(xhr, status, args)" 
+                                             onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" >
+                                <p:graphicImage library="images" name="buttons/Ingresar.png" />
+                            </p:commandLink>
+                        </p:column>
+                        <p:column >                     
+                            <p:commandLink >
+                                <p:graphicImage library="images" name="buttons/Registrarse.png" />
+                            </p:commandLink>
+                        </p:column>
+                        <p:column >                   
+                            <p:commandLink oncomplete="pages('index.xhtml')">
+                                <p:graphicImage library="images" name="buttons/Atras.png" />
+                            </p:commandLink> 
+                                             
+                        </p:column>
                 </h:panelGrid>
+                </h:panelGrid>
+                
             </p:panel>
                 
                 
@@ -46,6 +65,12 @@
                         window.location = args.view;
                     }, 500);
                 }            
+            }
+        </script>
+                        <!-- Script para el paso de paginas-->
+        <script type="text/javascript">
+            function pages(url) {  
+                window.location = url;            
             }
         </script>
     </h:body>

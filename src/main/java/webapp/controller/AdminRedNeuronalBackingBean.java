@@ -12,10 +12,6 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ManagedBean;
 import org.primefaces.model.chart.LineChartModel;
 import services.ServicesFacade;
-import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.UploadedFile;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.servlet.annotation.MultipartConfig;
 
 /**
@@ -29,7 +25,7 @@ public class AdminRedNeuronalBackingBean implements Serializable{
     
     private static final ServicesFacade sp = ServicesFacade.getInstance("applicationconfig.properties");
     
-    private static final RedNeuronal nnet = sp.getNnet();
+    private final RedNeuronal nnet = sp.getNnet();
 
     public RedNeuronal getNnet() {
         return nnet;
@@ -42,36 +38,36 @@ public class AdminRedNeuronalBackingBean implements Serializable{
         return lineModel;    
     }
     
-    private static Set<Animal> data = sp.vectorToAnimalAll(nnet.getData());
+    private Set<Animal> data = sp.vectorToAnimalAll(nnet.getData());
 
     public Set<Animal> getTable() {
         return data;
     }
 
-    private static ArrayList<Localidad> localidades = sp.getTodosLocalidad();
-    private static ArrayList<GrupoRacial> grupoRaciales = sp.getTodosGrupoRacial();
-    private static ArrayList<Calidad> calidades = sp.getTodosCalidad();
-    private static ArrayList<Tipo> tipos = sp.getTodosTipo();
-    private static ArrayList<Sistema> sistemas = sp.getTodosSistema();
+    private ArrayList<Localidad> localidades;
+    private ArrayList<GrupoRacial> grupoRaciales;
+    private ArrayList<Calidad> calidades;
+    private ArrayList<Tipo> tipos;
+    private ArrayList<Sistema> sistemas;
 
     public ArrayList<Localidad> getLocalidades() {
-        return localidades;
+        return sp.getTodosLocalidad();
     }
 
     public ArrayList<GrupoRacial> getGrupoRaciales() {
-        return grupoRaciales;
+        return sp.getTodosGrupoRacial();
     }
 
     public ArrayList<Calidad> getCalidades() {
-        return calidades;
+        return sp.getTodosCalidad();
     }
 
     public ArrayList<Tipo> getTipos() {
-        return tipos;
+        return sp.getTodosTipo();
     }
 
     public ArrayList<Sistema> getSistemas() {
-        return sistemas;
+        return sp.getTodosSistema();
     }
     
     private int id;
@@ -80,92 +76,71 @@ public class AdminRedNeuronalBackingBean implements Serializable{
     public int getId() {
         return id;
     }
-
+    
     public void setId(int id) {
         this.id = id;
     }
-
+    
     public String getDescripcion() {
         return descripcion;
     }
-
+    
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
     
     public void insertLocalidad(){
-        id = localidades.get(localidades.size()-1).getKey()+1;
-        Localidad localidad = new Localidad(id, descripcion);
-        sp.insertLocalidad(localidad);
-        localidades = sp.getTodosLocalidad();        
-        descripcion = null;
-        mensaje("Localidad");
+        if(descripcion != null){
+            id = localidades.get(localidades.size()-1).getKey()+1;
+            Localidad localidad = new Localidad(id, descripcion);
+            sp.insertLocalidad(localidad);
+            localidades = sp.getTodosLocalidad();
+            descripcion = null;
+        }
+        
     }
     
-    public void insertGrupoRacial(){        
-        id = grupoRaciales.get(grupoRaciales.size()-1).getKey()+1;
-        GrupoRacial grupoRacial = new GrupoRacial(id, descripcion);
-        sp.insertGrupoRacial(grupoRacial);
-        grupoRaciales = sp.getTodosGrupoRacial();        
-        descripcion = null;
-        mensaje("Grupo Racial");
+    public void insertGrupoRacial(){
+        if(descripcion != null){
+            id = grupoRaciales.get(grupoRaciales.size()-1).getKey()+1;
+            GrupoRacial grupoRacial = new GrupoRacial(id, descripcion);
+            sp.insertGrupoRacial(grupoRacial);
+            grupoRaciales = sp.getTodosGrupoRacial();
+            descripcion = null;
+        }
+        
     }
     
     public void insertTipo(){
-        id = tipos.get(tipos.size()-1).getKey()+1;
-        Tipo tipo = new Tipo(id, descripcion);
-        sp.insertTipo(tipo);
-        tipos = sp.getTodosTipo();        
-        descripcion = null;
-        mensaje("Tipo");
+        if(descripcion != null){
+            id = tipos.get(tipos.size()-1).getKey()+1;
+            Tipo tipo = new Tipo(id, descripcion);
+            sp.insertTipo(tipo);
+            tipos = sp.getTodosTipo();
+            descripcion = null;
+        }
+        
     }
     
     public void insertSistema(){
-        id = sistemas.get(sistemas.size()-1).getKey()+1;
-        Sistema sistema = new Sistema(id, descripcion);
-        sp.insertSistema(sistema);
-        sistemas = sp.getTodosSistema();        
-        descripcion = null;
-        mensaje("Sistema");
+        if(descripcion != null){
+            id = sistemas.get(sistemas.size()-1).getKey()+1;
+            Sistema sistema = new Sistema(id, descripcion);
+            sp.insertSistema(sistema);
+            sistemas = sp.getTodosSistema();
+            descripcion = null;
+        }
     }
     
     public void insertCalidad(){
-        id = calidades.get(calidades.size()-1).getKey()+1;
-        Calidad calidad = new Calidad(id, descripcion);
-        sp.insertCalidad(calidad);
-        calidades = sp.getTodosCalidad();        
-        descripcion = null;
-        mensaje("Calidad");
+        if(descripcion != null){
+            calidades = getCalidades();
+            id = calidades.get(calidades.size()-1).getKey()+1;
+            Calidad calidad = new Calidad(id, descripcion);            
+            sp.insertCalidad(calidad);           
+            calidades = sp.getTodosCalidad();            
+            descripcion = null;            
+        }        
     }
     
-    
-    private UploadedFile file;
- 
-    public UploadedFile getFile() {
-        return file;
-    }
- 
-    public void setFile(UploadedFile file) {
-        this.file = file;
-    }
-    
-    FacesContext context = FacesContext.getCurrentInstance();
-    
-    public void handleFileUpload(FileUploadEvent event) {
-        if(file != null){
-            file = event.getFile();
-            addMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
-        }
-
-    }
-    
-    private void mensaje(String mgs){
-        FacesMessage message = new FacesMessage("Su "+mgs+" ha sido ingresado con exito el id es: "+id);
-        context.addMessage(null, message);
-    }
-     
-    public void addMessage(String summary, String detail) {
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
-        FacesContext.getCurrentInstance().addMessage(null, message);
-    }
 }

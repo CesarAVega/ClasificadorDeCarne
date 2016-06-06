@@ -26,7 +26,7 @@ public class ClasificadorDeCarneDeRes {
      * @param file Archivo a leer los datos deben estar separados por un espacio
      * @return una Hash con los datos clasificados según su clase
      */
-    public HashMap<String, ArrayList<double[]>> readData(String file) {
+    public HashMap<String, ArrayList<double[]>> readData(File file) {
         //inicializar valores 
         Arrays.fill(mins, inf);
         Arrays.fill(maxs, 0);
@@ -123,7 +123,7 @@ public class ClasificadorDeCarneDeRes {
      * @return HashMap<String, ArrayList<double[]>> de valores según el archivo de configuración 
      * @throws Throwable 
      */
-    private static HashMap<String, ArrayList<double[]>> read(String file) throws Throwable{
+    private static HashMap<String, ArrayList<double[]>> read(File file) throws Throwable{
         // Establecer las variables
         BufferedReader in = new BufferedReader(new FileReader(file));
         HashMap<String, ArrayList<double[]>> data = new HashMap<>();
