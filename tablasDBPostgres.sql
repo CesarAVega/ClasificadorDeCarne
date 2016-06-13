@@ -137,10 +137,10 @@ INSERT INTO tipo (id, nombre) VALUES ('2','VACA');
 INSERT INTO tipo (id, nombre) VALUES ('3','TORETE');
 
 --grupo_racial
-INSERT INTO grupo_racial (id, nombre) VALUES ('1','Cebú');
-INSERT INTO grupo_racial (id, nombre) VALUES ('2','Cebú y suizo');
-INSERT INTO grupo_racial (id, nombre) VALUES ('3','Cebú, suizo y Simmental');
-INSERT INTO grupo_racial (id, nombre) VALUES ('4','Cebú, suizo y Holstein');
+INSERT INTO grupo_racial (id, nombre) VALUES ('1','Cebu');
+INSERT INTO grupo_racial (id, nombre) VALUES ('2','Cebu y suizo');
+INSERT INTO grupo_racial (id, nombre) VALUES ('3','Cebu, suizo y Simmental');
+INSERT INTO grupo_racial (id, nombre) VALUES ('4','Cebu, suizo y Holstein');
 
 --sistema
 INSERT INTO sistema (id, nombre) VALUES ('1','A.C');

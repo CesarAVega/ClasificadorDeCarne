@@ -14,7 +14,6 @@ import java.util.logging.Logger;
 import org.junit.*;
 import services.*;
 import static services.ServicesFacade.pdou;
-import static services.ServicesFacade.pint;
 
 
 public class AppTest {
@@ -197,7 +196,7 @@ public class AppTest {
     
     /**
      * Cargar la red actual para dar respuesta a una consulta
-     * @throws java.sql.SQLException
+     * Comprobación de que la red Neuronal este funcionando y de un valor de Calidad
      */
     @Test
     public void cargarRedNeuronalDarValor1Dato(){
@@ -250,8 +249,26 @@ public class AppTest {
             animal = new Animal(1, new Tipo(1, "NOVILLA"), 20, 548,
                     new Localidad(1, "PLATON"), carne,
                     new GrupoRacial(2, "CEBU Y SUIZO"), new Sistema(1, "A.C"));
-            ans = sf.valueOf(animal); // contiene respuesta de la clasificación
+            ans = sf.valueOf(animal); // contiene respuesta de la clasificación            
             Assert.assertTrue("Valor ESTANDAR no valido ", ans.getCarne().getCalidad().getDescripcion().equals("ESTANDAR"));
+            
+            //==================== NO SE PUEDE EVALUAR======================= //
+            calidades = new ArrayList<>();
+            calidades.add(new AtributoCarne(1, "Conformación de la canal", new Calidad(-1, "ESTANDAR"))); // factor de error
+            calidades.add(new AtributoCarne(2, "Distribucion de grasa subcútane", new Calidad(4, "COMERCIAL")));
+            calidades.add(new AtributoCarne(3, "Cobertura de grasa perirrenal", new Calidad(1, "SUPERIOR")));
+            calidades.add(new AtributoCarne(4, "Color de la grasa", new Calidad(1, "SUPERIOR")));
+            calidades.add(new AtributoCarne(5, "Color de la carne", new Calidad(4, "COMERCIAL")));
+            carne = new Carne(pdou("110.30"), pdou("110.40"),
+                    pdou("61.29"), pdou("0.19"), calidades,
+                    null);
+            animal = new Animal(1, new Tipo(1, "NOVILLA"), 20, 548,
+                    new Localidad(1, "PLATON"), carne,
+                    new GrupoRacial(2, "CEBU Y SUIZO"), new Sistema(1, "A.C"));
+            ans = sf.valueOf(animal); // contiene respuesta de la clasificación}
+            //===================CASO NO CORECTO=====================//
+            Assert.assertTrue("Valor Sin clasificar no valido ", ans.getCarne().getCalidad() == null);
+            
         } catch (SQLException ex) {
             Logger.getLogger(AppTest.class.getName()).log(Level.SEVERE, null, ex);
         }        
@@ -525,7 +542,7 @@ public class AppTest {
         }  
     }
     
-        /**
+    /**
      * Verifica que la informacion de la base de datos sea traida con exito
      */
     @Test
@@ -560,6 +577,9 @@ public class AppTest {
         }  
     }
     
+    /**
+     * Verificar la información sea ingresada con exito
+     */
     @Test
     public void insertLocalidad(){
         try {
@@ -586,6 +606,9 @@ public class AppTest {
         }        
     }
     
+    /**
+     * Verificar la información sea ingresada con exito
+     */
     @Test
     public void insertGrupoRacial(){
         try {
@@ -612,6 +635,9 @@ public class AppTest {
         }        
     }
     
+    /**
+     * Verificar la información sea ingresada con exito
+     */
     @Test
     public void insertTipo(){
         try {
@@ -638,6 +664,9 @@ public class AppTest {
         }        
     }
     
+    /**
+     * Verificar la información sea ingresada con exito
+     */
     @Test
     public void insertSistema(){
         try {
@@ -664,6 +693,9 @@ public class AppTest {
         }        
     }
     
+    /**
+     * Verificar la información sea ingresada con exito
+     */
     @Test
     public void insertCalidad(){
         try {

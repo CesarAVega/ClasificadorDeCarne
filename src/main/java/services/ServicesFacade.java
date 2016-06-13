@@ -434,43 +434,46 @@ public class ServicesFacade {
      * @return String valor de la clasificación
      */
     public Animal valueOf(Animal animal){
-        String ans = null;
-        //Se prepara la información para que sea recibida en una DataSet
-        ArrayList<AtributoCarne> at = animal.getCarne().getCalidades();
-        
-        Carne carne = animal.getCarne();
-        //Se ingresan los datos normalizados
-        DataSetRow dataRow = new DataSetRow(
-                new double[]{
-                    normalizacion( 0, animal.getLocalidad().getKey()), // Localidad
-                    normalizacion( 1, animal.getGrupoRacial().getKey()), //Grupo Racial
-                    normalizacion( 2, animal.getTipo().getKey()), // Tipo
-                    normalizacion( 3, animal.getSistema().getKey()), // Sistema
-                    normalizacion( 4, animal.getEdad()), // Edad
-                    normalizacion( 5, animal.getKpv()), // Kilogramo por peso vivo
-                    normalizacion( 6, at.get(0).getCalidad().getKey()), // Conformación de la canal
-                    normalizacion( 7, at.get(1).getCalidad().getKey()), // Distribución de grasa subcutánea
-                    normalizacion( 8, at.get(2).getCalidad().getKey()), // Cobertura de grasa peri renal
-                    normalizacion( 9, at.get(3).getCalidad().getKey()), // Color de la grasa
-                    normalizacion( 10, at.get(4).getCalidad().getKey()), // Color de la carne
-                    normalizacion( 11, carne.getPesoCanalFrioDer()), // canal_frio_der
-                    normalizacion( 12, carne.getPesoCanalFrioIzq()), // canal_frio_izq
-                    normalizacion( 13, carne.getOjoDeLaChuleta()), // ojo_chuleta
-                    normalizacion( 14, carne.getGrosorDeGrasaDorsal()) // grosor_grasa_dorsal
-                }
-        );
-        
-        nnet.getNnet().setInput(dataRow.getInput()); // se ingresa el valor del input a la red
-        nnet.getNnet().calculate(); // se calcula
-        
-        // Redondear los valores para dar la respuesta
-        double[] networkOutput = nnet.getNnet().getOutput();        
-        for (int i = 0; i < networkOutput.length; i++){
-            networkOutput[i] = Math.round(networkOutput[i]);
+        if(animalValido(animal)){
+            String ans = null;
+            //Se prepara la información para que sea recibida en una DataSet
+            ArrayList<AtributoCarne> at = animal.getCarne().getCalidades();
+
+            Carne carne = animal.getCarne();
+            //Se ingresan los datos normalizados
+            DataSetRow dataRow = new DataSetRow(
+                    new double[]{
+                        normalizacion( 0, animal.getLocalidad().getKey()), // Localidad
+                        normalizacion( 1, animal.getGrupoRacial().getKey()), //Grupo Racial
+                        normalizacion( 2, animal.getTipo().getKey()), // Tipo
+                        normalizacion( 3, animal.getSistema().getKey()), // Sistema
+                        normalizacion( 4, animal.getEdad()), // Edad
+                        normalizacion( 5, animal.getKpv()), // Kilogramo por peso vivo
+                        normalizacion( 6, at.get(0).getCalidad().getKey()), // Conformación de la canal
+                        normalizacion( 7, at.get(1).getCalidad().getKey()), // Distribución de grasa subcutánea
+                        normalizacion( 8, at.get(2).getCalidad().getKey()), // Cobertura de grasa peri renal
+                        normalizacion( 9, at.get(3).getCalidad().getKey()), // Color de la grasa
+                        normalizacion( 10, at.get(4).getCalidad().getKey()), // Color de la carne
+                        normalizacion( 11, carne.getPesoCanalFrioDer()), // canal_frio_der
+                        normalizacion( 12, carne.getPesoCanalFrioIzq()), // canal_frio_izq
+                        normalizacion( 13, carne.getOjoDeLaChuleta()), // ojo_chuleta
+                        normalizacion( 14, carne.getGrosorDeGrasaDorsal()) // grosor_grasa_dorsal
+                    }
+            );
+
+            nnet.getNnet().setInput(dataRow.getInput()); // se ingresa el valor del input a la red
+            nnet.getNnet().calculate(); // se calcula
+
+            // Redondear los valores para dar la respuesta
+            double[] networkOutput = nnet.getNnet().getOutput();        
+            for (int i = 0; i < networkOutput.length; i++){
+                networkOutput[i] = Math.round(networkOutput[i]);
+            }
+
+            // Se crea la calidad y se modifica el parámetro del animal (en carne)        
+            animal.getCarne().setCalidad(valorRespuesta(networkOutput));
         }
         
-        // Se crea la calidad y se modifica el parámetro del animal (en carne)        
-        animal.getCarne().setCalidad(valorRespuesta(networkOutput));
         return animal;
     }        
     
@@ -536,6 +539,26 @@ public class ServicesFacade {
         Graficador graficador = new Graficador();
         if(calidades == null){ getTodosCalidad();}
         return graficador.getLineChartModel(calidades);
+    }
+
+    private boolean animalValido(Animal animal) {
+        ArrayList<AtributoCarne> at = animal.getCarne().getCalidades();
+        Carne carne = animal.getCarne();
+        return animal.getLocalidad().getKey() > 0 
+                && animal.getGrupoRacial().getKey() > 0
+                && animal.getTipo().getKey() > 0
+                && animal.getSistema().getKey() > 0
+                && animal.getEdad() > 0
+                && animal.getKpv() > 0
+                && at.get(0).getCalidad().getKey() > 0
+                && at.get(1).getCalidad().getKey() > 0
+                && at.get(2).getCalidad().getKey() > 0
+                && at.get(3).getCalidad().getKey() > 0
+                && at.get(4).getCalidad().getKey() > 0
+                && carne.getPesoCanalFrioDer() > 0
+                && carne.getPesoCanalFrioIzq() > 0
+                && carne.getOjoDeLaChuleta() > 0
+                && carne.getGrosorDeGrasaDorsal() > 0;
     }
     
      

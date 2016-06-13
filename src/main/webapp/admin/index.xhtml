@@ -10,7 +10,7 @@
             body{
                 background: mediumseagreen;
             }
-                
+            
             #p_dataTableid{
                 margin-top: 80px;
             }
@@ -18,190 +18,65 @@
     </h:head>
     <body>
         <h:form id="adminRedNeuronal" style="background: mediumseagreen" enctype="multipart/form-data">
-            
-            <!--Encabezado de la pagina-->
-            <p:layoutUnit position="north" resizable = "false" size="500" minSize="500" maxSize="500" style="text-align: center;">
-                <p:panel>
-                    <h:outputText value="Administración del contenido de la red neuronal" style="font-size: larger" />    
-                </p:panel>
-                    
-            </p:layoutUnit>  
-            <!--panel central contiene la información de la red neuronal que se encuentra guardad en el archivo .nnet-->
-            <p:layoutUnit position="center" resizable = "true" size="500">                    
-                <h:panelGrid columns="2" cellpadding="5">
-                    <p:column>
-                        <!--Columna 1 información de la red Neuronal-->
-                        <h:panelGrid columns="1" cellpadding="5">
-                            <!--Fila 1 encabezado-->
-                            <h:outputText value="Información de la Red Neuronal Base" />
-                            <!--Fila 2 información de la red Neuronla-->            
-                            <h:panelGrid columns="2" cellpadding="5">                                
-                                
-                                <h:outputText value="Archivo: "/>
-                                <h:outputText value="myMlPerceptron.nnet"/>
-                                    
-                                <h:outputText value="Porcentaje efecitividad: "/>
-                                <h:outputText value="#{beanAdminRedNeuronal.nnet.porcentajeEfectividad}"/>
-                                    
-                                <h:outputText value="Función de transferencia: "/>
-                                <h:outputText value="#{beanAdminRedNeuronal.nnet.transferFunctionType}"/>
-                                    
-                                <h:outputText value="Número de datos de entrada: "/> 
-                                <h:outputText value="#{beanAdminRedNeuronal.nnet.input}"/>
-                                    
-                                <h:outputText value="Número de datos de salida: "/>
-                                <h:outputText value="#{beanAdminRedNeuronal.nnet.output}"/>
-                                    
-                                <h:outputText value="Número de neuronas en capa oculta: "/>
-                                <h:outputText value="#{beanAdminRedNeuronal.nnet.k}"/>                                                                
-                            </h:panelGrid>
-                            <!--Fila 3 datos de la Red Nueronal--> 
-                            <h:panelGrid columns="2" cellpadding="5">
-                                <p:commandLink update="adminRedNeuronal" oncomplete="PF('Graficar').show()" >
-                                    <p:graphicImage library="images" name="buttons/Graficar.png" />
+            <p:layout fullPage="true">
+                
+                <p:layoutUnit position="north" size="100" resizable="false">
+                    <p:layout>
+                        <p:layoutUnit position="center" resizable = "false" size="50" minSize="50" maxSize="50" style="text-align: center;  background: mediumseagreen">
+                            <h:outputText value="Administración del contenido de la red neuronal" style="font-size: larger" />
+                        </p:layoutUnit>
+                        <p:layoutUnit position="west" resizable = "false" size="150" minSize="150" maxSize="150" style="text-align: center;  background: mediumseagreen">                            
+                            <h:panelGrid columns="1">
+                                <p:commandLink oncomplete="pages('/app/faces/index.xhtml')" >
+                                    <p:graphicImage library="images" name="buttons/Atras.png" /> 
                                 </p:commandLink>
-                                <p:commandLink update="adminRedNeuronal" oncomplete="PF('DataRed').show()" >
-                                    <p:graphicImage library="images" name="buttons/Datos.png" />
-                                </p:commandLink>    
                             </h:panelGrid>
-                                
-                        </h:panelGrid>              
-                    </p:column>
-                    <p:column>
-                        <!-- Grid base columna 2-->
-                        <h:panelGrid  columns="1" cellpadding="5">
+                        </p:layoutUnit>
+                    </p:layout>
+                </p:layoutUnit>
+                
+                <p:layoutUnit position="south" size="100" resizable="false">
+                    <h:panelGrid columns="2" cellpadding="5">
+                        <p:commandLink onclick="PF('Graficar').show()" >
+                            <p:graphicImage library="images" name="buttons/Graficar.png" />
+                        </p:commandLink>
+                        <p:commandLink onclick="PF('DataRed').show()" >
+                            <p:graphicImage library="images" name="buttons/Datos.png" />
+                        </p:commandLink>    
+                    </h:panelGrid>
+                </p:layoutUnit>                    
+                
+                <p:layoutUnit position="center">
+                    <h:panelGrid columns="1" cellpadding="5">
+                        <!--Fila 1 encabezado-->
+                        <h:outputText value="Información de la Red Neuronal Base" />
+                        <!--Fila 2 información de la red Neuronla-->            
+                        <h:panelGrid columns="2" cellpadding="5">                                
                             
-                            <h:outputText value="Administración de la Base de datos" />
-                            <p:tabView orientation="left">
-                                <p:tab title="Localidad">
-                                    <p:toolbar >
-                                        <f:facet name="right">
-                                            <p:commandLink onclick="PF('helpLocalidad').show()">
-                                                <p:graphicImage library="images" name="buttons/Ayuda.png" />
-                                            </p:commandLink>                                            
-                                        </f:facet>                                        
-                                    </p:toolbar>
-                                    <h:panelGrid columns="3" cellpadding="5">                                        
-                                        <p:outputLabel for="nuevaLocalidad" value="Nueva Localidad: " />
-                                        <p:inputText id="nuevaLocalidad" value="#{beanAdminRedNeuronal.descripcion}" />                                        
-                                        <p:column>
-                                            <p:commandLink actionListener="#{beanAdminRedNeuronal.insertLocalidad}" 
-                                                           update=":adminRedNeuronal" onsuccess="PF('messagesOK').show()">                                                                 
-                                                <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />  
-                                                <p:graphicImage library="images" name="buttons/Submit.png" />
-                                            </p:commandLink>
-                                        </p:column>
-                                    </h:panelGrid>
-                                </p:tab>      
-                                    
-                                <p:tab title="Grupo Racial">
-                                    <p:toolbar >
-                                        <f:facet name="right">
-                                            <p:commandLink onclick="PF('helpGrupoRacial').show()">
-                                                <p:graphicImage library="images" name="buttons/Ayuda.png" />
-                                            </p:commandLink>                                               
-                                        </f:facet>                                        
-                                    </p:toolbar>
-                                    <h:panelGrid columns="3" cellpadding="5">                                        
-                                        <p:outputLabel for="nuevoGrupoRacial" value="Nuevo Grupo Racial: " />
-                                        <p:inputText id="nuevoGrupoRacial" value="#{beanAdminRedNeuronal.descripcion}" />                                        
-                                        <p:column>
-                                            <p:commandLink actionListener="#{beanAdminRedNeuronal.insertGrupoRacial}"  
-                                                             update=":adminRedNeuronal" onsuccess="PF('messagesOK').show()">       
-                                                <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />    
-                                                <p:graphicImage library="images" name="buttons/Submit.png" />
-                                            </p:commandLink>                                                   
-                                        </p:column>
-                                    </h:panelGrid>
-                                </p:tab>   
-                                    
-                                <p:tab title="Tipo">
-                                    <p:toolbar >
-                                        <f:facet name="right">
-                                            <p:commandLink onclick="PF('helpTipo').show()">                                            
-                                                <p:graphicImage library="images" name="buttons/Ayuda.png" />
-                                            </p:commandLink>   
-                                        </f:facet>                                        
-                                    </p:toolbar>
-                                    <h:panelGrid columns="3" cellpadding="5">                                        
-                                        <p:outputLabel for="nuevoTipo" value="Nuevo Tipo: " />
-                                        <p:inputText id="nuevoTipo" value="#{beanAdminRedNeuronal.descripcion}"/>                                        
-                                        <p:column>
-                                            <p:commandLink actionListener="#{beanAdminRedNeuronal.insertTipo}" 
-                                                             update=":adminRedNeuronal" onsuccess="PF('messagesOK').show()">       
-                                                <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" /> 
-                                                <p:graphicImage library="images" name="buttons/Submit.png" />
-                                            </p:commandLink>   
-                                        </p:column>
-                                    </h:panelGrid>
-                                </p:tab>   
-                                    
-                                <p:tab title="Sistema">
-                                    <p:toolbar >
-                                        <f:facet name="right">
-                                            <p:commandLink onclick="PF('helpSistema').show()">                                            
-                                                <p:graphicImage library="images" name="buttons/Ayuda.png" />
-                                            </p:commandLink>   
-                                        </f:facet>                                        
-                                    </p:toolbar>
-                                    <h:panelGrid columns="3" cellpadding="5">                                        
-                                        <p:outputLabel for="nuevaSistema" value="Nuevo Sistema: " />
-                                        <p:inputText id="nuevaSistema" value="#{beanAdminRedNeuronal.descripcion}"/>                                        
-                                        <p:column>
-                                            <p:commandLink actionListener="#{beanAdminRedNeuronal.insertSistema}" 
-                                                             update=":adminRedNeuronal" onsuccess="PF('messagesOK').show()">       
-                                                <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
-                                                <p:graphicImage library="images" name="buttons/Submit.png" />
-                                            </p:commandLink>                                               
-                                        </p:column>
-                                    </h:panelGrid>
-                                </p:tab>   
-                                    
-                                <p:tab title="Calidad">
-                                    <p:toolbar >
-                                        <f:facet name="right">
-                                            <p:commandLink onclick="PF('helpCalidad').show()">
-                                                <p:graphicImage library="images" name="buttons/Ayuda.png" />
-                                            </p:commandLink>    
-                                        </f:facet>                                        
-                                    </p:toolbar>
-                                    <h:panelGrid columns="3" cellpadding="5">                                        
-                                        <p:outputLabel for="nuevaCalidad" value="Nueva Calidad: " />
-                                        <p:inputText id="nuevaCalidad" value="#{beanAdminRedNeuronal.descripcion}" />                                        
-                                        <p:column>
-                                            <p:commandLink action="#{beanAdminRedNeuronal.insertCalidad}" 
-                                                           update=":adminRedNeuronal" onsuccess="PF('messagesOK').show()">
-                                                <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
-                                                <p:graphicImage library="images" name="buttons/Submit.png" />
-                                            </p:commandLink>                                                                                                              
-                                        </p:column>
-                                    </h:panelGrid>
-                                </p:tab>                                       
-                            </p:tabView>
+                            <h:outputText value="Archivo: "/>
+                            <h:outputText value="myMlPerceptron.nnet"/>
+                            
+                            <h:outputText value="Porcentaje efecitividad: "/>
+                            <h:outputText value="#{beanAdminRedNeuronal.nnet.porcentajeEfectividad}"/>
+                            
+                            <h:outputText value="Función de transferencia: "/>
+                            <h:outputText value="#{beanAdminRedNeuronal.nnet.transferFunctionType}"/>
+                            
+                            <h:outputText value="Número de datos de entrada: "/> 
+                            <h:outputText value="#{beanAdminRedNeuronal.nnet.input}"/>
+                            
+                            <h:outputText value="Número de datos de salida: "/>
+                            <h:outputText value="#{beanAdminRedNeuronal.nnet.output}"/>
+                            
+                            <h:outputText value="Número de neuronas en capa oculta: "/>
+                            <h:outputText value="#{beanAdminRedNeuronal.nnet.k}"/>                                                                
                         </h:panelGrid>
-                    </p:column>                        
-                </h:panelGrid>                    
-            </p:layoutUnit>                            
-                            
-            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-            </p:confirmDialog> 
+                    </h:panelGrid> 
+                </p:layoutUnit>
+            </p:layout>                                   
             
             <!--===========================CUADROS DE DIALOGO=============================-->            
-            <p:dialog header="Dato ingresado" widgetVar="messagesOK" showEffect="clip" hideEffect="clip" >
-                <h:panelGrid columns="2" cellpadding="5">                   
-                    <p:outputLabel value="Su dato se a ingresado con exito con el ID: " />
-                    <p:outputLabel value="#{beanAdminRedNeuronal.id}" />
-                </h:panelGrid>                                    
-                <h:panelGrid columns="1" cellpadding="5">
-                    
-                    <p:commandLink oncomplete="PF('messagesOK').hide()" style="align-self: baseline" >
-                        <p:graphicImage library="images" name="buttons/Aceptar.png" />
-                        <p:ajax update=":adminRedNeuronal" resetValues="true" />
-                    </p:commandLink>  
-                </h:panelGrid>
-            </p:dialog>
+            
             
             <p:dialog header="Datos de la Red Neuronal" widgetVar="Graficar" modal="true" showEffect="fade" hideEffect="fade" resizable="true" width = "850" height="500">
                 <h:panelGrid columns="1" cellpadding="5">
@@ -214,19 +89,19 @@
                     </p:column>                    
                 </h:panelGrid>                                    
             </p:dialog>
-                
+            
             <p:dialog header="Datos de la Red Neuronal" widgetVar="DataRed" modal="true" showEffect="fade" hideEffect="fade" resizable="true" width = "1200" height="600">
                 <h3>Export Page Data Only</h3>
                 <h:commandLink>
                     <p:graphicImage library="images" name="icons/excel.png" style="width: 25px"/>
                     <p:dataExporter type="xls" target="tbl" fileName="data" pageOnly="true"/>
                 </h:commandLink>
-                    
+                
                 <h:commandLink>
                     <p:graphicImage library="images" name="icons/pdf.png" style="width: 25px"/>
                     <p:dataExporter type="pdf" target="tbl" fileName="data" pageOnly="true" />
                 </h:commandLink>
-                    
+                
                 <p:panelGrid columns="1">
                     <p:dataTable id='tbl' var="animal" value="#{beanAdminRedNeuronal.table}" resizableColumns="true">                           
                         <f:facet name="header">
@@ -351,75 +226,7 @@
                     </p:commandLink>
                 </p:panelGrid>                                                                     
             </p:dialog>
-                
-            <!-- LOCALIDAD -->
-            <p:dialog widgetVar="helpLocalidad" header="Localidad" resizable="false" showEffect="clip" hideEffect="clip">
-                <h:outputText style="size: auto" value="Recuerde que para ingresar una nueva localidad debe verificar que el valor no este en la siguiente tabla" />                                
-                <p:dataTable var="localidad" value="#{beanAdminRedNeuronal.localidades}" style="text-align: center">
-                    <p:column headerText="ID">
-                        <h:outputText value="#{localidad.key}" />
-                    </p:column>
-                    <p:column headerText="Descripción">
-                        <h:outputText value="#{localidad.descripcion}" />
-                    </p:column>
-                </p:dataTable>                 
-            </p:dialog>
-                
-            <!-- GRUPO RACIAL -->
-            <p:dialog widgetVar="helpGrupoRacial" header="Grupo Racial" resizable="false" showEffect="clip" hideEffect="clip">                
-                <h:outputText value="Recuerde que para ingresar un nuevo Grupo Racial debe verificar que el valor no este en la siguiente tabla" />
-                <p:dataTable var="GrupoRacial" value="#{beanAdminRedNeuronal.grupoRaciales}" style="text-align: center">
-                    <p:column headerText="ID">
-                        <h:outputText value="#{GrupoRacial.key}" />
-                    </p:column>
-                    <p:column headerText="Descripción">
-                        <h:outputText value="#{GrupoRacial.descripcion}" />
-                    </p:column>
-                </p:dataTable>                
-            </p:dialog>
-                
-            <!-- TIPO -->
-            <p:dialog widgetVar="helpTipo" header="Tipo" resizable="false" showEffect="clip" hideEffect="clip">                
-                <h:outputText value="Recuerde que para ingresar un nuevo tipo debe verificar que el valor no este en la siguiente tabla" />
-                <p:dataTable var="tipo" value="#{beanAdminRedNeuronal.tipos}" style="text-align: center">
-                    <p:column headerText="ID">
-                        <h:outputText value="#{tipo.key}" />
-                    </p:column>
-                    <p:column headerText="Descripción">
-                        <h:outputText value="#{tipo.descripcion}" />
-                    </p:column>
-                </p:dataTable>                
-            </p:dialog>
-                
-            <!-- SISTEMA -->
-            <p:dialog widgetVar="helpSistema" header="Sistema" resizable="false" showEffect="clip" hideEffect="clip">                
-                <h:outputText value="Recuerde que para ingresar un nuevo sistema de alimentación debe verificar que el valor no este en la siguiente tabla" />
-                <p:dataTable var="sistema" value="#{beanAdminRedNeuronal.sistemas}">
-                    <p:column headerText="ID">
-                        <h:outputText value="#{sistema.key}" />
-                    </p:column>
-                    <p:column headerText="Descripción">
-                        <h:outputText value="#{sistema.descripcion}" />
-                    </p:column>
-                </p:dataTable>                
-            </p:dialog>
-                
-            <!-- CALIDAD -->
-            <p:dialog widgetVar="helpCalidad" header="Calidad" resizable="false" showEffect="clip" hideEffect="clip">                
-                <h:outputText value="Recuerde que para ingresar una nueva Calidad debe verificar que el valor no este en la siguiente tabla" />
-                <p:dataTable var="calidad" value="#{beanAdminRedNeuronal.calidades}">
-                    <p:column headerText="ID">
-                        <h:outputText value="#{calidad.key}" />
-                    </p:column>
-                    <p:column headerText="Descripción">
-                        <h:outputText value="#{calidad.descripcion}" />
-                    </p:column>
-                </p:dataTable>                
-            </p:dialog>
-            
-            
         </h:form>
-                <!-- Script para el paso de paginas-->
         <script type="text/javascript">
             function pages(url) {  
                 window.location = url;            

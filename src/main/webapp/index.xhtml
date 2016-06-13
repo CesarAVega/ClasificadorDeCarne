@@ -14,48 +14,70 @@
     <h:body>
         <h:form id="pagina_principal" style="background: mediumseagreen">
             <p:layout fullPage="true">
-                <p:layoutUnit position="north" resizable = "false" size="100" minSize="80" maxSize="300" style="text-align: center;">
+                
+                <p:layoutUnit position="north" size="100" resizable="false" style="text-align: center;">
                     <p:panel>
                         <h:outputText value="Bienvenido a la Página Principal del Clasificador de Carne" style="font-size: larger" />    
                     </p:panel>
-                                       
                 </p:layoutUnit>
-                <p:layoutUnit position="center" resizable = "false" style="text-align: center;">
-                    <p:panel >
-                        <p:column>
-                            <p:commandLink oncomplete="pages('login.xhtml')" 
-                                           onstart="PF('loadpag').show()" onsuccess="PF('loadpag').hide()" >
-                                <p:graphicImage library="images" name="buttons/Administracion.png" />               
-                            </p:commandLink> 
-                        </p:column>
-                        <p:column>
-                            <p:commandLink oncomplete="pages('open/index.xhtml')" 
-                                           onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()">
-                                <p:graphicImage library="images" name="buttons/Consultar.png" /> 
-                            </p:commandLink>
-                        </p:column>
-                    </p:panel>
+                    
+                <p:layoutUnit position="south" size="300" resizable="true" closable="true" collapsible="true" style="text-align: center;">
+                    <p:layout>
+                        <p:layoutUnit position="center" style="text-align: center">
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <p:column style="width: 450px; size: auto">
+                                    <p:graphicImage library="images" name="logos/AUTONO.jpg" style="width: 300px"/>
+                                </p:column>
+                                <p:column style="width: 450px">
+                                    <h:panelGrid columns="1" cellpadding="5">
+                                        <h:outputLabel value="UNIVERSIDAD AUTÓNOMA DE MANIZALES" /> 
+                                        <h:outputLabel value="CARLOS IVAN VALENCIA RAMIREZ" /> 
+                                    </h:panelGrid>
+                                </p:column>
+                            </h:panelGrid>   
+                        </p:layoutUnit>
+                        <p:layoutUnit position="east" size="900" style="text-align: center">
+                            <h:panelGrid columns="2" cellpadding="5">                                
+                                <p:column style="width: 450px">
+                                    <h:panelGrid columns="1" cellpadding="5">
+                                        <h:outputLabel value="ESCUELA COLOMBIANA DE INGENIERIA JULIO GARAVITO"/> 
+                                        <h:outputLabel value="CESAR AUGUSTO VEGA FERNÁNDEZ"/> 
+                                    </h:panelGrid>
+                                </p:column>
+                                <p:column style="width: 450px">
+                                    <p:graphicImage library="images" name="logos/ECI.jpg" style="width: 300px"/>
+                                </p:column>
+                            </h:panelGrid> 
+                                
+                        </p:layoutUnit>
+                    </p:layout>
                 </p:layoutUnit>
-                <p:layoutUnit position="south" header="Desarrolladores" resizable="false" size="300" style="text-align: center">                                        
+                    
+                <p:layoutUnit position="east" size="900" resizable="false" style="text-align: center;">
                     <p:panel>
-                        <p:layout>
-                            <p:layoutUnit position="center" style="text-align: center">
-                                <h:outputLabel value="Carlos Valencia" />                            
-                            </p:layoutUnit>
-                            <p:layoutUnit position="east" size="700" style="text-align: center">
-                                <h:outputLabel value="Cesar Vega"/>                            
-                            </p:layoutUnit>
-                        </p:layout>
+                        <p:commandLink onclick="pages('open/index.xhtml')" 
+                                       onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()">
+                            <p:graphicImage library="images" name="buttons/Consultar.png" /> 
+                        </p:commandLink>  
                     </p:panel>
                 </p:layoutUnit>
-            </p:layout>
-            
+                    
+                <p:layoutUnit position="center" style="text-align: center;">
+                    <p:panel>
+                        <p:commandLink oncomplete="pages('login.xhtml')" 
+                                       onstart="PF('loadpag').show()" onsuccess="PF('loadpag').hide()" >
+                            <p:graphicImage library="images" name="buttons/Administracion.png" />               
+                        </p:commandLink>    
+                    </p:panel>
+                </p:layoutUnit>
+                    
+            </p:layout>   
             <!-- Dialogo de loging-->
             <p:dialog widgetVar="statusDialog"  modal="true" draggable="false" closable="false" 
                       resizable="false" showHeader="false" hideEffect="bounce" style="color: black">
                 <p:graphicImage library="images" name="loading1.gif" />
             </p:dialog>               
-
+                
             <p:dialog widgetVar="loadpag"  modal="true" draggable="false" closable="false" 
                       resizable="false" showHeader="false" hideEffect="bounce">
                 <p:graphicImage library="images" name="loading1.gif" />
@@ -68,6 +90,6 @@
                 window.location = url;            
             }
         </script>
-        
+            
     </h:body>
 </html>
