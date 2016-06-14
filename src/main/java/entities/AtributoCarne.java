@@ -16,8 +16,8 @@ public class AtributoCarne {
     private Calidad calidad;
 
     /**
-     * Permite modificar el valor de la Calidad
-     * @param calidad 
+     * Permite modificar el valor de la Calidad 
+     * @param calidad calidad que pertenece al atributo
      */
     public void setCalidad(Calidad calidad) {
         this.calidad = calidad;

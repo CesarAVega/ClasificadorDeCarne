@@ -352,7 +352,7 @@ public class consultasBackingBean implements Serializable{
             //Leer el archivo
             while ((texto = archivo.readLine()) != null) {
                 datos = texto.split("\\s+");
-                if (datos.length >= 14) {
+                if (datos.length >= 13) {
                     //Creacion de animales                    
                     ArrayList<AtributoCarne> atributoCarnes = new  ArrayList<>();
                     atributoCarnes.add(new AtributoCarne(todosAtributoCarne.get(0).getKey(), todosAtributoCarne.get(0).getDescripcion(), todosCalidad.get((Integer.parseInt(datos[6]))-1)));
