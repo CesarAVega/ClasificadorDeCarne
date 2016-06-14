@@ -62,7 +62,7 @@ public class Carne {
 
     /**
      * Obtiene la descripción de en calidades según las partes de la carne que se analizan
-     * @return ArrayList<AtributoCarne> contiene la descripción de calidades de la carne
+     * @return ArrayList AtributoCarne contiene la descripción de calidades de la carne
      */
     public ArrayList<AtributoCarne> getCalidades() {
         return calidades;

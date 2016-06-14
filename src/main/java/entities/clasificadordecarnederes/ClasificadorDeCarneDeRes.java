@@ -45,7 +45,7 @@ public class ClasificadorDeCarneDeRes {
     
     /**
      * Muestra en consola la información en un HASH de datos
-     * @param data HashMap<String, ArrayList<double[]>> 
+     * @param data HashMap String, ArrayList double[]
      */
     public static void print(HashMap<String, ArrayList<double[]>> data){
         Set<String> set = data.keySet();
@@ -120,7 +120,7 @@ public class ClasificadorDeCarneDeRes {
     /**
      * Lectura del archivo y la clasifica según el número de clases
      * @param file archivo a leer
-     * @return HashMap<String, ArrayList<double[]>> de valores según el archivo de configuración 
+     * @return HashMap String, ArrayList double[] de valores según el archivo de configuración 
      * @throws Throwable 
      */
     private static HashMap<String, ArrayList<double[]>> read(File file) throws Throwable{
@@ -166,8 +166,8 @@ public class ClasificadorDeCarneDeRes {
 
     /**
      * Se normalizan los valores de una HASHMAP
-     * @param data HashMap<String, ArrayList<double[]>> de datos
-     * @return HashMap<String, ArrayList<double[]>>
+     * @param data HashMap String, ArrayList double[]  de datos
+     * @return HashMap String, ArrayList double[] 
      */
     public HashMap<String, ArrayList<double[]>> normalizarData(HashMap<String, ArrayList<double[]>> data) {
         HashMap<String, ArrayList<double[]>> dataNorm = new HashMap<>();
@@ -202,7 +202,7 @@ public class ClasificadorDeCarneDeRes {
 
     /**
      * Guarda en un archivo los datos seleccionados para el entrenamiento de la red y con los que se trabajara en dar la solución
-     * @param data HashMap<String, ArrayList<double[]>>
+     * @param data HashMap String, ArrayList double[] 
      * @param por Integer que define el valor de cuantos datos de la muestra se seleccionaran
      */
     public void seleccionarDatos(HashMap<String, ArrayList<double[]>> data, int por) {        

@@ -7,13 +7,11 @@ package services;
 
 import entities.*;
 import entities.Graficador.Graficador;
-import entities.clasificadordecarnederes.ClasificadorDeCarneDeRes;
 import java.io.*;
 import java.sql.*;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.neuroph.core.data.DataSet;
 import org.neuroph.core.data.DataSetRow;
 import org.primefaces.model.chart.LineChartModel;
 import persistence.*;
@@ -51,7 +49,7 @@ public class ServicesFacade {
      * Obtiene la instancia de la sección actual
      * @param propertiesFileName nombre del archivo que contiene las especificaciones de la sesión que se desea abrir
      * @return ServicesFacade de la sección abierta
-     * @throws RuntimeException 
+     * @throws RuntimeException Atrapa los errores durante la ejecución 
      */
     public static ServicesFacade getInstance(String propertiesFileName) throws RuntimeException{
         if (instance==null){
@@ -127,8 +125,8 @@ public class ServicesFacade {
     
     /**
      * Carga todos los datos de la base de datos
-     * @return Set<Animal> Conjunto de datos
-     * @throws SQLException 
+     * @return Set Animal Conjunto de datos
+     * @throws SQLException Clase encargada de administrar las excepciones de la capa de Logica
      */
     public Set<Animal> getData() throws SQLException{        
         try{
@@ -479,7 +477,7 @@ public class ServicesFacade {
     
     /**
      * Implementa la opción de modificar varios animales
-     * @param data Set< Animal > Grupo de animales a evaluar
+     * @param data Set Animal Grupo de animales a evaluar
      */
     public void valueOfall(Set<Animal> data){
         // envia cada uno de los animales a modificar su valor de calidad en la carne
@@ -492,8 +490,8 @@ public class ServicesFacade {
         
     /**
      * Implementa la opción de obtener todos los animales de un conjunto de datos
-     * @param data Set< double[] > Grupo de animales a evaluar
-     * @return Set< Animal >
+     * @param data Set double[] Grupo de animales a evaluar
+     * @return Set Animal data
      */
     public Set<Animal> vectorToAnimalAll(Set<double[]> data){
         // verificar si existen los datos necesarios

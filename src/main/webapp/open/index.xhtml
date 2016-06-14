@@ -13,7 +13,7 @@
         </style>
     </h:head>
     <h:body>                
-        <h:form id="consulta">
+        <h:form id="consulta" enctype="multipart/form-data">
             <p:layout fullPage="true">
                 
                 <p:layoutUnit position="north" size="79" resizable="fasle">
@@ -160,7 +160,7 @@
                     <p:graphicImage library="images" name="buttons/Aceptar.png" />
                 </p:commandLink>
                 
-                <p:commandLink update="consulta">
+                <p:commandLink oncomplete="PF('dlg').hide()">
                     <p:graphicImage library="images" name="buttons/Cancelar.png" />
                 </p:commandLink>
             </p:dialog>

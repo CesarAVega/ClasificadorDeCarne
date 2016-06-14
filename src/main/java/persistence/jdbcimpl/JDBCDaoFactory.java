@@ -59,10 +59,6 @@ public class JDBCDaoFactory extends DaoFactory{
         
     }
 
-    /**
-     *
-     * @throws PersistenceException
-     */
     @Override
     public void endSession() throws PersistenceException {
         try {
@@ -108,9 +104,9 @@ public class JDBCDaoFactory extends DaoFactory{
     
     
     /**
-     *
-     * @return
-     * @throws PersistenceException
+     * Clase encargada de traer de la capa de persistencia los datos correspondientes al animal
+     * @return DaoAnimal 
+     * @throws PersistenceException Clase encargada de administrar las excepciones de la capa de persistencia
      */
     @Override
     public DaoAnimal getDaoAnimal() throws PersistenceException{

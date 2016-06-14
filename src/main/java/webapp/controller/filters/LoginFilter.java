@@ -130,7 +130,7 @@ public class LoginFilter implements Filter {
     
     /**
      * Return the filter configuration object for this filter.
-     * @return
+     * @return FilterConfig
      */
     public FilterConfig getFilterConfig() {
         return (this.filterConfig);
@@ -154,7 +154,7 @@ public class LoginFilter implements Filter {
     
     /**
      * Init method for this filter
-     * @param filterConfig
+     * @param filterConfig Configuracion del filtro
      */
     @Override
     public void init(FilterConfig filterConfig) {

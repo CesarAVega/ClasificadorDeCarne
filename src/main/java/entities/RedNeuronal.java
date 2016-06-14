@@ -117,7 +117,7 @@ public class RedNeuronal {
     
     /**
      * Datos con los que fue entrenada la Red Neuronal
-     * @return Set<double[]> 
+     * @return Set double[] 
      */
     public Set<double[]> getData() {
         return data;
